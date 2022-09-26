@@ -1,6 +1,19 @@
 <script>
 export default {
-  layout: 'auth'
+  layout: 'auth',
+  data() {
+    return {
+      form: {
+        email: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    login() {
+      this.$auth.loginWith('laravelSanctum', {data: this.form})
+    }
+  }
 }
 </script>
 
@@ -15,15 +28,15 @@ export default {
       <template #body>
         <div class="pb-8">
           <div class="space-y-2 pb-4">
-            <FormTextInput type="email" placeholder="Адрес электронной почты"/>
-            <FormTextInput type="password" placeholder="Пароль"/>
+            <FormTextInput type="email" placeholder="Адрес электронной почты" v-model="form.email"/>
+            <FormTextInput type="password" placeholder="Пароль" v-model="form.password"/>
           </div>
-          <Button text="Войти"/>
+          <Button text="Войти" @click="login"/>
         </div>
       </template>
       <template #footer>
         <div class="flex flex-col gap-y-2 pt-2">
-          <Anchor text="У меня нет аккаунта" :to="{name: 'auth-register'}" />
+          <Anchor text="У меня нет аккаунта" :to="{name: 'auth-register'}"/>
         </div>
       </template>
     </Form>

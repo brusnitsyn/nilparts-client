@@ -17,13 +17,13 @@ export default {
       Фильтры
     </CatalogTagItem>
     <ClientOnly>
-      <Teleport to="app-after">
+      <Portal to="app-after">
         <BuilderDrawer>
           <template #header="{ toggleDrawer }">
             <DrawerSheetHeader text="Фильтры" @clickClose="toggleDrawer(false)" />
           </template>
         </BuilderDrawer>
-      </Teleport>
+      </Portal>
     </ClientOnly>
   </div>
 </template>

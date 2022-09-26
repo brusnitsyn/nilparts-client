@@ -30,8 +30,8 @@ export default {
 </script>
 
 <template>
-  <div class="border border-gray-900/10 dark:border-gray-50/[0.2] rounded-lg h-full overflow-clip">
-    <div class="aspect-[336/2]">
+  <div class="border border-gray-900/10 dark:border-gray-50/20 rounded-lg h-full overflow-clip">
+    <div>
       <img :src="image" alt="" class="w-full">
     </div>
     <div class="px-2 py-1 text-sm">
@@ -46,7 +46,7 @@ export default {
       <span class="block text-base font-medium py-1.5">
         {{ title }}
       </span>
-      <span class="block max-h-11 text-clip font-normal overflow-clip">
+      <span class="block font-normal line-clamp-2">
         {{ content }}
       </span>
       <div class="py-2">

@@ -8,11 +8,6 @@ export default {
         {type: 'link', text: 'Таможенный сервис', route: {name: 'service'}},
         {type: 'link', text: 'Новости', route: {name: 'news'}},
         {type: 'link', text: 'Контакты', route: {name: 'contacts'}},
-        {
-          type: 'button',
-          text: 'Вход / регистрация',
-          route: {name: 'auth-login'},
-        },
       ]
     }
   }
@@ -41,7 +36,7 @@ export default {
           class="text-sm leading-6 font-medium text-gray-600 dark:text-gray-300"
           role="navigation"
         >
-          <ul class="flex items-center space-x-8">
+          <ul class="flex items-center gap-x-8">
             <li v-for="(item, i) in menus" :key="i">
               <Anchor
                 v-if="item.type === 'link'"
@@ -52,12 +47,20 @@ export default {
                 {{ item.text }}
               </Anchor>
               <Button
-                v-else-if="item.type === 'button'"
+                v-else-if="item.type === 'button' && !$auth.loggedIn && !item.disable"
                 :text="item.text"
                 size="sm"
                 class="font-semibold capitalize"
                 :to="item.route ? item.route : undefined"
                 :href="item.href ? item.href : undefined"
+              />
+            </li>
+            <li v-if="!$auth.loggedIn">
+              <Button
+                text="Вход / регистрация"
+                size="sm"
+                class="font-semibold capitalize"
+                :to="{name: 'auth-login'}"
               />
             </li>
           </ul>
@@ -75,6 +78,19 @@ export default {
                 aria-hidden="true"
               >
                 <iconify-icon icon="charm:search" class="text-xl" />
+              </span>
+          </button>
+          <button
+            v-if="$auth.loggedIn"
+            class="flex items-center focus:outline-none"
+            aria-label="To Search Page"
+            @click="$router.push({name: 'search'})"
+          >
+              <span
+                class="flex items-center text-gray-600 dark:text-gray-300"
+                aria-hidden="true"
+              >
+                <iconify-icon icon="charm:person" class="text-xl" />
               </span>
           </button>
           <ThemeSwitcher/>
@@ -112,11 +128,25 @@ export default {
                   :href="item.href ? item.href : undefined"
                 />
               </li>
+              <li>
+                <Button
+                  v-if="$auth.loggedIn"
+                  text="Мой профиль"
+                  class="font-semibold capitalize"
+                  :to="{name: 'auth-login'}"
+                />
+                <Button
+                  v-else
+                  text="Вход / регистрация"
+                  class="font-semibold capitalize"
+                  :to="{name: 'auth-login'}"
+                />
+              </li>
             </ul>
           </nav>
-          <div class="mt-6 text-sm font-medium capitalize">
-            Сменить тему
-          </div>
+<!--          <div class="mt-6 text-sm font-medium capitalize">-->
+<!--            Сменить тему-->
+<!--          </div>-->
           <div class="mt-2">
             <ThemeSwitcher type="select-box"/>
           </div>

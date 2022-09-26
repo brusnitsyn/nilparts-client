@@ -1,7 +1,7 @@
 <script>
 export default {
   props: {
-    modelValue: {
+    value: {
       type: String,
       default: '',
     },
@@ -36,7 +36,15 @@ export default {
     },
     selectedFontSizeStyle() {
       return this.fontSizeStyles[this.size] || this.fontSizeStyles.md
-    }
+    },
+    // modelValue: {
+    //   get() {
+    //     return this.modelValue;
+    //   },
+    //   set(value) {
+    //     this.$emit('input', value);
+    //   },
+    // },
   },
   data() {
     return {
@@ -53,7 +61,7 @@ export default {
         lg: 'text-lg',
       }
     }
-  }
+  },
 }
 </script>
 
@@ -73,7 +81,8 @@ export default {
     </div>
     <div class="text-input-wrapper relative flex flex-1">
       <input
-        v-model="modelValue"
+        :value="value"
+        @input="$emit('input', $event.target.value)"
         :class="`text-input w-full flex-1 bg-transparent outline-none border ${
           havePreEl ? '' : 'rounded-l'
         } ${

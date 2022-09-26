@@ -34,6 +34,10 @@ html.dark {
   }
 }
 
+.nuxt-link-exact-active {
+  @apply text-slate-900 dark:text-white;
+}
+
 // swiper
 :root {
   --swiper-theme-color: theme('colors.green.500') !important;

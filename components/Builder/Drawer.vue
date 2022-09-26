@@ -32,24 +32,22 @@ export default {
 </script>
 
 <template>
-  <Portal to="app-after">
-    <div>
-      <DrawerSheetOverlay v-if="showDrawer" />
-      <Transition name="slide-fade-from-left" appear>
-        <div v-show="showDrawer" class="fixed left-0 top-0 bottom-0 backdrop-filter backdrop-blur-md h-full z-50 w-full lg:max-w-md flex-none transition-colors duration-300 bg-gray-100/80 dark:bg-slate-800/80 backdrop-blur supports-backdrop-blur:bg-white/60">
-          <div>
-            <slot name="header" :toggle-drawer="toggleDrawer" />
-          </div>
-          <div class="flex flex-col grow">
-            <slot name="body" />
-          </div>
-          <div>
-            <slot name="footer" />
-          </div>
+  <div>
+    <DrawerSheetOverlay v-if="showDrawer" />
+    <Transition name="slide-fade-from-left" appear>
+      <div v-show="showDrawer" class="fixed left-0 top-0 bottom-0 backdrop-filter backdrop-blur-md h-full z-50 w-full lg:max-w-md flex-none transition-colors duration-300 bg-gray-100/80 dark:bg-slate-800/80 backdrop-blur supports-backdrop-blur:bg-white/60">
+        <div>
+          <slot name="header" :toggle-drawer="toggleDrawer" />
         </div>
-      </Transition>
-    </div>
-  </Portal>
+        <div class="flex flex-col grow">
+          <slot name="body" />
+        </div>
+        <div>
+          <slot name="footer" />
+        </div>
+      </div>
+    </Transition>
+  </div>
 </template>
 
 <style lang="scss" scoped>
