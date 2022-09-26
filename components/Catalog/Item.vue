@@ -22,7 +22,7 @@ export default {
     <img :src="image" alt="" class="rounded-lg w-full h-full max-h-[196px]">
     <div class="flex flex-col justify-between pt-1.5">
       <span class="text-lg pb-2 leading-6 line-clamp-2">
-        Самый новый невьебенный товар за этот год и даже это ахуенно
+        {{text}}
       </span>
     </div>
     <div>
