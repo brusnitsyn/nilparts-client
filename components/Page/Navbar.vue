@@ -74,7 +74,7 @@ export default {
                 class="flex items-center text-gray-600 dark:text-gray-300"
                 aria-hidden="true"
               >
-                <IconCharm:search/>
+                <iconify-icon icon="charm:search" class="text-xl" />
               </span>
           </button>
           <ThemeSwitcher/>
@@ -123,7 +123,7 @@ export default {
         </ActionSheetBody>
         <Button
           text="Закрыть"
-          size="sm"
+          size="md"
           type="secondary"
           @click="toggleOptions(false)"
         />

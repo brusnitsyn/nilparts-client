@@ -27,6 +27,11 @@ export default {
         <CatalogItem />
         <CatalogItem />
         <CatalogItem />
+        <CatalogItem />
+        <CatalogItem />
+        <CatalogItem />
+        <CatalogItem />
+        <CatalogItem />
       </CatalogWrapper>
     </PageSection>
   </PageBody>

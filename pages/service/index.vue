@@ -5,7 +5,13 @@ export default {
 </script>
 
 <template>
-
+  <PageWrapper>
+    <PageBody>
+      <PageSection>
+        <PageSectionTitle text="Таможенный сервис" />
+      </PageSection>
+    </PageBody>
+  </PageWrapper>
 </template>
 
 <style scoped>

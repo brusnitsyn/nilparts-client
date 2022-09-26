@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      defaultStyle: 'cursor-pointer border transition-color duration-300 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:dark:ring-offset-gray-50 focus:dark:ring-gray-400 focus:ring-gray-600/60 focus:ring-offset-gray-800/60 flex items-center justify-center font-semibold',
+      defaultStyle: 'select-none cursor-pointer border transition-color duration-300 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:dark:ring-offset-gray-50 focus:dark:ring-gray-400 focus:ring-gray-600/60 focus:ring-offset-gray-800/60 flex items-center justify-center font-semibold',
       styles: {
         none: '',
         primary: 'text-white bg-primary-500 hover:bg-primary-400 border-primary-500',

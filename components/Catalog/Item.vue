@@ -8,6 +8,10 @@ export default {
     image: {
       type: String,
       default: 'https://via.placeholder.com/294x196'
+    },
+    inStock: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -20,9 +24,13 @@ export default {
       <span class="text-lg font-medium pb-2">
         {{ title }}
       </span>
-      <div class="flex flex-row items-center gap-x-1.5 text-white bg-green-600 px-2 py-1 rounded-lg text-sm">
-        <Icon-material-symbols-check-circle-outline-rounded/>
+      <div v-if="inStock" class="flex flex-row items-center gap-x-1 text-white bg-green-600 px-2 py-1 rounded-lg text-sm">
+        <iconify-icon icon="material-symbols:check-circle-outline-rounded" class="text-lg" />
         <span>В наличии</span>
+      </div>
+      <div v-else class="flex flex-row items-center gap-x-1 text-white bg-red-600 px-2 py-1 rounded-lg text-sm">
+        <iconify-icon icon="material-symbols:error-circle-rounded-outline" class="text-lg" />
+        <span>Нет в наличии</span>
       </div>
     </div>
     <hr class="border-gray-900/10 dark:border-gray-50/20"/>

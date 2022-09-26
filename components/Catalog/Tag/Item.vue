@@ -10,6 +10,11 @@ export default {
     style() {
       return 'rounded-lg border px-2 py-1 text-sm border-gray-900/10 dark:border-gray-50/20'
     }
+  },
+  methods: {
+    click() {
+      setTimeout(() => this.$emit('click'), 100)
+    }
   }
 }
 </script>
@@ -21,7 +26,7 @@ export default {
       <slot/>
     </div>
   </button>
-  <button v-else :class="style">
+  <button v-else @click="click" :class="style">
     <div class="flex items-center gap-x-1.5">
       <slot name="icon"/>
       <slot/>

@@ -1,4 +1,8 @@
 export default {
+  server: {
+    host: '0.0.0.0'
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Chinaved',
@@ -9,6 +13,11 @@ export default {
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      {
+        src: 'https://code.iconify.design/iconify-icon/1.0.0/iconify-icon.min.js'
+      }
+    ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css

@@ -1,22 +1,10 @@
-<script>
-export default {
-  watch: {
-    async $route() {
-      await this.$store.dispatch('app/setNavbarShowDrawer', false)
-      await this.$store.dispatch('app/setNavbarShowOptions', false)
-      document.body.classList.remove('overflow-hidden')
-    }
-  },
-}
-</script>
-
 <template>
   <div>
     <PortalTarget name="app-before"/>
     <div id="app-before"></div>
     <div class="flex flex-col min-h-screen">
       <slot name="header">
-        <PageNavbar/>
+<!--        <PageNavbar/>-->
       </slot>
       <div class="flex-1 w-full flex flex-col">
         <div
@@ -26,7 +14,7 @@ export default {
         </div>
       </div>
       <slot name="footer">
-        <PageFooter/>
+<!--        <PageFooter/>-->
       </slot>
     </div>
     <PortalTarget name="app-after"/>

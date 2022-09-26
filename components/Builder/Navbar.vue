@@ -6,14 +6,14 @@ export default {
     name() {
       return p.name
     },
-    showDrawer: {
-      get() {
-        return this.$store.state.app.navbar.showDrawer
-      },
-      async set(value) {
-        await this.$store.dispatch('app/setNavbarShowDrawer', value)
-      }
-    },
+    // showDrawer: {
+    //   get() {
+    //     return this.$store.state.app.navbar.showDrawer
+    //   },
+    //   async set(value) {
+    //     await this.$store.dispatch('app/setNavbarShowDrawer', value)
+    //   }
+    // },
     showOptions: {
       get() {
         return this.$store.state.app.navbar.showOptions
@@ -25,18 +25,18 @@ export default {
   },
   methods: {
     updateDrawerOptions() {
-      // drawer
-      if (this.showDrawer || this.showOptions) {
+      if (this.showOptions) {
         document.body.classList.add('overflow-hidden')
       } else {
         document.body.classList.remove('overflow-hidden')
       }
     },
-    toggleDrawer() {
-      this.showDrawer = !this.showDrawer
-    },
+    // toggleDrawer() {
+    //   this.showDrawer = !this.showDrawer
+    // },
     toggleOptions(show) {
       this.showOptions = show
+      this.updateDrawerOptions()
     }
   }
 }
@@ -54,24 +54,24 @@ export default {
       <div class="py-3 lg:px-8 mx-4 lg:mx-0">
         <div class="relative flex items-center">
           <!-- drawer:toggle -->
-          <div
-            v-if="$slots['drawer']"
-            class="lg:hidden flex items-center self-center justify-center mr-2"
-          >
-            <button
-              class="flex items-center focus:outline-none"
-              aria-label="Toggle Drawer Menu"
-              @click="toggleDrawer(true)"
-            >
-              <span
-                class="flex items-center text-gray-600 dark:text-gray-300 text-lg"
-                aria-hidden="true"
-              >
-                <IconUil:bars v-if="!showDrawer"/>
-                <IconUil:times v-else/>
-              </span>
-            </button>
-          </div>
+<!--          <div-->
+<!--            v-if="$slots['drawer']"-->
+<!--            class="lg:hidden flex items-center self-center justify-center mr-2"-->
+<!--          >-->
+<!--            <button-->
+<!--              class="flex items-center focus:outline-none"-->
+<!--              aria-label="Toggle Drawer Menu"-->
+<!--              @click="toggleDrawer(true)"-->
+<!--            >-->
+<!--              <span-->
+<!--                class="flex items-center text-gray-600 dark:text-gray-300 text-lg"-->
+<!--                aria-hidden="true"-->
+<!--              >-->
+<!--                <iconify-icon icon="uil:bars" v-if="!showDrawer"/>-->
+<!--                <iconify-icon icon="uil:times" v-else/>-->
+<!--              </span>-->
+<!--            </button>-->
+<!--          </div>-->
           <!-- title -->
           <slot name="title">
             <NuxtLink
@@ -81,9 +81,7 @@ export default {
             >
               <span class="sr-only">home</span>
               <span class="flex items-center">
-                <IconSimpleIcons:nuxtdotjs
-                  class="inline-block mr-2 text-lg text-primary-500"
-                />
+                <iconify-icon icon="logos:nuxt-icon" />
                 {{ name }}
               </span>
             </NuxtLink>
@@ -104,7 +102,7 @@ export default {
                 class="flex items-center text-gray-600 dark:text-gray-300"
                 aria-hidden="true"
               >
-                <IconCharm:search/>
+                <iconify-icon icon="charm:search" class="text-xl" />
               </span>
             </button>
             <button
@@ -116,7 +114,7 @@ export default {
                 class="flex items-center text-gray-600 dark:text-gray-300"
                 aria-hidden="true"
               >
-                М
+                <iconify-icon icon="charm:menu-hamburger" class="text-xl" />
               </span>
             </button>
           </div>
@@ -126,16 +124,16 @@ export default {
     <ClientOnly>
       <Portal to="app-after">
         <!-- drawer -->
-        <Transition name="slide-fade-from-up" mode="out-in">
-          <div
-            v-if="showDrawer"
-            class="fixed lg:hidden bg-gray-100 dark:bg-slate-800 pt-12 top-0 left-0 w-screen h-screen z-30 flex flex-col"
-          >
-            <div class="flex-1 flex flex-col relative overflow-y-auto">
-              <slot name="drawer" :toggle-drawer="toggleDrawer"/>
-            </div>
-          </div>
-        </Transition>
+<!--        <Transition name="slide-fade-from-up" mode="out-in">-->
+<!--          <div-->
+<!--            v-if="showDrawer"-->
+<!--            class="fixed lg:hidden bg-gray-100 dark:bg-slate-800 pt-12 top-0 left-0 w-screen h-screen z-30 flex flex-col"-->
+<!--          >-->
+<!--            <div class="flex-1 flex flex-col relative overflow-y-auto">-->
+<!--              <slot name="drawer" :toggle-drawer="toggleDrawer"/>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </Transition>-->
 
         <!-- options -->
         <div v-if="showOptions">
