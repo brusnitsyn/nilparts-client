@@ -19,10 +19,10 @@ export default {
 
 <template>
   <div class="flex flex-col justify-between rounded-lg border border-gray-900/10 dark:border-gray-50/20 shadow-sm p-3 w-full">
-    <img :src="image" alt="" class="rounded-lg w-full h-full max-h-[196px]">
+    <NuxtImg loading="lazy" :src="image" class="rounded-lg w-full h-full max-h-[196px]"/>
     <div class="flex flex-col justify-between pt-1.5">
       <span class="text-lg pb-2 leading-6 line-clamp-2">
-        {{text}}
+        {{ title }}
       </span>
     </div>
     <div>

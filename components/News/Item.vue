@@ -32,7 +32,7 @@ export default {
 <template>
   <div class="border border-gray-900/10 dark:border-gray-50/20 rounded-lg h-full overflow-clip">
     <div>
-      <img :src="image" alt="" class="w-full">
+      <NuxtImg loading="lazy" :src="image" alt="" class="w-full" />
     </div>
     <div class="px-2 py-1 text-sm">
       <div class="flex justify-between">

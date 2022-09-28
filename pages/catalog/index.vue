@@ -1,6 +1,13 @@
 <script>
 export default {
-  layout: 'page'
+  layout: 'page',
+  data() {
+    return {
+      current: 1,
+      perPage: 2,
+      total: 12
+    }
+  }
 }
 </script>
 
@@ -33,6 +40,7 @@ export default {
         <CatalogItem />
         <CatalogItem />
       </CatalogWrapper>
+      <Pagination :current="current" :total="total" :per-page="perPage" @page-changed="current = $event" class="pt-4" />
     </PageSection>
   </PageBody>
 </PageWrapper>

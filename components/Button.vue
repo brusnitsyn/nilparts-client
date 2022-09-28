@@ -21,10 +21,14 @@ export default {
       type: String,
       default: undefined,
     },
+    loading: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
-      defaultStyle: 'select-none cursor-pointer border transition-color duration-300 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:dark:ring-offset-gray-50 focus:dark:ring-gray-400 focus:ring-gray-600/60 focus:ring-offset-gray-800/60 flex items-center justify-center font-semibold',
+      defaultStyle: 'select-none cursor-pointer border transition-color duration-300 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:dark:ring-offset-gray-50 focus:dark:ring-gray-400 focus:ring-gray-600/60 focus:ring-offset-gray-800/60 flex items-center justify-center gap-x-2 font-semibold',
       styles: {
         none: '',
         primary: 'text-white bg-primary-500 hover:bg-primary-400 border-primary-500',
@@ -67,6 +71,7 @@ export default {
     :to="to"
     :class="`${defaultStyle} ${selectedStyle} ${selectedSize}`"
   >
+    <slot name="icon" />
     <slot>{{ text }}</slot>
   </NuxtLink>
   <a
@@ -75,6 +80,7 @@ export default {
     :href="href"
     @click="onClick"
   >
+    <slot name="icon" />
     <slot>{{ text }}</slot>
   </a>
 </template>

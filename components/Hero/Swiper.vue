@@ -1,13 +1,13 @@
 <template>
   <Swiper :options="swiperOption" class="aspect-[830/390] md:aspect-auto rounded-b-lg">
     <SwiperSlide>
-      <img src="https://via.placeholder.com/1392x668" alt="">
+      <NuxtImg src="https://via.placeholder.com/1392x668" alt="" />
     </SwiperSlide>
     <SwiperSlide>
-      <img src="https://via.placeholder.com/1392x668" alt="">
+      <NuxtImg src="https://via.placeholder.com/1392x668" alt="" />
     </SwiperSlide>
     <SwiperSlide>
-      <img src="https://via.placeholder.com/1392x668" alt="">
+      <NuxtImg src="https://via.placeholder.com/1392x668" alt="" />
     </SwiperSlide>
     <div class="swiper-pagination" slot="pagination"></div>
   </Swiper>

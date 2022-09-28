@@ -5,7 +5,7 @@ export default {
 </script>
 
 <template>
-  <div class="md:mx-auto md:my-auto mt-12 px-4 md:px-8 w-full max-w-lg">
+  <div class="md:mx-auto md:my-auto mt-12 px-4 md:px-8 w-full max-w-lg md:border md:rounded-xl md:shadow md:px-6 md:py-5 md:min-w-sm lg:min-w-md md:dark:border-gray-50/20">
     <Form>
       <template #header>
         <div class="pb-10">

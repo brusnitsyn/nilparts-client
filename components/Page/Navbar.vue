@@ -84,7 +84,7 @@ export default {
             v-if="$auth.loggedIn"
             class="flex items-center focus:outline-none"
             aria-label="To Search Page"
-            @click="$router.push({name: 'search'})"
+            @click="$router.push({name: 'profile'})"
           >
               <span
                 class="flex items-center text-gray-600 dark:text-gray-300"
@@ -133,7 +133,7 @@ export default {
                   v-if="$auth.loggedIn"
                   text="Мой профиль"
                   class="font-semibold capitalize"
-                  :to="{name: 'auth-login'}"
+                  :to="{name: 'profile'}"
                 />
                 <Button
                   v-else

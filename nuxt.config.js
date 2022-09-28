@@ -1,7 +1,7 @@
 export default {
   publicRuntimeConfig: {
-    serverURL: process.env.NODE_ENV === 'production' ? process.env.SERVER_URL : 'http://192.168.31.22:8000',
-    serverAPI: process.env.NODE_ENV === 'production' ? process.env.SERVER_API : 'http://192.168.31.22:8000/api',
+    serverURL: process.env.NODE_ENV === 'production' ? process.env.SERVER_URL : 'http://192.168.1.107:8000',
+    serverAPI: process.env.NODE_ENV === 'production' ? process.env.SERVER_API : 'http://192.168.1.107:8000/api',
   },
 
   server: {
@@ -33,8 +33,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     {
-      src: '~/plugins/teleport.js',
-      ssr: false
+      src: '~/plugins/teleport.js'
     }
   ],
 
@@ -56,12 +55,13 @@ export default {
     '@nuxtjs/auth-next',
     'portal-vue/nuxt',
     'unplugin-icons/nuxt',
+    '@nuxt/image',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: process.env.serverAPI,
+    baseURL: 'http://192.168.1.107:8000/api',
     credentials: true
   },
 
@@ -69,7 +69,7 @@ export default {
     strategies: {
       'laravelSanctum': {
         provider: 'laravel/sanctum',
-        url: process.env.serverURL,
+        url: 'http://192.168.1.107:8000',
         endpoints: {
           login: {url: '/api/auth/login', method: 'post'},
           logout: {url: '/api/auth/logout', method: 'post'},
@@ -79,7 +79,8 @@ export default {
           property: 'data'
         },
         token: {
-          property: 'token'
+          property: 'token',
+          global: true
         }
       }
     },
@@ -89,6 +90,13 @@ export default {
       callback: "/",
       home: "/"
     }
+  },
+
+  image: {
+    // provider: 'imgix',
+    // imgix: {
+    //   baseURL: "http://192.168.1.107:8000/storage",
+    // },
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
