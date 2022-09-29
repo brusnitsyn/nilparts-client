@@ -1,3 +1,31 @@
+<script>
+import p from '~/package.json'
+export default {
+  computed: {
+    name() {
+      return p.name
+    },
+    author() {
+      return p.author
+    },
+    version() {
+      return p.version
+    }
+  },
+  data() {
+    return {
+      menus: [
+        {type: 'link', text: 'Главная', route: {name: 'index'}},
+        {type: 'link', text: 'Каталог', route: {name: 'catalog'}},
+        {type: 'link', text: 'Таможенный сервис', route: {name: 'service'}},
+        {type: 'link', text: 'Новости', route: {name: 'news'}},
+        {type: 'link', text: 'Контакты', route: {name: 'contacts'}},
+      ]
+    }
+  }
+}
+</script>
+
 <template>
   <footer class="border-t lg:border-gray-900/10 dark:border-gray-50/20">
     <section class="max-w-8xl mx-auto px-4 lg:px-8 flex flex-col w-full">
@@ -31,35 +59,3 @@
     </section>
   </footer>
 </template>
-
-<script>
-import p from '~/package.json'
-export default {
-  computed: {
-    name() {
-      return p.name
-    },
-    author() {
-      return p.author
-    },
-    version() {
-      return p.version
-    }
-  },
-  data() {
-    return {
-      menus: [
-        {type: 'link', text: 'Главная', route: {name: 'index'}},
-        {type: 'link', text: 'Каталог', route: {name: 'catalog'}},
-        {type: 'link', text: 'Таможенный сервис', route: {name: 'service'}},
-        {type: 'link', text: 'Новости', route: {name: 'news'}},
-        {type: 'link', text: 'Контакты', route: {name: 'contacts'}},
-      ]
-    }
-  }
-}
-</script>
-
-<style scoped>
-
-</style>

@@ -1,6 +1,7 @@
 <script>
 export default {
-  layout: 'profile'
+  layout: 'profile',
+  middleware: 'auth'
 }
 </script>
 
@@ -9,7 +10,7 @@ export default {
     <PageBody>
       <PageSection>
         <ProfileTitle :text="$auth.user.name" />
-        <ProfileNavWrapper>
+        <ProfileNavWrapper class="pt-2">
           <ProfileNavItem text="Мои товары">
             <template #icon>
               <iconify-icon icon="material-symbols:border-all-outline-rounded" width="24" height="24"></iconify-icon>
@@ -50,9 +51,9 @@ export default {
               </span>
             </template>
           </ProfileNavItem>
-          <ProfileNavItem text="Мои организации">
+          <ProfileNavItem text="Мой магазин">
             <template #icon>
-              <iconify-icon icon="material-symbols:group-outline-rounded" width="24" height="24"></iconify-icon>
+              <iconify-icon icon="material-symbols:storefront-outline-rounded" width="24" height="24"></iconify-icon>
             </template>
             <template #option>
               <span>
