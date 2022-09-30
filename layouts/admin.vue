@@ -9,11 +9,11 @@
             <AdminDrawer />
           </slot>
         </div>
-        <div class="flex flex-col flex-1 min-h-screen">
+        <div class="flex flex-col w-full lg:max-w-admin min-h-screen">
           <slot name="header">
             <AdminNavbar />
           </slot>
-          <div class="flex flex-col w-full h-full grow">
+          <div class="flex flex-col w-full h-full">
             <Nuxt />
           </div>
         </div>

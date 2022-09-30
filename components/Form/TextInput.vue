@@ -17,6 +17,9 @@ export default {
       type: String,
       default: 'default',
     },
+    maxlength: {
+      type: [String, Number],
+    }
   },
   computed: {
     havePreEl() {
@@ -83,6 +86,7 @@ export default {
       <input
         :value="value"
         @input="$emit('input', $event.target.value)"
+        :maxlength="maxlength"
         :class="`text-input w-full flex-1 bg-transparent outline-none border ${
           havePreEl ? '' : 'rounded-l'
         } ${

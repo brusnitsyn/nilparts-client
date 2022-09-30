@@ -12,9 +12,14 @@ export default {
 <template>
   <div class="lg:sticky lg:top-0">
     <AdminDrawerMenuWrapper class="hidden lg:block">
-      <AdminDrawerMenuItem text="Баннеры">
+      <AdminDrawerMenuItem text="Главная страница" :to="{ name: 'admin' }">
         <template #icon>
-          <iconify-icon icon="material-symbols:imagesmode" width="20" height="20"></iconify-icon>
+          <iconify-icon icon="material-symbols:newspaper" width="20" height="20"></iconify-icon>
+        </template>
+      </AdminDrawerMenuItem>
+      <AdminDrawerMenuItem text="Товары" :to="{ name: 'admin-products' }">
+        <template #icon>
+          <iconify-icon icon="material-symbols:shopping-bag-outline" width="20" height="20"></iconify-icon>
         </template>
       </AdminDrawerMenuItem>
     </AdminDrawerMenuWrapper>
@@ -24,9 +29,14 @@ export default {
         <Transition name="">
           <div class="fixed left-0 bottom-0 top-0 w-[70%] bg-white z-50">
             <AdminDrawerMenuWrapper>
-              <AdminDrawerMenuItem text="Баннеры">
+              <AdminDrawerMenuItem text="Главная страница" :to="{ name: 'admin' }">
                 <template #icon>
-                  <iconify-icon icon="material-symbols:imagesmode" width="20" height="20"></iconify-icon>
+                  <iconify-icon icon="material-symbols:newspaper" width="20" height="20"></iconify-icon>
+                </template>
+              </AdminDrawerMenuItem>
+              <AdminDrawerMenuItem text="Товары" :to="{ name: 'admin-products' }">
+                <template #icon>
+                  <iconify-icon icon="material-symbols:shopping-bag-outline" width="20" height="20"></iconify-icon>
                 </template>
               </AdminDrawerMenuItem>
             </AdminDrawerMenuWrapper>

@@ -4,6 +4,10 @@ export default {
     text: {
       type: String,
       default: ''
+    },
+    to: {
+      type: [Object, String],
+      default: undefined
     }
   }
 }
@@ -12,6 +16,8 @@ export default {
 <template>
   <div class="flex flex-row items-center gap-x-2 py-3 px-4 lg:px-8">
     <slot name="icon" />
-    {{ text }}
+    <NuxtLink :to="to">
+      {{ text }}
+    </NuxtLink>
   </div>
 </template>
