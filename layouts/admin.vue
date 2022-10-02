@@ -9,24 +9,15 @@
             <AdminDrawer />
           </slot>
         </div>
-        <div class="flex flex-col w-full lg:max-w-admin min-h-screen">
+        <div class="flex flex-col min-h-screen w-full lg:grow">
           <slot name="header">
             <AdminNavbar />
           </slot>
-          <div class="flex flex-col w-full h-full">
+          <div class="flex flex-col w-full h-full lg:max-w-admin">
             <Nuxt />
           </div>
         </div>
       </div>
-<!--      <div class="flex flex-row ">-->
-<!--        <div class="flex-1 w-full flex flex-col">-->
-<!--          <div-->
-<!--            class="flex-1 flex flex-col w-full h-full"-->
-<!--          >-->
-
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
       <slot name="footer">
         <ProfileFooter />
       </slot>

@@ -8,6 +8,9 @@ export default {}
       <PageSection>
         <PageSectionTitle text="Товары" />
       </PageSection>
+      <PageSection>
+        <PageSectionTitle text="Категории" />
+      </PageSection>
     </PageBody>
   </PageWrapper>
 </template>

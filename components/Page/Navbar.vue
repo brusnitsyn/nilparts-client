@@ -1,5 +1,12 @@
 <script>
+import {mapGetters} from "vuex";
+
 export default {
+  computed: {
+    ...mapGetters({
+      advert: 'advert/getAdvert'
+    })
+  },
   data() {
     return {
       menus: [
@@ -18,15 +25,17 @@ export default {
   <BuilderNavbar>
     <template #banner>
       <div
+        v-if="advert.text"
         class="text-white text-xs text-center py-1 px-4 lg:px-8 bg-primary-500"
       >
         <span class="mr-1">
-          Привет! Площадка работает в штатном режиме.
+          {{ advert.text }}
         </span>
         <Anchor
+          v-if="advert.buttonText && advert.buttonText.length > 0"
           class="underline font-bold"
-          text="подробнее"
-          :to="{name: 'index'}"
+          :text="advert.buttonText"
+          :to="advert.url"
         />
       </div>
     </template>
@@ -77,7 +86,7 @@ export default {
                 class="flex items-center text-gray-600 dark:text-gray-300"
                 aria-hidden="true"
               >
-                <iconify-icon icon="charm:search" class="text-xl" />
+                <iconify-icon icon="charm:search" class="text-xl"/>
               </span>
           </button>
           <button
@@ -90,7 +99,7 @@ export default {
                 class="flex items-center text-gray-600 dark:text-gray-300"
                 aria-hidden="true"
               >
-                <iconify-icon icon="charm:person" class="text-xl" />
+                <iconify-icon icon="charm:person" class="text-xl"/>
               </span>
           </button>
           <ThemeSwitcher/>
@@ -144,9 +153,9 @@ export default {
               </li>
             </ul>
           </nav>
-<!--          <div class="mt-6 text-sm font-medium capitalize">-->
-<!--            Сменить тему-->
-<!--          </div>-->
+          <!--          <div class="mt-6 text-sm font-medium capitalize">-->
+          <!--            Сменить тему-->
+          <!--          </div>-->
           <div class="mt-2">
             <ThemeSwitcher type="select-box"/>
           </div>

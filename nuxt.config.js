@@ -1,7 +1,7 @@
 export default {
   publicRuntimeConfig: {
-    serverURL: process.env.NODE_ENV === 'production' ? process.env.SERVER_URL : 'http://192.168.1.107:8000',
-    serverAPI: process.env.NODE_ENV === 'production' ? process.env.SERVER_API : 'http://192.168.1.107:8000/api',
+    serverURL: process.env.NODE_ENV === 'production' ? process.env.SERVER_URL : 'http://192.168.31.22:8000',
+    serverAPI: process.env.NODE_ENV === 'production' ? process.env.SERVER_API : 'http://192.168.31.22:8000/api',
   },
 
   server: {
@@ -61,7 +61,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: 'http://192.168.1.107:8000/api',
+    baseURL: 'http://192.168.31.22:8000/api',
     credentials: true
   },
 
@@ -69,7 +69,7 @@ export default {
     strategies: {
       'laravelSanctum': {
         provider: 'laravel/sanctum',
-        url: 'http://192.168.1.107:8000',
+        url: 'http://192.168.31.22:8000',
         endpoints: {
           login: {url: '/api/auth/login', method: 'post'},
           logout: {url: '/api/auth/logout', method: 'post'},
