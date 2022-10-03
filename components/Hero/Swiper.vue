@@ -32,7 +32,7 @@ export default {
 <template>
   <Swiper :options="swiperOption" class="aspect-[830/390] md:aspect-auto rounded-b-lg">
     <SwiperSlide v-for="(slide, index) in slides" :key="slide.id">
-      <NuxtImg :src="`${$config.serverURL}/${slide.image.url}`" alt=""/>
+      <NuxtImg :src="`${$config.serverURL}/${slide.image.url}`" alt="" class="max-h-[668px] object-cover w-full h-full"/>
     </SwiperSlide>
     <div class="swiper-pagination" slot="pagination"></div>
   </Swiper>

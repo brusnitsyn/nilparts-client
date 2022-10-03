@@ -16,7 +16,6 @@ module.exports = {
       },
       maxWidth: {
         '8xl': '87rem',
-        'admin': '84rem'
       },
       colors: {
         primary: {

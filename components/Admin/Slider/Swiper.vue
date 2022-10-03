@@ -24,7 +24,7 @@ export default {
     <slot name="slides">
       <SwiperSlide>
         <div class="relative">
-          <NuxtImg src="https://via.placeholder.com/1392x668" alt=""/>
+          <NuxtImg src="https://via.placeholder.com/1392x668" alt="" class="max-h-[668px] object-cover w-full h-full"/>
         </div>
       </SwiperSlide>
     </slot>

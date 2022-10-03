@@ -12,7 +12,12 @@ export default {
 <template>
   <div class="lg:sticky lg:top-0">
     <AdminDrawerMenuWrapper class="hidden lg:block">
-      <AdminDrawerMenuItem text="Главная страница" :to="{ name: 'admin' }">
+      <AdminDrawerMenuItem text="Главная" :to="{ name: 'admin' }">
+        <template #icon>
+          <iconify-icon icon="material-symbols:web" width="20" height="20"></iconify-icon>
+        </template>
+      </AdminDrawerMenuItem>
+      <AdminDrawerMenuItem text="Новости" :to="{ name: 'admin-blog' }">
         <template #icon>
           <iconify-icon icon="material-symbols:newspaper" width="20" height="20"></iconify-icon>
         </template>
@@ -30,6 +35,11 @@ export default {
           <div class="fixed left-0 bottom-0 top-0 w-[70%] bg-white z-50">
             <AdminDrawerMenuWrapper>
               <AdminDrawerMenuItem text="Главная страница" :to="{ name: 'admin' }">
+                <template #icon>
+                  <iconify-icon icon="material-symbols:web" width="20" height="20"></iconify-icon>
+                </template>
+              </AdminDrawerMenuItem>
+              <AdminDrawerMenuItem text="Новости" :to="{ name: 'admin-blog' }">
                 <template #icon>
                   <iconify-icon icon="material-symbols:newspaper" width="20" height="20"></iconify-icon>
                 </template>

@@ -46,7 +46,6 @@ export default {
   },
   created() {
     this.advertForm = deepClone(this.advert)
-    this.advertForm.id = Number.parseInt(this.advertForm.id)
   }
 }
 </script>
@@ -87,7 +86,7 @@ export default {
               <template #slides>
                 <SwiperSlide v-for="(slide, index) in slides" :key="slide.id">
                   <div class="relative">
-                    <NuxtImg :src="`${$config.serverURL}/${slide.image.url}`" alt=""/>
+                    <NuxtImg :src="`${$config.serverURL}/${slide.image.url}`" alt="" class="max-h-[668px] object-cover w-full h-full"/>
                     <div class="absolute right-4 top-4">
                       <Button type="secondary" @click="removeSlide(slide)">
                         Удалить слайд
