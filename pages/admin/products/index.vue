@@ -1,43 +1,47 @@
 <script>
-import {mapActions, mapGetters} from "vuex";
-import {deepClone} from "~/helpers";
+import { mapActions, mapGetters } from 'vuex'
+import { deepClone } from '~/helpers'
+import crypto from 'crypto'
 
 export default {
   computed: {
     ...mapGetters({
-      categories: 'category/getCategories'
-    })
+      categories: 'category/getCategories',
+    }),
   },
   data() {
     return {
       treeData: {
-        name: "Категории",
-        children: []
+        name: 'Категории',
+        children: [],
       },
       selectCategory: {},
       category: {
+        id: undefined,
         name: '',
         image: {},
-        parent_id: 0
-      }
+        parent_id: 0,
+      },
     }
   },
   methods: {
     ...mapActions({
-      updateCategory: 'category/updateCategory'
+      updateCategory: 'category/updateCategory',
     }),
     makeFolder(item) {
-      this.$set(item, "children", [])
+      this.$set(item, 'children', [])
       this.addItem(item)
     },
     addItem(item) {
       item.children.push({
-        name: 'Новая категория'
+        id: crypto.randomBytes(20).toString('hex'),
+        name: 'Новая категория',
+        parent_id: this.selectCategory.id ? this.selectCategory.id : undefined
       })
     },
     selectItem(item) {
       this.selectCategory = item
-      this.category = {...item, image: {}}
+      this.category = { ...item, image: {} }
     },
     removeItem(item) {
       this.removeNode([this.treeData], item)
@@ -47,14 +51,17 @@ export default {
         if (itm.id === item.id) {
           arr.splice(index, 1)
         }
-        if(itm.children && itm.children.length)
+        if (itm.children && itm.children.length)
           this.removeNode(itm.children, item)
       })
-    }
+    },
+    uploadedImage(image) {
+      this.category.image = image
+    },
   },
   mounted() {
     this.treeData.children = deepClone(this.categories)
-  }
+  },
 }
 </script>
 
@@ -68,9 +75,13 @@ export default {
         <PageSectionTitle text="Категории" />
         <div class="grid gap-y-2 md:grid-cols-2">
           <Tree>
-            <TreeItem :item="treeData" @make-folder="makeFolder"
-                      @add-item="addItem" @select-item="selectItem"
-                      @remove-item="removeItem" />
+            <TreeItem
+              :item="treeData"
+              @make-folder="makeFolder"
+              @add-item="addItem"
+              @select-item="selectItem"
+              @remove-item="removeItem"
+            />
           </Tree>
           <div class="flex flex-col" v-if="category.id">
             <Form>
@@ -78,14 +89,15 @@ export default {
                 <span>Редактирование: {{ category.name }}</span>
               </template>
               <template #body>
-                <FormTextInput v-model="category.name" :placeholder="selectCategory.name" />
-                <FormFileInput :files="category.image"/>
+                <FormTextInput
+                  v-model="category.name"
+                  :placeholder="selectCategory.name"
+                />
+                <FormFileInput :files="category.image" @upload="uploadedImage"/>
               </template>
               <template #footer>
                 <div class="flex justify-end pt-2">
-                  <Button @click="updateCategory(category)">
-                    Обновить
-                  </Button>
+                  <Button @click="updateCategory(category)"> Обновить </Button>
                 </div>
               </template>
             </Form>

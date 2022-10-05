@@ -1,6 +1,6 @@
 <script>
 let EditorJS = null, ImageTool = null, ParagraphTool = null, TableTool = null,
-  HeaderTool = null
+    HeaderTool = null
 
 if (process.client) {
   EditorJS = require('@editorjs/editorjs')
@@ -14,7 +14,7 @@ export default {
   mounted() {
     const editor = new EditorJS({
       holder: 'editor',
-
+      placeholder: 'Начните печатать...',
       tools: {
         image: {
           class: ImageTool,

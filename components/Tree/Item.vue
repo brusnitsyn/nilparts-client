@@ -25,7 +25,7 @@ export default {
     makeFolder() {
       if (!this.isFolder) {
         this.$emit("make-folder", this.item);
-        this.isOpen = true;
+        // this.isOpen = true;
       }
     },
     remove() {

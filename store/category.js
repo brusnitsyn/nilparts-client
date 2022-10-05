@@ -30,21 +30,17 @@ export const actions = {
     await commit('setCategories', result)
   },
   async addCategory({commit}, category) {
-    const response = await this.$axios.post('/categories', category)
+    const form = formData(category)
+
+    const response = await this.$axios.post('/categories', form)
     const data = await response.data.data
     await commit('addCategories', data)
+    return data
   },
   async updateCategory({commit, dispatch}, category) {
-    const formData = new FormData();
-    if(category.name)
-      formData.append('name', category.name)
-    if(Object.keys(category.image).length !== 0)
-      formData.append('image', category.image)
-    if(category.parent_id)
-      formData.append('parent_id', category.parent_id)
-    formData.append('_method', 'PATCH')
+    const form = formData(category, true)
 
-    const response = await this.$axios.post(`/categories/${category.id}`, formData)
+    const response = await this.$axios.post(`/categories/${category.id}`, form)
     const data = await response.data.data
     await dispatch('fetchCategories')
   },
@@ -53,4 +49,19 @@ export const actions = {
     const data = await response.data.data
     await commit('removeCategory', category.id)
   }
+}
+
+function formData(category = {}, update = false) {
+  const formData = new FormData();
+  formData.append('id', category.id)
+  if(category.name)
+    formData.append('name', category.name)
+  if(Object.keys(category.image).length !== 0)
+    formData.append('image', category.image.file)
+  if(category.parent_id)
+    formData.append('parent_id', category.parent_id)
+  if(update)
+    formData.append('_method', 'PATCH')
+
+  return formData
 }

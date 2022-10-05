@@ -1,3 +1,16 @@
+<script>
+import {mapGetters} from "vuex";
+
+export default {
+  layout: 'page',
+  computed: {
+    ...mapGetters({
+      categories: 'category/getCategories'
+    })
+  }
+}
+</script>
+
 <template>
   <div>
     <HeroSwiper/>
@@ -6,10 +19,7 @@
         <PageSection>
           <PageSectionTitle text="Категории"/>
           <ShortcutCategoryWrapper>
-            <ShortcutCategoryItem text="Запчасти" image="https://via.placeholder.com/320x114"/>
-            <ShortcutCategoryItem text="Спецтехника" image="https://via.placeholder.com/320x114"/>
-            <ShortcutCategoryItem text="Масла и смазки" image="https://via.placeholder.com/320x114"/>
-            <ShortcutCategoryItem text="Резина" image="https://via.placeholder.com/320x114"/>
+            <ShortcutCategoryItem v-for="(cat, index) in categories" :key="cat.id" :text="cat.name" :image="cat.image"/> <!--https://via.placeholder.com/320x114-->
           </ShortcutCategoryWrapper>
         </PageSection>
         <PageSection>
@@ -25,9 +35,3 @@
     </PageWrapper>
   </div>
 </template>
-
-<script>
-export default {
-  layout: 'page',
-}
-</script>
