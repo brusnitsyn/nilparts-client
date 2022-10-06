@@ -19,7 +19,7 @@ export default {
         <PageSection>
           <PageSectionTitle text="Категории"/>
           <ShortcutCategoryWrapper>
-            <ShortcutCategoryItem v-for="(cat, index) in categories" :key="cat.id" :text="cat.name" :image="cat.image"/> <!--https://via.placeholder.com/320x114-->
+            <ShortcutCategoryItem v-for="(cat, index) in categories.slice(0, 3)" :key="cat.id" :text="cat.name" :image="cat.image"/> <!--https://via.placeholder.com/320x114-->
           </ShortcutCategoryWrapper>
         </PageSection>
         <PageSection>
