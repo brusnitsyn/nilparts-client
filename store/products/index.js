@@ -19,7 +19,7 @@ export const mutations = {
 
 export const actions = {
   async fetchProducts({commit, state}) {
-    const products = this.$axios.get('/products')
+    const products = await this.$axios.get('/products')
     const result = await products.data.data
     await commit('setProducts', result)
   },

@@ -54,9 +54,9 @@ export default {
   <div>
     <PageWrapper>
       <PageBody>
-        <PageSection>
-          <PageSectionTitle text="Главная страница" />
-        </PageSection>
+        <PageHeader>
+          <PageTitle text="Главная страница" />
+        </PageHeader>
         <PageSection>
           <PageSectionTitle text="Верхний баннер" />
           <Form>

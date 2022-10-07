@@ -5,9 +5,12 @@ export default {}
 <template>
   <PageWrapper>
     <PageBody>
+      <PageHeader>
+        <PageTitle text="Новости" />
+      </PageHeader>
       <PageSection>
         <div class="flex flex-col gap-y-1 pb-2 md:pb-0">
-          <PageSectionTitle text="Новости" :route="{name: 'Добавить новость', to: { name: 'admin-blog-create' }}" />
+          <PageSectionTitle text="Все новости" :route="{name: 'Добавить новость', to: { name: 'admin-blog-create' }}" />
           <Button :to="{ name: 'admin-blog-create' }" class="md:hidden">
             Добавить новость
           </Button>

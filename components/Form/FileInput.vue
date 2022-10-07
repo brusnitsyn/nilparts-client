@@ -7,12 +7,12 @@ export default {
     },
     files: {
       type: [Object, Array],
-      default: undefined
-    }
+      default: undefined,
+    },
   },
   data() {
     return {
-      message: "",
+      message: '',
     }
   },
   methods: {
@@ -23,58 +23,80 @@ export default {
         for (let i = 0; i < files.length; i++) {
           let binaryFile = []
           binaryFile.push(files[i])
-          let url = window.URL.createObjectURL(new Blob(binaryFile));
+          let url = window.URL.createObjectURL(new Blob(binaryFile))
           let id = this.files.length + 1
           image = { file: files[i], url, id, filename: files[i].name }
           this.files.push(image)
 
-          this.$emit("upload", image);
-        };
+          this.$emit('upload', image)
+        }
       } else {
         let file = this.$refs.file.files.item(0)
         let image = {}
-        let url = window.URL.createObjectURL(file);
+        let url = window.URL.createObjectURL(file)
         image = { file, url, id: 1, filename: file.name }
 
-        this.$emit("upload", image);
+        this.$emit('upload', image)
       }
 
-      this.message = "";
+      this.message = ''
     },
     removeFile(id) {
-      this.$emit("remove", id);
-    }
-  }
+      this.$emit('remove', id)
+    },
+  },
 }
 </script>
 
 <template>
   <div>
     <div>
-      <div
-        class="p-0.5 relative">
-        <Button type="opposite">
-          Выбрать изображение
-        </Button>
-        <input class="opacity-0 absolute w-full bottom-0 top-0 cursor-pointer" type="file" accept=".jpg,.jpeg,.png" ref="file"
-               @change="selectImage" :multiple="multiple" />
+      <div class="relative">
+        <Button type="opposite" v-if="multiple"> Выбрать изображения </Button>
+        <Button type="opposite" v-else> Выбрать изображение </Button>
+        <input
+          class="opacity-0 absolute w-full bottom-0 top-0 cursor-pointer"
+          type="file"
+          accept=".jpg,.jpeg,.png"
+          ref="file"
+          @change="selectImage"
+          :multiple="multiple"
+        />
       </div>
     </div>
-    <div v-if="multiple && files.length > 0 " class="mt-3">
-      <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-1.5 gap-y-2">
-        <div v-for="image in files" :key="image.id" class="h-[120px] w-[120px] group relative">
-          <img class="h-full w-full object-cover object-center rounded-md border dark:border-gray-600" :src="image.url" alt="" />
+    <div v-if="multiple && files.length > 0" class="mt-3">
+      <div
+        class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-1.5 gap-y-2"
+      >
+        <div
+          v-for="image in files"
+          :key="image.id"
+          class="h-[120px] w-[120px] group relative"
+        >
+          <img
+            class="h-full w-full object-cover object-center rounded-md border dark:border-gray-600"
+            :src="image.url"
+            alt=""
+          />
           <div
-            class="absolute left-0 right-0 top-0 rounded-md -mb-px w-full h-full opacity-0 transition-opacity group-hover:opacity-100 bg-gray-900/40">
+            class="absolute left-0 right-0 top-0 rounded-md -mb-px w-full h-full opacity-0 transition-opacity group-hover:opacity-100 bg-gray-900/40"
+          >
             <div class="flex items-end justify-between h-full p-2.5">
               <span></span>
               <div class="flex gap-x-2.5">
                 <Button class="min-w-[46px]" @click="removeFile(image.id)">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="mx-auto"
-                       xmlns="http://www.w3.org/2000/svg">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    class="mx-auto"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <path
                       d="M10 5H14C14 3.89543 13.1046 3 12 3C10.8954 3 10 3.89543 10 5ZM8.5 5C8.5 3.067 10.067 1.5 12 1.5C13.933 1.5 15.5 3.067 15.5 5H21.25C21.6642 5 22 5.33579 22 5.75C22 6.16421 21.6642 6.5 21.25 6.5H19.9309L18.7589 18.6112C18.5729 20.5334 16.9575 22 15.0263 22H8.97369C7.04254 22 5.42715 20.5334 5.24113 18.6112L4.06908 6.5H2.75C2.33579 6.5 2 6.16421 2 5.75C2 5.33579 2.33579 5 2.75 5H8.5ZM10.5 9.75C10.5 9.33579 10.1642 9 9.75 9C9.33579 9 9 9.33579 9 9.75V17.25C9 17.6642 9.33579 18 9.75 18C10.1642 18 10.5 17.6642 10.5 17.25V9.75ZM14.25 9C14.6642 9 15 9.33579 15 9.75V17.25C15 17.6642 14.6642 18 14.25 18C13.8358 18 13.5 17.6642 13.5 17.25V9.75C13.5 9.33579 13.8358 9 14.25 9ZM6.73416 18.4667C6.84577 19.62 7.815 20.5 8.97369 20.5H15.0263C16.185 20.5 17.1542 19.62 17.2658 18.4667L18.4239 6.5H5.57608L6.73416 18.4667Z"
-                      fill="currentColor" />
+                      fill="currentColor"
+                    />
                   </svg>
                 </Button>
               </div>
@@ -84,7 +106,7 @@ export default {
       </div>
     </div>
     <div v-else-if="files.filename">
-      <span>Выбранный файл: {{files.filename}}</span>
+      <span>Выбранный файл: {{ files.filename }}</span>
     </div>
     <div v-if="message" class="alert alert-secondary" role="alert">
       {{ message }}
@@ -92,5 +114,4 @@ export default {
   </div>
 </template>
 
-<style>
-</style>
+<style></style>
