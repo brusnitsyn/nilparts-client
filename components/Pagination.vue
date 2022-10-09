@@ -62,10 +62,12 @@ export default {
       return Math.ceil(this.total / this.perPage)
     },
     nextPage: function () {
-      return this.current++
+      let currentPage = this.current
+      return currentPage + 1
     },
     prevPage: function () {
-      return this.current--
+      let currentPage = this.current
+      return currentPage - 1
     }
   }
 }
@@ -116,7 +118,7 @@ export default {
           </a>
         </li>
         <li v-if="hasNext()">
-          <a @click.prevent="changePage(nextPage)">
+          <a @click="changePage(nextPage)">
             <div class="flex items-center justify-center hover:bg-primary-500 rounded-md h-6 w-6 lg:h-8 lg:w-8 cursor-pointer lg:hover:bg-gray-200">
               <div>
                 <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

@@ -14,8 +14,10 @@ export default {
 <template>
   <PageWrapper>
     <PageBody>
+      <PageHeader>
+        <PageTitle text="Поиск" />
+      </PageHeader>
       <PageSection>
-        <PageSectionTitle text="Поиск" />
         <Form>
           <template #body>
             <FormTextInput placeholder="Поисковый запрос" v-model="searchQuery">

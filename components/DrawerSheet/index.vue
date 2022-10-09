@@ -11,7 +11,7 @@ export default {
 <template>
   <div>
     <DrawerSheetOverlay @click="close" />
-    <Transition name="slide-fade-from-left">
+    <Transition name="slide-fade-from-left" appear>
       <div
         class="fixed inset-0 w-screen z-50 flex">
         <div
@@ -35,6 +35,6 @@ export default {
 .slide-fade-from-left-enter-from,
 .slide-fade-from-left-leave-to {
   transform: translateX(0px);
-  opacity: 0;
+  opacity: 1;
 }
 </style>

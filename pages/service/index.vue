@@ -7,8 +7,11 @@ export default {
 <template>
   <PageWrapper>
     <PageBody>
+      <PageHeader>
+        <PageTitle text="Таможенный сервис" />
+      </PageHeader>
       <PageSection>
-        <PageSectionTitle text="Таможенный сервис" />
+
       </PageSection>
     </PageBody>
   </PageWrapper>

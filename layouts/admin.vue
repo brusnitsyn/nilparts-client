@@ -1,3 +1,9 @@
+<script>
+export default {
+  middleware: 'hideOverlay',
+}
+</script>
+
 <template>
   <div>
     <PortalTarget name="app-before"/>

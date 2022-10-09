@@ -7,8 +7,11 @@ export default {
 <template>
   <PageWrapper>
     <PageBody>
+      <PageHeader>
+        <PageTitle text="Контакты" />
+      </PageHeader>
       <PageSection>
-        <PageSectionTitle text="Контакты" />
+
       </PageSection>
     </PageBody>
   </PageWrapper>

@@ -8,6 +8,8 @@ export default {
         name: '',
         article: '',
         price: '',
+        is_stock: false,
+        desc: '',
         images: [],
       },
     }
@@ -37,6 +39,8 @@ export default {
               />
               <FormTextInput placeholder="Артикул" v-model="form.article" class="lg:col-span-2" />
               <FormTextInput placeholder="Стоимость" v-model="form.price" class="lg:col-span-6" />
+              <FormCheckboxOption label="Чекбокс" v-model="form.is_stock" class="lg:col-span-6" />
+              <FormTextarea v-model="form.desc" class="lg:col-span-6" />
               <FormFileInput :files="form.images" multiple class="lg:col-span-6" />
             </div>
           </template>

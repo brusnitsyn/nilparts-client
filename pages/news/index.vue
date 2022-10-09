@@ -14,8 +14,10 @@ export default {
 <template>
   <PageWrapper>
     <PageBody>
+      <PageHeader>
+        <PageTitle text="Новости" />
+      </PageHeader>
       <PageSection>
-        <PageSectionTitle text="Новости" />
         <NewsWrapper>
           <NewsItem image="https://via.placeholder.com/350x180" user="admin" title="Заголовок новости 1" content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab cumque debitis dicta dolor, est ex facere, provident quasi qui quibusdam, quisquam sed veritatis voluptates. Consequuntur fugiat ipsum nemo quae tempora." />
           <NewsItem image="https://via.placeholder.com/350x180" user="admin" title="Заголовок новости 2" content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab cumque debitis dicta dolor, est ex facere, provident quasi qui quibusdam, quisquam sed veritatis voluptates. Consequuntur fugiat ipsum nemo quae tempora." />

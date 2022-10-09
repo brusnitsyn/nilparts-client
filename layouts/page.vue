@@ -1,12 +1,13 @@
 <script>
 export default {
-  watch: {
-    async $route() {
-      await this.$store.dispatch('app/setNavbarShowDrawer', false)
-      await this.$store.dispatch('app/setNavbarShowOptions', false)
-      document.body.classList.remove('overflow-hidden')
-    }
-  },
+  middleware: 'hideOverlay',
+  // watch: {
+  //   async $route() {
+  //     await this.$store.dispatch('app/setNavbarShowDrawer', false)
+  //     await this.$store.dispatch('app/setNavbarShowOptions', false)
+  //     document.body.classList.remove('overflow-hidden')
+  //   }
+  // },
 }
 </script>
 

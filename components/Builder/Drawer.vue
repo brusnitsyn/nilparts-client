@@ -61,6 +61,7 @@ export default {
 
 .slide-fade-from-left-enter-from {
   transform: translateX(100%);
+  opacity: 1;
 }
 
 .slide-fade-from-left-leave-to {
