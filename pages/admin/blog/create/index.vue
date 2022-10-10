@@ -14,8 +14,38 @@ if (process.client) {
 }
 
 export default {
+  data() {
+    return {
+      editor: null,
+      form: {
+        title: '',
+        sub_title: '',
+        content: {},
+        image: {}
+      }
+    }
+  },
+  methods: {
+    async submit() {
+      await this.editor.save().then((outputData) => {
+        this.form.content = outputData
+        console.log('Article data: ', outputData)
+      }).catch((error) => {
+        console.log('Saving failed: ', error)
+      });
+      const formData = new FormData();
+      formData.append('title', this.form.title)
+      formData.append('sub_title', this.form.sub_title)
+      formData.append('content', JSON.stringify(this.form.content))
+      formData.append('image', this.form.image.file)
+      await this.$axios.post('/blog', formData)
+    },
+    uploadedImage(image) {
+      this.form.image = image
+    },
+  },
   mounted() {
-    const editor = new EditorJS({
+    this.editor = new EditorJS({
       holder: 'editor',
       placeholder: 'Начните печатать...',
       tools: {
@@ -146,11 +176,21 @@ export default {
     >
       <div class="max-w-4xl mx-auto flex justify-between items-center py-2">
         <span> Новая новость </span>
-        <Button type="secondary"> Опубликовать </Button>
+        <Button type="secondary" @click="submit"> Опубликовать </Button>
       </div>
     </div>
     <PageWrapper>
       <PageBody>
+        <PageSection class="max-w-4xl mx-auto lg:px-4">
+          <PageSectionTitle text="Основная информация" />
+          <Form>
+            <template #body>
+              <FormTextInput v-model="form.title" placeholder="Заголовок новости" />
+              <FormTextarea v-model="form.sub_title" placeholder="Краткое описание новости" />
+              <FormFileInput :files="form.image" @upload="uploadedImage" />
+            </template>
+          </Form>
+        </PageSection>
         <PageSection>
           <div class="">
             <div id="editor"></div>

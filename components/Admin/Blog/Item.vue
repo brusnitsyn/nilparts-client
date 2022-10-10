@@ -1,6 +1,10 @@
 <script>
 export default {
   props: {
+    blog: {
+      type: Object,
+      default: {}
+    },
     url: {
       type: String,
       default: '',
@@ -21,33 +25,30 @@ export default {
       type: String,
       default: '',
     },
-    createdAt: {
-      type: String,
-      default: new Date().toLocaleString('ru').toString(),
-    },
-  }
+  },
 }
 </script>
 
 <template>
   <div class="border border-gray-900/10 dark:border-gray-50/20 rounded-lg h-full overflow-clip">
     <div>
-      <NuxtImg loading="lazy" :src="image" alt="" class="w-full" />
+      <!--          Image https://via.placeholder.com/350x180-->
+      <NuxtImg loading="lazy" :src="`${$config.serverURL}/${blog.image.url}`" alt="" class="w-full lg:w-[350px] h-[180px]" />
     </div>
     <div class="px-2 py-1 text-sm">
       <div class="flex justify-between">
         <span class="block font-medium">
-          {{ user }}
+          {{ blog.user.name }}
         </span>
         <span class="block">
-          {{ createdAt }}
+          {{ blog.created_at }}
         </span>
       </div>
       <span class="block text-base font-medium py-1.5">
-        {{ title }}
+        {{ blog.title }}
       </span>
       <span class="block font-normal line-clamp-2">
-        {{ content }}
+        {{ blog.sub_title }}
       </span>
       <div class="flex justify-between py-2">
         <Button type="secondary">
