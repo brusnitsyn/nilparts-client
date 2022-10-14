@@ -1,34 +1,48 @@
 <script>
-import {mapGetters} from "vuex";
+import { mapGetters } from 'vuex'
 
 export default {
   layout: 'page',
   computed: {
     ...mapGetters({
-      categories: 'category/getCategories'
-    })
-  }
+      categories: 'category/getCategories',
+      blogs: 'blog/getBlogs',
+    }),
+  },
+  async fetch() {
+    await this.$store.dispatch('blog/fetchBlogs')
+  },
 }
 </script>
 
 <template>
   <div>
-    <HeroSwiper/>
+    <HeroSwiper />
     <PageWrapper>
       <PageBody>
         <PageSection>
-          <PageSectionTitle text="Категории"/>
+          <PageSectionTitle text="Категории" />
           <ShortcutCategoryWrapper>
-            <ShortcutCategoryItem v-for="(cat, index) in categories.slice(0, 3)" :key="cat.id" :text="cat.name" :image="cat.image"/> <!--https://via.placeholder.com/320x114-->
+            <ShortcutCategoryItem
+              v-for="(cat, index) in categories.slice(0, 4)"
+              :key="cat.id"
+              :text="cat.name"
+              :image="cat.image"
+            />
+            <!--https://via.placeholder.com/320x114-->
           </ShortcutCategoryWrapper>
         </PageSection>
         <PageSection>
-          <PageSectionTitle text="Новости" :route="{name: 'Все новости', to: {name: 'news'}}"/>
+          <PageSectionTitle
+            text="Новости"
+            :route="{ name: 'Все новости', to: { name: 'news' } }"
+          />
           <ShortcutNewsWrapper>
-            <NewsItem image="https://via.placeholder.com/350x180" user="admin" title="Заголовок новости 1" content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab cumque debitis dicta dolor, est ex facere, provident quasi qui quibusdam, quisquam sed veritatis voluptates. Consequuntur fugiat ipsum nemo quae tempora." />
-            <NewsItem image="https://via.placeholder.com/350x180" user="admin" title="Заголовок новости 2" content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab cumque debitis dicta dolor, est ex facere, provident quasi qui quibusdam, quisquam sed veritatis voluptates. Consequuntur fugiat ipsum nemo quae tempora." />
-            <NewsItem image="https://via.placeholder.com/350x180" user="admin" title="Заголовок новости 3" content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab cumque debitis dicta dolor, est ex facere, provident quasi qui quibusdam, quisquam sed veritatis voluptates. Consequuntur fugiat ipsum nemo quae tempora." />
-            <NewsItem image="https://via.placeholder.com/350x180" user="admin" title="Заголовок новости 4" content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab cumque debitis dicta dolor, est ex facere, provident quasi qui quibusdam, quisquam sed veritatis voluptates. Consequuntur fugiat ipsum nemo quae tempora." />
+            <NewsItem
+              v-for="(blog, index) in blogs.slice(0, 4)"
+              :key="blog.id"
+              :model="blog"
+            />
           </ShortcutNewsWrapper>
         </PageSection>
       </PageBody>

@@ -1,6 +1,19 @@
 <script>
+import {mapGetters} from "vuex";
+
 export default {
-  layout: 'page'
+  layout: 'page',
+  computed: {
+    ...mapGetters({
+      contacts: 'contacts/getContact'
+    })
+  },
+  mounted() {
+    // console.log(contacts.c)
+  },
+  async fetch() {
+    await this.$store.dispatch('contacts/fetchContact')
+  }
 }
 </script>
 
@@ -11,7 +24,9 @@ export default {
         <PageTitle text="Контакты" />
       </PageHeader>
       <PageSection>
-
+<!--        <div v-for="(content, index) in contacts.content" :key="index">-->
+<!--          -->
+<!--        </div>-->
       </PageSection>
     </PageBody>
   </PageWrapper>

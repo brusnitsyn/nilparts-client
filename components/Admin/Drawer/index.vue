@@ -27,6 +27,11 @@ export default {
           <iconify-icon icon="material-symbols:shopping-bag-outline" width="20" height="20"></iconify-icon>
         </template>
       </AdminDrawerMenuItem>
+      <AdminDrawerMenuItem text="Контакты" :to="{ name: 'admin-contacts' }">
+        <template #icon>
+          <iconify-icon icon="material-symbols:contacts-rounded" width="20" height="20"></iconify-icon>
+        </template>
+      </AdminDrawerMenuItem>
     </AdminDrawerMenuWrapper>
     <Portal to="app-before" v-if="showDrawer">
       <div>
@@ -47,6 +52,11 @@ export default {
               <AdminDrawerMenuItem text="Товары" :to="{ name: 'admin-products' }">
                 <template #icon>
                   <iconify-icon icon="material-symbols:shopping-bag-outline" width="20" height="20"></iconify-icon>
+                </template>
+              </AdminDrawerMenuItem>
+              <AdminDrawerMenuItem text="Контакты" :to="{ name: 'admin-contacts' }">
+                <template #icon>
+                  <iconify-icon icon="material-symbols:contacts-rounded" width="20" height="20"></iconify-icon>
                 </template>
               </AdminDrawerMenuItem>
             </AdminDrawerMenuWrapper>
