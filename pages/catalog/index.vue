@@ -3,6 +3,16 @@ import { mapGetters } from 'vuex'
 
 export default {
   layout: 'page',
+  watch: {
+    '$route.query.page': {
+      handler: async function(page) {
+        await this.$store.dispatch('products/setCurrentPage', page)
+        window.scrollTo(0, 0)
+      },
+      deep: true,
+      immediate: true
+    }
+  },
   computed: {
     ...mapGetters({
       products: 'products/getProducts',
@@ -15,22 +25,13 @@ export default {
         return this.productsMeta.current_page
       },
       async set(value) {
-        await this.$store.dispatch('products/setCurrentPage', value)
-        await this.$router.replace({ name: 'catalog', query: { page: value } })
-        window.scrollTo(0, 0)
+        await this.$router.push({ name: 'catalog', query: { page: value } })
       },
     },
 
     hasPaginate() {
       return this.productsMeta.last_page > 1
     },
-  },
-  methods: {},
-  data() {
-    return {}
-  },
-  async fetch({ route, store }) {
-    await store.dispatch('products/fetchProducts', route.query.page)
   },
 }
 </script>

@@ -10,7 +10,7 @@ export default {
 </script>
 
 <template>
-  <span class="font-bold text-xl">
+  <h1>
     {{text}}
-  </span>
+  </h1>
 </template>

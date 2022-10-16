@@ -16,8 +16,6 @@ export default {
     <NuxtLink class="flex flex-col" :to="{ name: 'index' }">
       <NuxtImg
         loading="lazy"
-        width="294"
-        height="196"
         :src="`${$config.serverURL}/${product.thumb_url}`"
         class="rounded-lg h-[196px] w-full md:w-[294px] object-cover"
       />
@@ -28,9 +26,9 @@ export default {
       </div>
       <div class="items-end">
         <div class="flex justify-between items-center pb-2">
-          <span v-if="product.prices.length" class="font-medium text-xl"
-            >{{ product.prices[0].price | toRuble }} &#8381;</span
-          >
+          <span v-if="product.prices.length" class="font-medium text-xl">{{
+            product.prices[0].price | toRuble
+          }}</span>
           <div
             v-if="false"
             class="flex flex-row items-center gap-x-1 text-white bg-green-600 px-2 py-1 rounded-lg text-sm"

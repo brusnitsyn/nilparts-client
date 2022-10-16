@@ -1,12 +1,16 @@
 export const state = () => ({
   blogs: [],
+  blog: {},
   meta: {},
-  links: {}
+  links: {},
 })
 
 export const getters = {
   getBlogs(state) {
     return state.blogs
+  },
+  getBlog(state) {
+    return state.blog
   },
   getMeta(state) {
     return state.meta
@@ -19,6 +23,10 @@ export const getters = {
 export const mutations = {
   setBlogs(state, blogs) {
     state.blogs = blogs
+  },
+  setBlog(state, blog) {
+    state.blog = blog
+    state.blog.content = JSON.parse(blog.content)
   },
   addBlog(state, blog) {
     state.blogs = [...state.blogs, { blog }]
@@ -45,6 +53,12 @@ export const actions = {
     await commit('setMeta', meta)
     await commit('setLinks', links)
     await commit('setBlogs', result)
+  },
+  async fetchBlog({commit, state}, slug) {
+    const blog = await this.$axios.get(`/blog/${slug}`)
+    const result = await blog.data.data
+
+    await commit('setBlog', result)
   },
   async addBlog({commit, state}) {
 

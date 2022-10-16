@@ -3,6 +3,16 @@ import { mapGetters } from 'vuex'
 
 export default {
   layout: 'page',
+  watch: {
+    '$route.query.page': {
+      handler: async function(page) {
+        await this.$store.dispatch('blog/setCurrentPage', page)
+        window.scrollTo(0, 0)
+      },
+      deep: true,
+      immediate: true
+    }
+  },
   computed: {
     ...mapGetters({
       blogs: 'blog/getBlogs',
@@ -15,21 +25,13 @@ export default {
         return this.blogsMeta.current_page
       },
       async set(value) {
-        await this.$store.dispatch('blog/setCurrentPage', value)
-        await this.$router.replace({ name: 'news', query: { page: value } })
-        window.scrollTo(0, 0)
+        await this.$router.push({ name: 'news', query: { page: value } })
       },
     },
 
     hasPaginate() {
       return this.blogsMeta.last_page > 1
     },
-  },
-  async fetch() {
-    await this.$store.dispatch('blog/fetchBlogs')
-  },
-  data() {
-    return {}
   },
 }
 </script>
