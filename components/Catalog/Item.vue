@@ -6,6 +6,11 @@ export default {
       default: undefined,
     },
   },
+  methods: {
+    async goProduct() {
+      // await this.$router.push()
+    }
+  }
 }
 </script>
 
@@ -13,7 +18,7 @@ export default {
   <div
     class="flex flex-col justify-between rounded-lg border border-gray-900/10 dark:border-gray-50/20 shadow-sm p-3 w-full"
   >
-    <NuxtLink class="flex flex-col" :to="{ name: 'index' }">
+    <NuxtLink class="flex flex-col" :to="{ name: 'products-slug', params: { slug: product.slug} }">
       <NuxtImg
         loading="lazy"
         :src="`${$config.serverURL}/${product.thumb_url}`"
@@ -54,7 +59,7 @@ export default {
     </NuxtLink>
     <hr class="border-gray-900/10 dark:border-gray-50/20" />
     <div class="pt-3 align-bottom">
-      <Button text="Запросить" />
+      <Button @click="goProduct" text="Запросить" />
     </div>
   </div>
 </template>

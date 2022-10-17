@@ -15,6 +15,9 @@ export default {
     selectedBorderStyle() {
       return 'border-gray-900/10 dark:border-gray-50/20'
     },
+    selectedOnHoverBorderStyle() {
+      return 'dark:focus:border-white focus:border-gray-900'
+    },
     selectedPaddingStyle() {
       return this.paddingStyles[this.size] || this.paddingStyles.md
     },
@@ -45,7 +48,7 @@ export default {
   <textarea
     :type="type"
     :name="name"
-    :class="`w-full outline-none border rounded ${selectedBorderStyle} ${selectedPaddingStyle} ${selectedFontSizeStyle}`"
+    :class="`w-full outline-none border rounded ${selectedBorderStyle} ${selectedOnHoverBorderStyle} ${selectedPaddingStyle} ${selectedFontSizeStyle}`"
     @input="$emit('input', $event.target.value)"
     :placeholder="placeholder"
   />

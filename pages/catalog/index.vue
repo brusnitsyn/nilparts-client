@@ -7,7 +7,7 @@ export default {
     '$route.query.page': {
       handler: async function(page) {
         await this.$store.dispatch('products/setCurrentPage', page)
-        window.scrollTo(0, 0)
+        if (process.client) window.scrollTo(0, 0)
       },
       deep: true,
       immediate: true

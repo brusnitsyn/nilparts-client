@@ -1,0 +1,29 @@
+<script>
+export default {
+  props: {
+    label: {
+      type: String,
+      default: 'Option',
+    },
+    checked: {
+      type: Boolean,
+      default: false,
+    },
+  },
+}
+</script>
+
+<template>
+  <label class="flex w-fit items-center gap-2 group">
+    <input type="checkbox" class="hidden" :value="checked" />
+    <span
+      class="relative flex w-5 h-5 items-center justify-center rounded cursor-pointer bg-transparent border transition-colors hover:bg-primary-500 after:absolute after:content-[''] after:w-[4px] after:h-[6px] after:border-b-2 after:border-r-2 after:border after:rotate-[40deg] after:opacity-0 after:transition-opacity after:bg-transparent"
+      :class="{
+        'bg-primary group-hover:bg-primary after:opacity-100': checked,
+      }"
+    />
+    <span class="text-sm">{{ label }}</span>
+  </label>
+</template>
+
+<style scoped></style>
