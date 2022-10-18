@@ -28,12 +28,12 @@ export default {
 
 <template>
   <PageWrapper>
-    <PageBody>
+    <PageBody class="max-w-4xl mx-auto">
       <PageHeader>
         <PageTitle :text="blog.title" />
       </PageHeader>
       <PageSection>
-        <article v-if="blog.content.blocks" class="max-w-4xl mx-auto">
+        <article v-if="blog.content.blocks">
           <template v-for="block in blog.content.blocks">
             <h1 v-if="block.type === 'header' && block.data.level === 1" :key="block.id">
               {{ block.data.text }}

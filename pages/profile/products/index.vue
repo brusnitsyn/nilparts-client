@@ -5,9 +5,10 @@ export default {
   data() {
     return {
       params: {
-        data: [['ID', 'Артикул', 'Наименование', 'Действия']],
+        data: [['ID', 'Артикул', 'Наименование', '']],
         header: 'row',
-        enableSearch: true
+        enableSearch: true,
+        rowHeight: 48,
       },
     }
   },
@@ -15,7 +16,7 @@ export default {
     await this.$store.dispatch('products/fetchProducts')
   },
   mounted() {
-    const products = this.$store.state.products.products.map(({id, article, name}) => ({id, article, name}))
+    const products = this.$store.state.products.products.map(({id, article, name}) => ({id, article, name, actions: ''}))
     products.forEach(item => {
       this.params.data.push(Object.values(item))
     })
@@ -31,9 +32,14 @@ export default {
         <div>
           <VueTableDynamic :params="params">
             <template v-slot:column-3="{ props }">
-              <Button size="sm">
-                Редактировать
-              </Button>
+              <div class="flex gap-3">
+                <Button type="opposite" size="sm">
+                  Редактировать
+                </Button>
+                <Button type="secondary" size="sm">
+                  <iconify-icon icon="material-symbols:delete-outline-rounded" width="18" height="18" />
+                </Button>
+              </div>
             </template>
           </VueTableDynamic>
         </div>
