@@ -20,7 +20,7 @@ export default {
     <HeroSwiper />
     <PageWrapper>
       <PageBody>
-        <PageSection>
+        <PageSection v-if="categories.length">
           <PageSectionTitle text="Категории" />
           <ShortcutCategoryWrapper>
             <ShortcutCategoryItem
@@ -32,7 +32,7 @@ export default {
             <!--https://via.placeholder.com/320x114-->
           </ShortcutCategoryWrapper>
         </PageSection>
-        <PageSection>
+        <PageSection v-if="blogs.length">
           <PageSectionTitle
             text="Новости"
             :route="{ name: 'Все новости', to: { name: 'news' } }"

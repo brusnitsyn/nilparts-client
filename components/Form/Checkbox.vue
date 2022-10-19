@@ -7,7 +7,6 @@ export default {
     },
     checked: {
       type: Boolean,
-      default: false,
     },
   },
   computed: {

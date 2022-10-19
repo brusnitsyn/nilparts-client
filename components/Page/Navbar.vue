@@ -25,7 +25,7 @@ export default {
   <BuilderNavbar>
     <template #banner>
       <div
-        v-if="advert.text"
+        v-if="advert"
         class="text-white text-xs text-center py-1 px-4 lg:px-8 bg-primary-500"
       >
         <span class="mr-1">

@@ -59,10 +59,42 @@ export const actions = {
 
     await commit('setProduct', result)
   },
-  async addProduct({commit, state}) {
+  async addProduct({commit, state}, product) {
+    const data = formData(product)
+    const addedProduct = await this.$axios.post('/products', data)
+    const result = addedProduct.data.data
 
   },
   async setCurrentPage({commit, dispatch}, page) {
     await dispatch('fetchProducts', page)
   }
+}
+
+function formData(product = {}, update = false) {
+  const formData = new FormData();
+  formData.append('id', product.id)
+  if(product.name)
+    formData.append('name', product.name)
+  if(product.article)
+    formData.append('article', product.article)
+  if(product.manufacturer)
+    formData.append('manufacturer', product.manufacturer)
+  if(product.machines)
+    formData.append('machines', product.machines)
+  if(product.short_description)
+    formData.append('short_description', product.short_description)
+  if(product.full_description)
+    formData.append('full_description', product.full_description)
+  if(product.in_stock && product.in_stock === true || false)
+    formData.append('in_stock', product.in_stock)
+  if(product.images.length > 0)
+    product.images.forEach(image => {
+      formData.append('images[]', image.file)
+    })
+  if(product.category)
+    formData.append('category_id', product.category.id)
+  if(update)
+    formData.append('_method', 'PATCH')
+
+  return formData
 }

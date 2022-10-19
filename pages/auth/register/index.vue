@@ -1,6 +1,23 @@
 <script>
 export default {
-  layout: 'auth'
+  layout: 'auth',
+  data() {
+    return {
+      form: {
+        name: null,
+        email: null,
+        password: null
+      }
+    }
+  },
+  methods: {
+    async register() {
+      const data = await this.$axios.post('/users', this.form)
+      if (data.status === 201) {
+        await this.$auth.loginWith('laravelSanctum', {data: this.form})
+      }
+    }
+  }
 }
 </script>
 
@@ -15,11 +32,11 @@ export default {
       <template #body>
         <div class="pb-8">
           <div class="space-y-2 pb-4">
-            <FormTextInput type="name" placeholder="Имя"/>
-            <FormTextInput type="email" placeholder="Адрес электронной почты"/>
-            <FormTextInput type="password" placeholder="Пароль"/>
+            <FormTextInput v-model="form.name" type="name" placeholder="Имя"/>
+            <FormTextInput v-model="form.email" type="email" placeholder="Адрес электронной почты"/>
+            <FormTextInput v-model="form.password" type="password" placeholder="Пароль"/>
           </div>
-          <Button text="Зарегистрироваться"/>
+          <Button text="Зарегистрироваться" @click="register"/>
         </div>
       </template>
       <template #footer>

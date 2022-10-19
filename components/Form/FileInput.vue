@@ -27,8 +27,6 @@ export default {
           let id = this.files.length + 1
           image = { file: files[i], url, id, filename: files[i].name }
           this.files.push(image)
-
-          this.$emit('upload', image)
         }
       } else {
         let file = this.$refs.file.files.item(0)
