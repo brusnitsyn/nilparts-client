@@ -4,10 +4,7 @@ export default {
   middleware: '',
   data() {
     return {
-      form: {
-        email: '',
-        password: ''
-      }
+      form: {}
     }
   },
   methods: {

@@ -34,6 +34,9 @@ export default {
     removeFile(id) {
       this.form.images = this.form.images.filter(image => image.id !== id)
     },
+    selectCategory(id) {
+      this.form.category_id = id
+    }
   },
 }
 </script>

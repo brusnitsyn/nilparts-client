@@ -3,17 +3,13 @@ export default {
   layout: 'auth',
   data() {
     return {
-      form: {
-        name: null,
-        email: null,
-        password: null
-      }
+      form: {}
     }
   },
   methods: {
     async register() {
-      const data = await this.$axios.post('/users', this.form)
-      if (data.status === 201) {
+      const response = await this.$axios.post('/users', this.form)
+      if (response.status === 201) {
         await this.$auth.loginWith('laravelSanctum', {data: this.form})
       }
     }

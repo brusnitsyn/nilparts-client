@@ -81,6 +81,8 @@ function formData(product = {}, update = false) {
     formData.append('manufacturer', product.manufacturer)
   if(product.machines)
     formData.append('machines', product.machines)
+  if(product.price)
+    formData.append('price', product.price)
   if(product.short_description)
     formData.append('short_description', product.short_description)
   if(product.full_description)
@@ -91,8 +93,8 @@ function formData(product = {}, update = false) {
     product.images.forEach(image => {
       formData.append('images[]', image.file)
     })
-  if(product.category)
-    formData.append('category_id', product.category.id)
+  if(product.category_id)
+    formData.append('category_id', product.category_id)
   if(update)
     formData.append('_method', 'PATCH')
 

@@ -10,7 +10,7 @@ export default {
     ...mapGetters({
       slides: 'slides/getHeroSlides',
       advert: 'advert/getAdvert',
-    })
+    }),
   },
   data() {
     return {
@@ -45,7 +45,11 @@ export default {
     }
   },
   created() {
-    this.advertForm = deepClone(this.advert)
+    if(Object.keys(this.advert).length) {
+      this.advertForm = deepClone(this.advert)
+      if(this.advertForm.text === null)
+        this.advertForm.text = ''
+    }
   }
 }
 </script>
