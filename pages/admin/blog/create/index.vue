@@ -174,14 +174,14 @@ export default {
     <div
       class="sticky top-[49px] z-40 backdrop-filter backdrop-blur-md bg-white/50 dark:bg-slate-900/50 px-4"
     >
-      <div class="max-w-4xl mx-auto flex justify-between items-center py-2">
+      <div class="flex justify-between items-center py-2">
         <span> Новая новость </span>
         <Button type="secondary" @click="submit"> Опубликовать </Button>
       </div>
     </div>
     <PageWrapper>
       <PageBody>
-        <PageSection class="max-w-4xl mx-auto lg:px-4">
+        <PageSection class="lg:px-4">
           <PageSectionTitle text="Основная информация" />
           <Form>
             <template #body>
@@ -205,6 +205,6 @@ export default {
 :deep(.ce-block__content),
 :deep(.ce-toolbar__content),
 :deep(.cdx-block) {
-  max-width: 56rem;
+  max-width: none;
 }
 </style>

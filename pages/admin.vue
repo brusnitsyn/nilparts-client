@@ -6,5 +6,7 @@ export default {
 </script>
 
 <template>
-  <NuxtChild />
+  <div class="max-w-8xl">
+    <NuxtChild />
+  </div>
 </template>

@@ -23,7 +23,7 @@ export default {
     ref="navbar"
     class="backdrop-filter backdrop-blur-md top-0 z-40 w-full transition-colors duration-300 lg:z-50 border-b border-gray-900/10 dark:border-gray-50/20 bg-white/50 dark:bg-slate-900/50 sticky"
   >
-    <div class="max-w-8xl w-full mx-auto">
+    <div class="max-w-8xl">
       <div class="py-3 lg:px-8 mx-4 lg:mx-0">
         <div class="relative flex justify-between items-center">
           <div class="flex justify-between">
