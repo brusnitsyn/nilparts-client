@@ -37,3 +37,5 @@ export const findMax = (array, field) => {
   if (!array || array.lenght === 0) return 1
   return Math.max(...array.map(o => o[field]), 0)
 }
+
+export const varToString = varObj => Object.keys(varObj)[0]

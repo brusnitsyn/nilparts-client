@@ -8,6 +8,11 @@ export default {
     host: '0.0.0.0'
   },
 
+  loading: {
+    color: '#1f2937',
+    height: '2px'
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Chinaved',
@@ -34,6 +39,13 @@ export default {
   plugins: [
     {
       src: '~/plugins/teleport.js'
+    },
+    {
+      src: "~/plugins/filters.js"
+    },
+    {
+      src: "~/plugins/table.js",
+      ssr: false
     }
   ],
 

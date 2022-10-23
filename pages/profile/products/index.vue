@@ -29,7 +29,7 @@ export default {
     <PageBody>
       <PageSection>
         <PageSectionTitle text="Мои товары" :route="{name: 'Добавить товар', to: {name: 'profile-products-create'}}" />
-        <div>
+        <ClientOnly>
           <VueTableDynamic :params="params">
             <template v-slot:column-3="{ props }">
               <div class="flex gap-3">
@@ -42,7 +42,7 @@ export default {
               </div>
             </template>
           </VueTableDynamic>
-        </div>
+        </ClientOnly>
       </PageSection>
     </PageBody>
   </PageWrapper>

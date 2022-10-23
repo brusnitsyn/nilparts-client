@@ -81,7 +81,7 @@ export default {
             >
               <span class="sr-only">home</span>
               <span class="flex items-center">
-                <iconify-icon icon="logos:nuxt-icon" />
+<!--                <iconify-icon icon="logos:nuxt-icon" />-->
                 {{ name }}
               </span>
             </NuxtLink>

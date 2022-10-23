@@ -28,6 +28,7 @@ export default {
               :key="cat.id"
               :text="cat.name"
               :image="cat.image"
+              :to="{ name: 'catalog', query: { category: cat.id } }"
             />
             <!--https://via.placeholder.com/320x114-->
           </ShortcutCategoryWrapper>
