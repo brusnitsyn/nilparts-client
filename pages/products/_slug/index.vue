@@ -166,7 +166,7 @@ export default {
             </div>
           </Skeleton>
           <Skeleton :is-loaded="loaded" :rep="5" :m="null" skeleton-class="mb-2">
-            <div class="flex flex-col space-y-2">
+            <div v-if="product.short_description" class="flex flex-col space-y-2">
               <span class="self-start bg-gray-100 rounded-lg px-4 py-3">
                 Описание
               </span>
