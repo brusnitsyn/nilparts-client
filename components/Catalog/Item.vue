@@ -78,7 +78,15 @@ export default {
     <hr class="border-gray-900/10 dark:border-gray-50/20" />
     <div class="pt-3 align-bottom">
       <Skeleton :is-loaded="!isLoaded" h="40px" skeleton-class="">
-        <Button @click="goProduct" text="Запросить" />
+        <div class="flex flex-row justify-between gap-x-4">
+          <div class="flex-1">
+            <Button v-if="product.in_stock" @click="goProduct" text="Купить" />
+            <Button v-else text="Нет в наличии" disabled />
+          </div>
+          <Button type="none" class="w-[40px]">
+            <iconify-icon icon="material-symbols:favorite-outline-rounded" width="20" />
+          </Button>
+        </div>
       </Skeleton>
     </div>
   </div>

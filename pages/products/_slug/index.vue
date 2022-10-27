@@ -146,7 +146,7 @@ export default {
               </div>
               <div
                 v-else
-                class="flex flex-row items-center gap-x-1 text-white bg-red-600 px-2 py-1 rounded-lg text-sm"
+                class="self-start flex flex-row items-center gap-x-1 text-white bg-red-600 px-2 py-1 rounded-lg text-sm"
               >
                 <iconify-icon
                   icon="material-symbols:error-circle-rounded-outline"
@@ -162,7 +162,8 @@ export default {
                 {{ product.prices[0].price | toRuble }}
               </h2>
 
-              <Button class="w-1/2 lg:w-1/3"> Купить </Button>
+              <Button v-if="product.in_stock" class="w-1/2 lg:w-1/3"> Купить </Button>
+              <Button v-else class="w-1/2 lg:w-1/3" text="Нет в наличии" disabled />
             </div>
           </Skeleton>
           <Skeleton :is-loaded="loaded" :rep="5" :m="null" skeleton-class="mb-2">

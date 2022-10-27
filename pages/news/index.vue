@@ -29,6 +29,10 @@ export default {
       },
     },
 
+    hasContent() {
+      return this.blogs.length
+    },
+
     hasPaginate() {
       return this.blogsMeta.last_page > 1
     },
@@ -43,13 +47,14 @@ export default {
         <PageTitle text="Новости" />
       </PageHeader>
       <PageSection>
-        <NewsWrapper>
+        <NewsWrapper v-if="hasContent">
           <NewsItem
             v-for="(blog, index) in blogs"
             :key="blog.id"
             :model="blog"
           />
         </NewsWrapper>
+        <EmptyResult v-else text="Эта страница пока пуста..."/>
         <Pagination
           v-if="hasPaginate"
           :current="currentPage"

@@ -22,7 +22,7 @@ export default {
         :key="index"
         class=""
       >
-        <NuxtLink class="btn btn-link" :class="{ 'text-primary-500': isLast(index) }" :to="crumb.to">
+        <NuxtLink class="btn btn-link" :class="{ 'text-primary-500 font-medium': isLast(index) }" :to="crumb.to">
           {{ crumb.title }}
         </NuxtLink>
         <span v-if="!isLast(index)" class="px-2 text-sm">

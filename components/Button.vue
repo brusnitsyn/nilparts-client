@@ -24,16 +24,22 @@ export default {
     loading: {
       type: Boolean,
       default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
-      defaultStyle: 'select-none cursor-pointer border transition-color duration-300 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:dark:ring-offset-gray-50 focus:dark:ring-gray-400 focus:ring-gray-600/60 focus:ring-offset-gray-800/60 flex items-center justify-center gap-x-2 font-semibold',
+      defaultStyle: 'select-none border transition-color duration-300 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:dark:ring-offset-gray-50 focus:dark:ring-gray-400 focus:ring-gray-600/60 focus:ring-offset-gray-800/60 flex items-center justify-center gap-x-2 font-semibold',
       styles: {
-        none: '',
-        primary: 'text-white bg-primary-500 hover:bg-primary-400 border-primary-500',
-        secondary: 'text-slate-800 bg-gray-200 border-gray-200 hover:bg-gray-300 dark:text-white dark:border-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700',
-        opposite: 'text-white bg-gray-800 hover:bg-white hover:text-gray-800 hover:border-gray-900 dark:text-gray-800 dark:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-100 dark:border-white'
+        none: 'cursor-pointer bg-transparent',
+        default: 'cursor-pointer',
+        primary: 'cursor-pointer text-white bg-primary-500 hover:bg-primary-400 border-primary-500',
+        secondary: 'cursor-pointer text-slate-800 bg-gray-200 border-gray-200 hover:bg-gray-300 dark:text-white dark:border-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700',
+        opposite: 'cursor-pointer text-white bg-gray-800 hover:bg-white hover:text-gray-800 hover:border-gray-900 dark:text-gray-800 dark:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-100 dark:border-white',
+        disabled: 'text-slate-800 bg-gray-100 dark:text-white dark:border-slate-800 dark:bg-slate-800'
       },
       sizes: {
         lg: 'h-13 px-8 text-lg rounded-lg',
@@ -45,6 +51,9 @@ export default {
   },
   computed: {
     selectedStyle() {
+      if(this.disabled)
+        return this.styles.disabled
+
       return this.styles[this.type] || this.styles.primary
     },
     selectedSize() {

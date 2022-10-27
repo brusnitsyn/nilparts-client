@@ -1,5 +1,5 @@
 export default function ({ $auth, redirect }) {
-  if (!$auth.hasScope('admin')) {
+  if ($auth.user.role !== 'admin') {
     return redirect('/')
   }
 }

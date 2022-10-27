@@ -1,7 +1,7 @@
 <script>
 export default {
   layout: 'admin',
-  middleware: ['auth']
+  middleware: ['auth', 'isAdmin']
 }
 </script>
 
