@@ -88,6 +88,11 @@ export const actions = {
     await commit('setLinks', links)
     await commit('setProducts', result)
   },
+  async fetchMyProducts({commit, state}, params) {
+    const products = await this.$axios.get(`/users/${this.$auth.user.id}?with=products`)
+
+    // const
+  },
   async fetchProduct({ commit, state }, slug) {
     const product = await this.$axios.get(`/products/${slug}?with=attachments`)
     const result = await product.data.data
