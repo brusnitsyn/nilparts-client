@@ -1,7 +1,17 @@
 <script>
+import {mapGetters} from "vuex";
+
 export default {
   layout: 'profile',
-  middleware: 'auth'
+  middleware: 'auth',
+  computed: {
+    ...mapGetters({
+      products: 'products/getProducts'
+    })
+  },
+  async fetch() {
+    await this.$store.dispatch('products/fetchMyProducts')
+  },
 }
 </script>
 
@@ -17,7 +27,7 @@ export default {
             </template>
             <template #option>
               <span>
-                Активных: 4
+                Добавлено: {{ products.length }}
               </span>
             </template>
           </ProfileNavItem>

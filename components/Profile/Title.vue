@@ -23,7 +23,7 @@ export default {
             <iconify-icon icon="material-symbols:admin-panel-settings-rounded" weigth="18" height="18" />
           </template>
         </Button>
-        <Button type="opposite" text="Редактировать">
+        <Button type="opposite" text="Редактировать" :to="{ name: 'profile-edit' }">
           <template #icon>
             <iconify-icon icon="material-symbols:edit-rounded" weigth="18" height="18" />
           </template>

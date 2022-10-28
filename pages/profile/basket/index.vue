@@ -9,7 +9,7 @@ export default {
   <PageWrapper>
     <PageBody>
       <PageSection>
-        <PageSectionTitle text="Избранное" />
+        <PageSectionTitle text="Моя корзина" />
       </PageSection>
     </PageBody>
   </PageWrapper>
