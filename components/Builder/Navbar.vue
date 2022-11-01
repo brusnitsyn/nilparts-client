@@ -131,7 +131,7 @@ export default {
         <!--            </div>-->
         <!--          </div>-->
         <!--        </Transition>-->
-        <ActionSheetOverlay v-if="showOptions" @click="close"/>
+        <ActionSheetOverlay v-if="showOptions" @click="toggleOptions(false)"/>
         <!-- options -->
         <Transition name="slide-fade-from-up">
             <slot
@@ -146,19 +146,23 @@ export default {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .slide-fade-from-up-enter-active {
   transition: all 0.3s ease-out;
 }
 
 .slide-fade-from-up-leave-active {
-  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 0.16s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
-.slide-fade-from-up-enter-from,
+.slide-fade-from-up-enter-from {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
 .slide-fade-from-up-leave-to {
   transform: translateY(100%);
-  opacity: 0;
+  opacity: 1;
 }
 
 a.router-link-active {
