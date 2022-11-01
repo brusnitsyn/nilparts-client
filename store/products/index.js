@@ -90,7 +90,7 @@ export const actions = {
   },
   async fetchMyProducts({commit, state}, params) {
     const result = await this.$axios.get(`/users/${this.$auth.user.id}?with=products`)
-    const products = result.data.data.user.products
+    const products = result.data.data.products
 
     await commit('setProducts', products)
   },

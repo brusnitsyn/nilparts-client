@@ -16,13 +16,13 @@ export default {
 
 <template>
   <nav>
-    <ol class="flex flex-row items-center">
+    <ol class="flex flex-row items-center flex-wrap">
       <li
         v-for="(crumb, index) in crumbs"
         :key="index"
-        class=""
+        class="inline-flex items-center"
       >
-        <NuxtLink class="btn btn-link" :class="{ 'text-primary-500 font-medium': isLast(index) }" :to="crumb.to">
+        <NuxtLink class="w-full" :class="{ 'text-primary-500 font-medium': isLast(index) }" :to="crumb.to">
           {{ crumb.title }}
         </NuxtLink>
         <span v-if="!isLast(index)" class="px-2 text-sm">

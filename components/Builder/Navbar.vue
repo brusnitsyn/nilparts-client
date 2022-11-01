@@ -20,8 +20,8 @@ export default {
       },
       async set(value) {
         await this.$store.dispatch('app/setNavbarShowOptions', value)
-      }
-    }
+      },
+    },
   },
   methods: {
     updateDrawerOptions() {
@@ -37,8 +37,8 @@ export default {
     toggleOptions(show) {
       this.showOptions = show
       this.updateDrawerOptions()
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -48,30 +48,30 @@ export default {
     class="backdrop-filter backdrop-blur-md top-0 z-40 w-full flex-none transition-colors duration-300 lg:z-50 border-b border-gray-900/10 dark:border-gray-50/20 bg-white/50 dark:bg-slate-900/50 sticky"
   >
     <div id="navbar-banner" class="banner">
-      <slot name="banner"/>
+      <slot name="banner" />
     </div>
     <div class="max-w-8xl w-full mx-auto">
       <div class="py-3 lg:px-8 mx-4 lg:mx-0">
         <div class="relative flex items-center">
           <!-- drawer:toggle -->
-<!--          <div-->
-<!--            v-if="$slots['drawer']"-->
-<!--            class="lg:hidden flex items-center self-center justify-center mr-2"-->
-<!--          >-->
-<!--            <button-->
-<!--              class="flex items-center focus:outline-none"-->
-<!--              aria-label="Toggle Drawer Menu"-->
-<!--              @click="toggleDrawer(true)"-->
-<!--            >-->
-<!--              <span-->
-<!--                class="flex items-center text-gray-600 dark:text-gray-300 text-lg"-->
-<!--                aria-hidden="true"-->
-<!--              >-->
-<!--                <iconify-icon icon="uil:bars" v-if="!showDrawer"/>-->
-<!--                <iconify-icon icon="uil:times" v-else/>-->
-<!--              </span>-->
-<!--            </button>-->
-<!--          </div>-->
+          <!--          <div-->
+          <!--            v-if="$slots['drawer']"-->
+          <!--            class="lg:hidden flex items-center self-center justify-center mr-2"-->
+          <!--          >-->
+          <!--            <button-->
+          <!--              class="flex items-center focus:outline-none"-->
+          <!--              aria-label="Toggle Drawer Menu"-->
+          <!--              @click="toggleDrawer(true)"-->
+          <!--            >-->
+          <!--              <span-->
+          <!--                class="flex items-center text-gray-600 dark:text-gray-300 text-lg"-->
+          <!--                aria-hidden="true"-->
+          <!--              >-->
+          <!--                <iconify-icon icon="uil:bars" v-if="!showDrawer"/>-->
+          <!--                <iconify-icon icon="uil:times" v-else/>-->
+          <!--              </span>-->
+          <!--            </button>-->
+          <!--          </div>-->
           <!-- title -->
           <slot name="title">
             <NuxtLink
@@ -81,22 +81,19 @@ export default {
             >
               <span class="sr-only">home</span>
               <span class="flex items-center">
-<!--                <iconify-icon icon="logos:nuxt-icon" />-->
+                <!--                <iconify-icon icon="logos:nuxt-icon" />-->
                 {{ name }}
               </span>
             </NuxtLink>
           </slot>
           <!-- menu -->
-          <slot name="menu"/>
+          <slot name="menu" />
           <!-- options:toggle -->
-          <div
-
-            class="flex-1 flex justify-end lg:hidden items-center gap-x-4"
-          >
+          <div class="flex-1 flex justify-end md:hidden items-center gap-x-4">
             <button
               class="flex items-center focus:outline-none"
               aria-label="To Search Page"
-              @click="$router.push({name: 'search'})"
+              @click="$router.push({ name: 'search' })"
             >
               <span
                 class="flex items-center text-gray-600 dark:text-gray-300"
@@ -124,25 +121,26 @@ export default {
     <ClientOnly>
       <Portal to="app-after">
         <!-- drawer -->
-<!--        <Transition name="slide-fade-from-up" mode="out-in">-->
-<!--          <div-->
-<!--            v-if="showDrawer"-->
-<!--            class="fixed lg:hidden bg-gray-100 dark:bg-slate-800 pt-12 top-0 left-0 w-screen h-screen z-30 flex flex-col"-->
-<!--          >-->
-<!--            <div class="flex-1 flex flex-col relative overflow-y-auto">-->
-<!--              <slot name="drawer" :toggle-drawer="toggleDrawer"/>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </Transition>-->
-
+        <!--        <Transition name="slide-fade-from-up" mode="out-in">-->
+        <!--          <div-->
+        <!--            v-if="showDrawer"-->
+        <!--            class="fixed lg:hidden bg-gray-100 dark:bg-slate-800 pt-12 top-0 left-0 w-screen h-screen z-30 flex flex-col"-->
+        <!--          >-->
+        <!--            <div class="flex-1 flex flex-col relative overflow-y-auto">-->
+        <!--              <slot name="drawer" :toggle-drawer="toggleDrawer"/>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </Transition>-->
+        <ActionSheetOverlay v-if="showOptions" @click="close"/>
         <!-- options -->
-        <div v-if="showOptions">
-          <slot
-            name="options"
-            :toggle-options="toggleOptions"
-            :show-options="showOptions"
-          />
-        </div>
+        <Transition name="slide-fade-from-up">
+            <slot
+              v-if="showOptions"
+              name="options"
+              :toggle-options="toggleOptions"
+              :show-options="showOptions"
+            />
+        </Transition>
       </Portal>
     </ClientOnly>
   </div>
@@ -159,7 +157,7 @@ export default {
 
 .slide-fade-from-up-enter-from,
 .slide-fade-from-up-leave-to {
-  transform: translateY(-20px);
+  transform: translateY(100%);
   opacity: 0;
 }
 

@@ -13,7 +13,7 @@ export default {
     }
   },
   async fetch() {
-    await this.$store.dispatch('products/fetchProducts')
+    await this.$store.dispatch('products/fetchMyProducts')
   },
   mounted() {
     const products = this.$store.state.products.products.map(({id, article, name}) => ({id, article, name, actions: ''}))

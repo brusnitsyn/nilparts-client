@@ -1,7 +1,7 @@
 export default {
   publicRuntimeConfig: {
-    serverURL: process.env.NODE_ENV === 'production' ? process.env.SERVER_URL : 'http://192.168.31.22:8000',
-    serverAPI: process.env.NODE_ENV === 'production' ? process.env.SERVER_API : 'http://192.168.31.22:8000/api',
+    serverURL: process.env.NODE_ENV === 'production' ? process.env.SERVER_URL : 'http://192.168.1.109:8000',
+    serverAPI: process.env.NODE_ENV === 'production' ? process.env.SERVER_API : 'http://192.168.1.109:8000/api',
   },
 
   server: {
@@ -10,7 +10,7 @@ export default {
 
   loading: {
     color: '#1f2937',
-    height: '2px'
+    height: '4px'
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -41,10 +41,10 @@ export default {
       src: '~/plugins/teleport.js'
     },
     {
-      src: "~/plugins/filters.js"
+      src: '~/plugins/filters.js'
     },
     {
-      src: "~/plugins/table.js",
+      src: '~/plugins/table.js',
       ssr: false
     }
   ],
@@ -68,12 +68,23 @@ export default {
     'portal-vue/nuxt',
     'unplugin-icons/nuxt',
     '@nuxt/image',
+    [
+      '@nuxtjs/yandex-metrika',
+      {
+        id: 'XXXXXX',
+        webvisor: true,
+        // clickmap: true,
+        // useCDN: false,
+        // trackLinks: true,
+        // accurateTrackBounce: true,
+      }
+    ]
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: 'http://192.168.31.22:8000/api',
+    baseURL: 'http://192.168.1.109:8000/api',
     credentials: true
   },
 
@@ -81,7 +92,7 @@ export default {
     strategies: {
       'laravelSanctum': {
         provider: 'laravel/sanctum',
-        url: 'http://192.168.31.22:8000',
+        url: 'http://192.168.1.109:8000',
         endpoints: {
           login: {url: '/api/auth/login', method: 'post'},
           logout: {url: '/api/auth/logout', method: 'post'},
@@ -120,6 +131,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    publicPath: '/.nuxt/dist/client',
     postcss: {
       plugins: {
         tailwindcss: {},

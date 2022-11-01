@@ -30,7 +30,7 @@ export default {
         <PageFooter/>
       </slot>
     </div>
-    <PortalTarget name="app-after"/>
+    <PortalTarget name="app-after" multiple />
     <div id="app-after"></div>
   </div>
 </template>

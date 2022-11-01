@@ -48,7 +48,7 @@ export default {
       </div>
     </template>
     <template #menu>
-      <div class="relative hidden lg:flex items-center ml-auto">
+      <div class="relative hidden md:flex items-center ml-auto">
         <nav
           class="text-sm leading-6 font-medium text-gray-600 dark:text-gray-300"
           role="navigation"

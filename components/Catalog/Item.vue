@@ -35,7 +35,7 @@ export default {
         <NuxtImg
           loading="lazy"
           :src="`${$config.serverURL}/${product.thumb_url}`"
-          class="rounded-lg h-[196px] w-full md:w-[294px] object-cover"
+          class="rounded-lg h-[196px] w-full lg:w-[294px] object-cover"
         />
       </Skeleton>
       <div class="pt-1.5">
@@ -83,9 +83,10 @@ export default {
             <Button v-if="product.in_stock" @click="goProduct" text="Купить" />
             <Button v-else text="Нет в наличии" disabled />
           </div>
-          <Button type="none" class="w-[40px]">
-            <iconify-icon icon="material-symbols:favorite-outline-rounded" width="20" />
-          </Button>
+          <button class="w-[40px] flex justify-center items-center">
+<!--            <iconify-icon icon="material-symbols:favorite-outline-rounded" width="22" />-->
+            <iconify-icon icon="material-symbols:favorite-rounded" width="26" class="text-red-500" />
+          </button>
         </div>
       </Skeleton>
     </div>
