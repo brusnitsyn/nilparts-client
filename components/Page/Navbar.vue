@@ -14,6 +14,9 @@ export default {
         this.advert.text !== null
       )
     },
+    actionSheetHeader() {
+      return this.$auth.loggedIn ? `Привет, ${this.$auth.user.name}` : 'CHINAVED'
+    }
   },
   data() {
     return {
@@ -119,7 +122,7 @@ export default {
     <template #options="{ toggleOptions }">
       <ActionSheet @onClose="toggleOptions(false)">
         <ActionSheetBody>
-          <ActionSheetHeader text="Мобильное меню" />
+          <ActionSheetHeader :text="actionSheetHeader" />
           <nav class="leading-6 font-medium text-gray-600 dark:text-gray-300">
             <ul class="flex flex-col">
               <li
@@ -150,7 +153,7 @@ export default {
                 <Button
                   v-if="$auth.loggedIn"
                   text="Мой профиль"
-                  class="font-semibold capitalize"
+                  class="font-semibold normal-case"
                   :to="{ name: 'profile' }"
                 />
                 <Button

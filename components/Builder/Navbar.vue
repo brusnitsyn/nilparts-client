@@ -132,14 +132,14 @@ export default {
         <!--          </div>-->
         <!--        </Transition>-->
         <ActionSheetOverlay v-if="showOptions" @click="toggleOptions(false)"/>
-        <!-- options -->
-        <Transition name="slide-fade-from-up">
-            <slot
-              v-if="showOptions"
-              name="options"
-              :toggle-options="toggleOptions"
-              :show-options="showOptions"
-            />
+        <Transition name="slide-fade-from-up" appear>
+          <!-- options -->
+          <slot
+            v-if="showOptions"
+            name="options"
+            :toggle-options="toggleOptions"
+            :show-options="showOptions"
+          />
         </Transition>
       </Portal>
     </ClientOnly>
@@ -152,17 +152,12 @@ export default {
 }
 
 .slide-fade-from-up-leave-active {
-  transition: all 0.16s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 0.28s;
 }
 
-.slide-fade-from-up-enter-from {
-  transform: translateY(-100%);
-  opacity: 0;
-}
-
+.slide-fade-from-up-enter-from,
 .slide-fade-from-up-leave-to {
   transform: translateY(100%);
-  opacity: 1;
 }
 
 a.router-link-active {

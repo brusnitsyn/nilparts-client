@@ -30,7 +30,22 @@ export default {
         <PageFooter/>
       </slot>
     </div>
-    <PortalTarget name="app-after" multiple />
+    <PortalTarget name="app-after" multiple  />
     <div id="app-after"></div>
   </div>
 </template>
+
+<style lang="scss">
+.slide-fade-from-up-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-from-up-leave-active {
+  transition: all 0.28s;
+}
+
+.slide-fade-from-up-enter-from,
+.slide-fade-from-up-leave-to {
+  transform: translateY(100%);
+}
+</style>

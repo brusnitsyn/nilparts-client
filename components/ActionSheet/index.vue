@@ -1,15 +1,6 @@
-<script>
-export default {
-  methods: {
-    close() {
-      setTimeout(() => this.$emit('onClose'), 100)
-    }
-  }
-}
-</script>
-
 <template>
   <div
+    key="actionSheet"
     class="fixed bottom-0 w-screen z-50 flex"
     style="max-height: 66.666667%"
   >
