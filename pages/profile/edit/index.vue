@@ -34,7 +34,7 @@ export default {
             <FormTextInput type="email" v-model="profileForm.email" placeholder="Электронная почта" />
           </template>
           <template #footer>
-            <div class="flex justify-end">
+            <div class="flex">
               <Button>
                 Сохранить
               </Button>

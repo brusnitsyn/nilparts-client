@@ -8,8 +8,11 @@ export default {
 <template>
   <PageWrapper>
     <PageBody>
+      <PageHeader>
+        <PageTitle text="Избранное" />
+      </PageHeader>
       <PageSection>
-        <PageSectionTitle text="Избранное" />
+
       </PageSection>
     </PageBody>
   </PageWrapper>

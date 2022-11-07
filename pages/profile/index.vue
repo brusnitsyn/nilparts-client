@@ -31,16 +31,16 @@ export default {
               </span>
             </template>
           </ProfileNavItem>
-<!--          <ProfileNavItem text="Моя корзина">-->
-<!--            <template #icon>-->
-<!--              <iconify-icon icon="material-symbols:shopping-cart-outline-rounded" width="24" height="24"></iconify-icon>-->
-<!--            </template>-->
-<!--            <template #option>-->
-<!--              <span>-->
-<!--                Товаров: 4-->
-<!--              </span>-->
-<!--            </template>-->
-<!--          </ProfileNavItem>-->
+          <ProfileNavItem text="Моя корзина" :to="{name: 'profile-basket'}">
+            <template #icon>
+              <iconify-icon icon="material-symbols:shopping-cart-outline-rounded" width="24" height="24"></iconify-icon>
+            </template>
+            <template #option>
+              <span>
+                Товаров: 4
+              </span>
+            </template>
+          </ProfileNavItem>
           <ProfileNavItem text="Мои избранные" :to="{name: 'profile-favorite'}">
             <template #icon>
               <iconify-icon icon="material-symbols:favorite-outline-rounded" width="24" height="24"></iconify-icon>

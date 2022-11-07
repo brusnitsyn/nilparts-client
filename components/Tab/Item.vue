@@ -4,16 +4,16 @@ const props = defineProps(['active'])
 </script>
 
 <template>
-  <div class="tab" :class="active === 'true' ? 'active' : ''">
+  <div class="tab" :class="active ? 'active' : ''">
     <slot></slot>
   </div>
 </template>
 
 <style>
 .tab {
-  display: none;
+  @apply hidden;
 }
 .tab.active {
-  display: block;
+  @apply block;
 }
 </style>

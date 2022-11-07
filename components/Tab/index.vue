@@ -32,68 +32,33 @@ const changeTab = (index) => {
 
 <template>
   <div id="tabs-container" :class="customClass" ref="tabContainer">
-    <div id="tab-headers">
-      <ul class="overscroll-x-contain overflow-x-scroll h-full">
-        <!-- this shows all of the titles -->
+    <div class="mb-2">
+      <ul
+        id="tab-headers"
+        class="inline-flex space-x-2 overscroll-x-contain overflow-x-scroll"
+      >
         <li
           v-for="(tab, index) in tabs"
           :key="index"
+          class="cursor-pointer self-start bg-gray-100 rounded-lg px-4 py-3"
           :class="activeTabIndex === index ? 'active' : ''"
           @click="changeTab(index)"
           ref="tabHeaders"
         >
           {{ tab.title }}
-          <span class="absolute -bottom-[2px] w-full h-[2px] bg-primary-500" />
         </li>
       </ul>
     </div>
-    <!-- this is where the tabs go, in this slot -->
     <div id="active-tab">
-      <slot></slot>
+      <slot />
     </div>
   </div>
 </template>
 
-<style>
-#tab-headers ul {
-  @apply w-full relative inline-flex m-0 p-0 border-b-2 border-b-gray-200;
-  padding-bottom: -2px;
-  scrollbar-width: none;
-}
-
-#tab-headers ul::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-  background: transparent;
-}
-#tab-headers ul::-webkit-scrollbar-thumb {
-  @apply bg-transparent;
-}
-
-#tab-headers ul li {
-  list-style: none;
-  padding: 1rem 1.25rem;
-  @apply whitespace-nowrap relative cursor-pointer h-full flex flex-col;
-}
-#tab-headers ul li.active {
-  @apply text-primary-500 font-bold;
-}
-
-#tab-headers ul li.active:after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  height: 2px;
-  width: 100%;
-  @apply bg-primary-500;
-}
-#active-tab,
+<style lang="scss" scoped>
 #tab-headers {
-  width: 100%;
-}
-
-#active-tab {
-  padding: 0.75rem;
+  .active {
+    @apply text-primary-500;
+  }
 }
 </style>

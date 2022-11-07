@@ -8,7 +8,7 @@ export default {
   },
   computed: {
     style() {
-      return 'rounded-lg border px-2 py-1 text-sm border-gray-900/10 dark:border-gray-50/20'
+      return 'rounded-lg border px-2 py-1 text-sm bg-white border-gray-900/10 dark:border-gray-50/20'
     }
   },
   methods: {
