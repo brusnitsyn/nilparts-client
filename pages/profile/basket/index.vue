@@ -14,8 +14,9 @@ export default {
         let noStocks = []
         if (value) {
           this.testItems.forEach(function (item) {
-            if (item.in_stock) selected.push(item.id)
-            else noStocks.push(item)
+            // if (item.in_stock) selected.push(item.id)
+            // else noStocks.push(item)
+            selected.push(item.id)
           })
         }
         this.productsNoStock = noStocks
@@ -42,7 +43,9 @@ export default {
       this.selected = value
     },
   },
-  async fetch() {},
+  async fetch() {
+    this.selectAll = true
+  },
 }
 </script>
 
@@ -114,7 +117,7 @@ export default {
                     <span>Условия заказа отсутствуют</span>
                   </div>
                   <div>
-                    <Button class="h-[48px] mt-3">
+                    <Button :to="{name: 'profile-basket-checkout'}" class="h-[48px] mt-3">
                       Перейти к оформлению
                     </Button>
                   </div>

@@ -59,4 +59,7 @@ export const actions = {
     await commit('setLinks', links)
     await commit('setProducts', result)
   },
+  async addProduct({commit, state}, product) {
+
+  }
 }

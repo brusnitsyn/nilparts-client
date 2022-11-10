@@ -7,38 +7,42 @@ export default {
   props: {
     label: {
       type: String,
-      default: 'Option',
+      default: null,
+    },
+    value: {
+      type: [String, Boolean],
+      default: null,
     },
     modelValue: {
-      type: Boolean,
-      default: false,
+      type: [Array, Boolean],
+      default: () => [],
     },
   },
-  emits: ['update:modelValue'],
-  // computed: {
-  //   model: {
-  //     get() {
-  //       return this.checked
-  //     },
-  //     set(value) {
-  //       this.$emit('input', value)
-  //     }
-  //   }
-  // }
+
+  data() {
+    return {
+      defaultStyle:
+        "appearance-none w-5 h-5 flex items-center justify-center rounded border transition-colors hover:border-primary-500 checked:bg-primary-500 checked:border-primary-500 after:content-[''] after:w-[5px] after:h-[9px] after:border-b-2 after:border-r-2 after:border-white after:rotate-[40deg]",
+    }
+  },
+  methods: {
+    onChange(value, checked) {
+      this.$emit('input', checked)
+    },
+  },
 }
 </script>
 
 <template>
   <label class="flex w-fit items-center gap-2 cursor-pointer group">
-    <input type="checkbox" class="hidden" @change="$emit('input', $event.target.checked)" :value="modelValue" />
-    <span
-      class="relative flex w-5 h-5 items-center justify-center rounded border transition-colors group-hover:bg-primary-500 group-hover:border-primary-500 after:absolute after:content-[''] after:w-[6px] after:h-[9px] after:border-b-2 after:border-r-2 after:rotate-[40deg] after:transition-opacity after:bg-transparent"
-      :class="{
-        'bg-primary-500 border-primary-500 after:opacity-100': $attrs.value,
-        'bg-transparent after:opacity-0': !$attrs.value
-      }"
+    <input
+      type="checkbox"
+      :value="value"
+      :checked="value"
+      @change.prevent="(evt) => onChange(evt.target.value, evt.target.checked)"
+      :class="defaultStyle"
     />
-    <span class="text-sm" v-if="label.length">{{ label }}</span>
+    <span class="text-sm" v-if="label && label.length">{{ label }}</span>
   </label>
 </template>
 

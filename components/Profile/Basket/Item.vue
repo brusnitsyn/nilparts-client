@@ -18,9 +18,9 @@ export default {
       },
       set(value) {
         this.$emit('selected-updated', value)
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>
 
@@ -32,21 +32,16 @@ export default {
       <label>
         <input
           type="checkbox"
-          class="hidden"
+          class="appearance-none w-5 h-5 flex items-center justify-center rounded border transition-colors hover:border-primary-500 checked:bg-primary-500 checked:border-primary-500 after:content-[''] after:w-[5px] after:h-[9px] after:border-b-2 after:border-r-2 after:border-white after:rotate-[40deg]"
           v-model="selectedModel"
           :value="item.id"
-        />
-        <span
-          class="relative flex w-5 h-5 items-center justify-center rounded border transition-colors group-hover:bg-primary-500 group-hover:border-primary-500 after:absolute after:content-[''] after:w-[6px] after:h-[9px] after:border-b-2 after:border-r-2 after:rotate-[40deg] after:transition-opacity after:bg-transparent"
-          :class="{
-          'bg-primary-500 border-primary-500 after:opacity-100': isSelected,
-          'bg-transparent after:opacity-0': !isSelected,
-        }"
         />
       </label>
     </div>
     <div class="flex flex-row space-x-2 w-full">
-      <div class="rounded-lg overflow-clip w-[80px] h-[80px] md:w-[120px] md:h-[120px]">
+      <div
+        class="rounded-lg overflow-clip w-[80px] h-[80px] md:w-[120px] md:h-[120px]"
+      >
         <img
           class="w-full h-full"
           src="https://via.placeholder.com/120"
