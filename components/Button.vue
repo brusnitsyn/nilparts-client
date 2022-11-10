@@ -32,7 +32,7 @@ export default {
   },
   data() {
     return {
-      defaultStyle: 'select-none border transition-color duration-300 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:dark:ring-offset-gray-50 focus:dark:ring-gray-400 focus:ring-gray-600/60 focus:ring-offset-gray-800/60 flex items-center justify-center gap-x-2 font-semibold',
+      defaultStyle: 'border transition-color duration-300 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:dark:ring-offset-gray-50 focus:dark:ring-gray-400 focus:ring-gray-600/60 focus:ring-offset-gray-800/60 flex items-center justify-center gap-x-2 font-semibold',
       styles: {
         none: 'cursor-pointer bg-transparent',
         default: 'cursor-pointer',

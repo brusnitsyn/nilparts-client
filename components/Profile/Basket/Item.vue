@@ -58,9 +58,6 @@ export default {
           <div>
             <span>{{ item.text }}</span>
           </div>
-          <div>
-            <span class="font-semibold">{{ item.price | toRuble }}</span>
-          </div>
         </div>
         <div class="self-start">
           <div
@@ -83,6 +80,9 @@ export default {
             />
             <span>Нет в наличии</span>
           </div>
+        </div>
+        <div>
+          <span class="font-semibold">{{ item.price | toRuble }}</span>
         </div>
       </div>
     </div>
