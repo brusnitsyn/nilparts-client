@@ -89,8 +89,8 @@ export const actions = {
     await commit('setProducts', result)
   },
   async fetchMyProducts({commit, state}, params) {
-    const result = await this.$axios.get(`/users/${this.$auth.user.id}?with=products`)
-    const products = result.data.data.products
+    const result = await this.$axios.get(`/users/${this.$auth.user.id}/products`)
+    const products = result.data.data
 
     await commit('setProducts', products)
   },
@@ -104,6 +104,7 @@ export const actions = {
     const data = formData(product)
     const addedProduct = await this.$axios.post('/products', data)
     const result = addedProduct.data.data
+    await commit('addProduct', result)
   },
   async setCurrentPage({ state, commit, dispatch }, page) {
     await dispatch('fetchProducts', page)

@@ -48,8 +48,8 @@ export default {
       <div class="items-end">
         <Skeleton :is-loaded="!isLoaded" h="28px" :m="null" skeleton-class="mb-2">
           <div class="flex justify-between items-center pb-2">
-          <span v-if="product.prices.length" class="font-medium text-xl">{{
-              product.prices[0].price | toRuble
+          <span v-if="product.price" class="font-medium text-xl">{{
+              product.price | toRuble
             }}</span>
             <div
               v-if="product.in_stock"

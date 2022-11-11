@@ -177,7 +177,7 @@ export default {
           <Skeleton :is-loaded="loaded" h="40px">
             <div class="flex justify-between items-center">
               <h2 class="text-[1.35rem] font-bold" v-if="loaded">
-                {{ product.prices[0].price | toRuble }}
+                {{ product.price | toRuble }}
               </h2>
 
               <Button v-if="product.in_stock" class="w-1/2 lg:w-1/3">
