@@ -1,4 +1,6 @@
 <script>
+import {mapActions} from "vuex";
+
 export default {
   props: {
     product: {
@@ -11,8 +13,12 @@ export default {
     },
   },
   methods: {
-    async goProduct() {
-      // await this.$router.push()
+    // ...mapActions({
+    //   addBasket: 'products/basket/addProduct'
+    // }),
+    async addBasket(product) {
+      const obj = {productId: product.id, quantity: 1}
+      await this.$store.dispatch('products/basket/addProduct', obj)
     },
   },
 }
@@ -80,7 +86,7 @@ export default {
       <Skeleton :is-loaded="!isLoaded" h="40px" skeleton-class="">
         <div class="flex flex-row justify-between gap-x-4">
           <div class="flex-1">
-            <Button v-if="product.in_stock" @click="goProduct" text="Купить" />
+            <Button v-if="product.in_stock" @click="addBasket(product)" text="Купить" />
             <Button v-else text="Нет в наличии" disabled />
           </div>
           <button class="w-[40px] flex justify-center items-center">
