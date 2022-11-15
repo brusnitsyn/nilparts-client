@@ -10,7 +10,7 @@ export default {
 </script>
 
 <template>
-  <div class="flex flex-col justify-center items-center flex-1 w-full">
+  <div class="flex items-center justify-center h-full">
     <div class="max-w-lg">
       <div>
         <span> </span>
