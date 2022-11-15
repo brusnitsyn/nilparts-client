@@ -1,19 +1,24 @@
 <script>
+import {mapGetters} from "vuex";
+
 export default {
   layout: 'profile',
   middleware: 'auth',
   computed: {
+    ...mapGetters({
+      products: 'products/basket/getProducts'
+    }),
     selectAll: {
       get() {
-        return this.testItems
-          ? this.selected.length === this.testItems.length
+        return this.products
+          ? this.selected.length === this.products.length
           : false
       },
       set(value) {
         let selected = []
         let noStocks = []
         if (value) {
-          this.testItems.forEach(function (item) {
+          this.products.forEach(function (item) {
             // if (item.in_stock) selected.push(item.id)
             // else noStocks.push(item)
             selected.push(item.id)
@@ -26,13 +31,6 @@ export default {
   },
   data() {
     return {
-      testItems: [
-        { id: 1, text: 'Это текст для элемента', price: 2000, in_stock: false },
-        { id: 2, text: 'Это текст для элемента', price: 2000, in_stock: true },
-        { id: 3, text: 'Это текст для элемента', price: 2000, in_stock: true },
-        { id: 4, text: 'Это текст для элемента', price: 2000, in_stock: false },
-        { id: 5, text: 'Это текст для элемента', price: 2000, in_stock: true },
-      ],
       selected: [],
       productsNoStock: [],
       select: false,
@@ -42,8 +40,13 @@ export default {
     updatedSelect(value) {
       this.selected = value
     },
+    async removeBasketProduct() {
+      const ids = this.selected.toString()
+      await this.$store.dispatch('products/basket/removeProducts', ids)
+    }
   },
   async fetch() {
+    await this.$store.dispatch('products/basket/fetchProducts')
     this.selectAll = true
   },
 }
@@ -51,29 +54,29 @@ export default {
 
 <template>
   <PageWrapper>
+    <PageHeader>
+      <PageTitle text="Моя корзина" />
+    </PageHeader>
     <PageBody>
-      <PageHeader>
-        <PageTitle text="Моя корзина" />
-      </PageHeader>
-      <PageSection>
+      <PageSection v-if="products.length">
         <div
-          class="flex flex-col space-y-4 lg:space-y-0 lg:space-x-4 md:flex-row"
+          class="flex flex-col space-y-4 md:space-y-0 md:space-x-4 md:flex-row"
         >
           <div class="flex-grow">
             <div
-              v-if="testItems.length > 1"
+              v-if="products.length > 1"
               class="flex flex-row justify-between items-center rounded-lg border bg-white border-gray-900/10 dark:border-gray-50/20 shadow-sm p-3 w-full mb-4 h-[50px]"
             >
               <div>
                 <FormCheckbox label="Выбрать все" v-model="selectAll" />
               </div>
               <div v-if="selected.length">
-                <button class="text-sm">Удалить выбранные</button>
+                <button class="text-sm" @click="removeBasketProduct">Удалить выбранные</button>
               </div>
             </div>
             <ProfileBasketWrapper>
               <ProfileBasketItem
-                v-for="(item, index) in testItems"
+                v-for="(item, index) in products"
                 :key="item.id"
                 :item="item"
                 :selected="selected"
@@ -85,7 +88,7 @@ export default {
             <div class="md:sticky md:top-[100px]">
               <div
                 v-if="productsNoStock.length"
-                class="md:w-[360px] flex flex-col rounded-lg border border-orange-200 bg-orange-100 py-3 px-3 mb-3"
+                class="md:w-[300px] lg:w-[380px] flex flex-col rounded-lg border border-orange-200 bg-orange-100 py-3 px-3 mb-3"
               >
                 <span class="text-sm font-medium mb-2">
                   В корзине есть товары, которых нет в наличии:
@@ -97,7 +100,7 @@ export default {
                     v-for="(item, index) in productsNoStock"
                     :key="item.id"
                     class="px-1.5 py-1 border rounded-md bg-white text-sm"
-                    >{{ item.text }}</span
+                  >{{ item.text }}</span
                   >
                 </div>
                 <div>
@@ -107,7 +110,7 @@ export default {
                 </div>
               </div>
               <div
-                class="md:w-[360px] flex flex-col rounded-lg border bg-white border-gray-900/10 dark:border-gray-50/20 shadow-sm p-3 w-full mb-4"
+                class="md:w-[300px] lg:w-[380px] flex flex-col rounded-lg border bg-white border-gray-900/10 dark:border-gray-50/20 shadow-sm p-3 w-full mb-4"
               >
                 <div v-if="selected.length" class="flex flex-col">
                   <div class="pt-2 pb-4">
@@ -141,6 +144,7 @@ export default {
           </div>
         </div>
       </PageSection>
+      <EmptyResult v-else text="Ваша корзина пуста" />
     </PageBody>
   </PageWrapper>
 </template>

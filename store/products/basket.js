@@ -14,7 +14,7 @@ export const getters = {
   },
   getLinks(state) {
     return state.links
-  }
+  },
 }
 
 export const mutations = {
@@ -47,29 +47,33 @@ export const mutations = {
 
 export const actions = {
   async fetchProducts({ commit, state }, params) {
-    const products = await this.$axios.get(`/users/${this.$auth.user.id}/basket`, {
-      params
+    const response = await this.$axios.get(`/basket`, {
+      params,
     })
 
-    const meta = await products.data.meta
-    const links = await products.data.links
-    const result = await products.data.data
+    // const meta = await products.data.meta
+    // const links = await products.data.links
+    const result = await response.data.data.products
 
-    await commit('setMeta', meta)
-    await commit('setLinks', links)
+    // await commit('setMeta', meta)
+    // await commit('setLinks', links)
     await commit('setProducts', result)
   },
-  async addProduct({commit, state}, product) {
+  async addProduct({ commit, state }, product) {
     if (this.$auth.loggedIn) {
       const basket = await this.$axios.post('/basket', product)
 
       const result = await basket.data.data
       // if()
       console.log(result)
+    } else {
     }
-    else
-    {
-
-    }
-  }
+  },
+  async removeProducts({ commit, dispatch }, ids) {
+    const response = await this.$axios.delete(
+      `/basket`,
+      {params: { ids: ids }},
+    )
+    if (response.status) await dispatch('fetchProducts')
+  },
 }

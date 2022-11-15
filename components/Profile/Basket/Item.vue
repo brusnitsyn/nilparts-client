@@ -28,7 +28,7 @@ export default {
   <div
     class="relative flex flex-col justify-between rounded-lg border bg-white border-gray-900/10 dark:border-gray-50/20 shadow-sm p-3 w-full"
   >
-    <div class="flex mb-2">
+    <div class="flex items-center justify-between mb-2">
       <label>
         <input
           type="checkbox"
@@ -37,6 +37,28 @@ export default {
           :value="item.id"
         />
       </label>
+      <div class="self-end">
+        <div
+          v-if="item.in_stock"
+          class="flex flex-row items-center gap-x-1 text-white bg-green-600 px-2 py-1 rounded-lg text-sm"
+        >
+          <iconify-icon
+            icon="material-symbols:check-circle-outline-rounded"
+            class="text-lg"
+          />
+          <span>В наличии</span>
+        </div>
+        <div
+          v-else
+          class="flex flex-row items-center gap-x-1 text-white bg-red-600 px-2 py-1 rounded-lg text-sm"
+        >
+          <iconify-icon
+            icon="material-symbols:error-circle-rounded-outline"
+            class="text-lg"
+          />
+          <span>Нет в наличии</span>
+        </div>
+      </div>
     </div>
     <div class="flex flex-row space-x-2 w-full">
       <div
@@ -44,38 +66,17 @@ export default {
       >
         <img
           class="w-full h-full"
-          src="https://via.placeholder.com/120"
+          :src="`${$config.serverURL}/${item.thumb_url}`"
           alt=""
         />
       </div>
       <div class="flex flex-col w-full flex-1">
         <div class="flex flex-row justify-between">
           <div>
-            <span>{{ item.text }}</span>
+            <span>{{ item.name }}</span>
           </div>
         </div>
-        <div class="self-start">
-          <div
-            v-if="item.in_stock"
-            class="flex flex-row items-center gap-x-1 text-white bg-green-600 px-2 py-1 rounded-lg text-sm"
-          >
-            <iconify-icon
-              icon="material-symbols:check-circle-outline-rounded"
-              class="text-lg"
-            />
-            <span>В наличии</span>
-          </div>
-          <div
-            v-else
-            class="flex flex-row items-center gap-x-1 text-white bg-red-600 px-2 py-1 rounded-lg text-sm"
-          >
-            <iconify-icon
-              icon="material-symbols:error-circle-rounded-outline"
-              class="text-lg"
-            />
-            <span>Нет в наличии</span>
-          </div>
-        </div>
+
         <div>
           <span class="font-semibold">{{ item.price | toRuble }}</span>
         </div>
