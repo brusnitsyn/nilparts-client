@@ -67,6 +67,7 @@ export const actions = {
       // if()
       console.log(result)
     } else {
+      commit('addProduct', product)
     }
   },
   async removeProducts({ commit, dispatch }, ids) {

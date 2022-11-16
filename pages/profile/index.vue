@@ -31,7 +31,7 @@ export default {
               </span>
             </template>
           </ProfileNavItem>
-          <ProfileNavItem text="Моя корзина" :to="{name: 'profile-basket'}">
+          <ProfileNavItem text="Моя корзина" :to="{name: 'basket'}">
             <template #icon>
               <iconify-icon icon="material-symbols:shopping-cart-outline-rounded" width="24" height="24"></iconify-icon>
             </template>

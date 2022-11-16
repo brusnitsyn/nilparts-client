@@ -2,8 +2,7 @@
 import {mapGetters} from "vuex";
 
 export default {
-  layout: 'profile',
-  middleware: 'auth',
+  layout: 'page',
   computed: {
     ...mapGetters({
       products: 'products/basket/getProducts'
@@ -120,7 +119,7 @@ export default {
                     <span>Условия заказа отсутствуют</span>
                   </div>
                   <div>
-                    <Button :to="{name: 'profile-basket-checkout'}" class="h-[48px] mt-3">
+                    <Button :to="{name: 'basket-checkout'}" class="h-[48px] mt-3">
                       Перейти к оформлению
                     </Button>
                   </div>

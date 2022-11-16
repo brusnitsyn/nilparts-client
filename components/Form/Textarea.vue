@@ -48,6 +48,7 @@ export default {
   <textarea
     :type="type"
     :name="name"
+    rows="4"
     :class="`w-full outline-none border rounded ${selectedBorderStyle} ${selectedOnHoverBorderStyle} ${selectedPaddingStyle} ${selectedFontSizeStyle}`"
     @input="$emit('input', $event.target.value)"
     :placeholder="placeholder"
