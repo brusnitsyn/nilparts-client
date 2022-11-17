@@ -11,7 +11,22 @@ export default {
     },
     href: {
       type: String,
-      default: ''
+      default: undefined
+    }
+  },
+  data() {
+    return {
+      defaultStyle: 'cursor-pointer transition-colors duration-300 dark:hover:text-white hover:text-primary-600'
+    }
+  },
+  methods: {
+    onClick() {
+      if (this.to) {
+        this.$router.push(this.to)
+      }
+      if (!this.href) {
+        this.$emit('click')
+      }
     }
   }
 }
@@ -22,14 +37,15 @@ export default {
     v-if="to"
     tag="a"
     :to="to"
-    :class="`transition-colors duration-300 dark:hover:text-white hover:text-gray-900 hover:underline`"
+    :class="`${defaultStyle}`"
   >
     <slot>{{ text }}</slot>
   </NuxtLink>
   <a
     v-else
-    :class="`transition-colors duration-300 dark:hover:text-white hover:text-gray-900 hover:underline`"
+    :class="`${defaultStyle}`"
     :href="href"
+    @click="onClick"
   >
     <slot>{{ text }}</slot>
   </a>

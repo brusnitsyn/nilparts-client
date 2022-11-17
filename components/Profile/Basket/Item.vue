@@ -20,6 +20,15 @@ export default {
         this.$emit('selected-updated', value)
       },
     },
+    quantity: {
+      get() {
+        return this.item.quantity
+      },
+      async set(value) {
+        const payload = { id: this.item.product.id, value }
+        await this.$store.dispatch('products/basket/updateQuantity', payload)
+      },
+    },
   },
 }
 </script>
@@ -32,7 +41,7 @@ export default {
       <label>
         <input
           type="checkbox"
-          class="appearance-none w-5 h-5 flex items-center justify-center rounded border transition-colors hover:border-primary-500 checked:bg-primary-500 checked:border-primary-500 after:content-[''] after:w-[5px] after:h-[9px] after:border-b-2 after:border-r-2 after:border-white after:rotate-[40deg]"
+          class="cursor-pointer appearance-none w-5 h-5 flex items-center justify-center rounded border transition-colors hover:border-primary-500 checked:bg-primary-500 checked:border-primary-500 after:content-[''] after:w-[5px] after:h-[9px] after:border-b-2 after:border-r-2 after:border-white after:rotate-[40deg]"
           v-model="selectedModel"
           :value="item.product.id"
         />
@@ -70,19 +79,34 @@ export default {
           alt=""
         />
       </div>
-      <div class="flex flex-col w-full flex-1">
-        <div class="flex flex-row justify-between">
-          <div>
-            <span>{{ item.product.name }}</span>
+      <div class="flex flex-col lg:flex-row w-full gap-x-4 flex-1">
+        <div class="max-w-[340px] w-full">
+          <div class="flex flex-col items-start">
+            <Anchor
+              class="line-clamp-2"
+              :to="{
+                name: 'products-slug',
+                params: { slug: item.product.slug },
+              }"
+              >{{ item.product.name }}</Anchor
+            >
+            <div class="flex gap-x-4 text-sm">
+              <Anchor text="В избранное" class="hidden lg:block" />
+              <Anchor text="Удалить" class="hidden lg:block" />
+            </div>
           </div>
         </div>
 
-        <div>
-          <span class="font-semibold">{{ item.product.price | toRuble }}</span>
+        <div class="lg:order-1 shrink-0 w-full lg:ml-auto max-w-[170px]">
+          <div class="flex lg:justify-end">
+            <span class="font-semibold">{{
+              item.product.price | toRuble
+            }}</span>
+          </div>
         </div>
 
         <div class="self-start">
-          <FormNumericInput v-model="item.quantity"/>
+          <FormNumericInput v-model.number="quantity" class="max-w-[160px]" />
         </div>
       </div>
     </div>

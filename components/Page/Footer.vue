@@ -7,7 +7,7 @@
             <span class="font-medium">Навигация</span>
           </div>
           <ul class="flex flex-col gap-y-2 lg:gap-x-6 pt-4">
-            <li v-for="(item, index) in menus" :key="index">
+            <li v-for="(item, index) in navMenu" :key="index">
               <NuxtLink :to="item.route" class="hover:no-underline text-gray-500 hover:text-slate-900 hover:dark:text-white capitalize transition-colors duration-300 dark:hover:text-white hover:text-gray-900 hover:underline">
                 {{ item.text }}
               </NuxtLink>
@@ -19,7 +19,7 @@
             <span class="font-medium">Покупателям</span>
           </div>
           <ul class="flex flex-col gap-y-2 lg:gap-x-6 pt-4">
-            <li v-for="(item, index) in menus" :key="index">
+            <li v-for="(item, index) in userMenu" :key="index">
               <NuxtLink :to="item.route" class="hover:no-underline text-gray-500 hover:text-slate-900 hover:dark:text-white capitalize transition-colors duration-300 dark:hover:text-white hover:text-gray-900 hover:underline">
                 {{ item.text }}
               </NuxtLink>
@@ -83,12 +83,19 @@ export default {
   },
   data() {
     return {
-      menus: [
+      navMenu: [
         {type: 'link', text: 'Главная', route: {name: 'index'}},
         {type: 'link', text: 'Каталог', route: {name: 'catalog'}},
         {type: 'link', text: 'Таможенный сервис', route: {name: 'service'}},
         {type: 'link', text: 'Новости', route: {name: 'news'}},
         {type: 'link', text: 'Контакты', route: {name: 'contacts'}},
+      ],
+      userMenu: [
+        {type: 'link', text: 'Профиль', route: {name: 'profile'}},
+        {type: 'link', text: 'Корзина', route: {name: 'basket'}},
+        {type: 'link', text: 'Мои товары', route: {name: 'profile-products'}},
+        {type: 'link', text: 'Избранное', route: {name: 'profile-favorite'}},
+        {type: 'link', text: 'Профиль', route: {name: 'profile'}},
       ]
     }
   }

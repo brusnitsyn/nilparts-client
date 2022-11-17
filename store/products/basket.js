@@ -11,6 +11,9 @@ export const getters = {
   getProducts(state) {
     return state.products
   },
+  getBasket(state) {
+    return state.basket
+  },
   getBasketMeta(state) {
     return state.basketMeta
   },
@@ -56,6 +59,10 @@ export const mutations = {
   setLinks(state, links) {
     state.links = links
   },
+
+  updateQuantity(state, {product, value}) {
+    product.quantity = value
+  },
 }
 
 export const actions = {
@@ -70,26 +77,26 @@ export const actions = {
 
     // await commit('setMeta', meta)
     // await commit('setLinks', links)
-    await commit('setBasket', result)
     await commit('setProducts', result.products)
     await commit('setBasketMeta', result.basket)
+    await commit('setBasket', result)
   },
   async addProduct({ commit, state }, product) {
     if (this.$auth.loggedIn) {
       const basket = await this.$axios.post('/basket', product)
 
       const result = await basket.data.data
-      // if()
-      console.log(result)
-    } else {
-      commit('addProduct', product)
     }
+    commit('addProduct', product)
   },
   async removeProducts({ commit, dispatch }, ids) {
-    const response = await this.$axios.delete(
-      `/basket`,
-      {params: { ids: ids }},
-    )
+    const response = await this.$axios.delete(`/basket`, {
+      params: { ids: ids },
+    })
     if (response.status) await dispatch('fetchProducts')
+  },
+  async updateQuantity({ commit, state, dispatch }, {id, value}) {
+    const product = state.products.find((item) => item.product.id === id)
+    await commit('updateQuantity', {product, value })
   },
 }

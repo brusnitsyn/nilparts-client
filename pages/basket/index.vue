@@ -4,8 +4,8 @@ import {mapGetters, mapState} from "vuex";
 export default {
   layout: 'page',
   computed: {
-    ...mapState({
-      basket: state => state.products.basket.basket
+    ...mapGetters({
+      basket: 'products/basket/getBasket'
     }),
     selectAll: {
       get() {
@@ -57,7 +57,7 @@ export default {
       <PageTitle text="Моя корзина" />
     </PageHeader>
     <PageBody>
-      <PageSection v-if="basket.products.length">
+      <PageSection v-if="basket.products && basket.products.length">
         <div
           class="flex flex-col space-y-4 md:space-y-0 md:space-x-4 md:flex-row"
         >
@@ -70,7 +70,7 @@ export default {
                 <FormCheckbox label="Выбрать все" v-model="selectAll" />
               </div>
               <div v-if="selected.length">
-                <button class="text-sm" @click="removeBasketProduct">Удалить выбранные</button>
+                <Anchor class="text-sm" @click="removeBasketProduct" text="Удалить выбранные" />
               </div>
             </div>
             <ProfileBasketWrapper>
