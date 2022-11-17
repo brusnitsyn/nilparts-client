@@ -1,5 +1,7 @@
 export const state = () => ({
   products: [],
+  basket: {},
+  basketMeta: {},
   meta: {},
   links: {},
   version: 1,
@@ -8,6 +10,9 @@ export const state = () => ({
 export const getters = {
   getProducts(state) {
     return state.products
+  },
+  getBasketMeta(state) {
+    return state.basketMeta
   },
   getMeta(state) {
     return state.meta
@@ -36,6 +41,14 @@ export const mutations = {
     })
   },
 
+  setBasket(state, basket) {
+    state.basket = basket
+  },
+
+  setBasketMeta(state, basketMeta) {
+    state.basketMeta = basketMeta
+  },
+
   // Meta
   setMeta(state, meta) {
     state.meta = meta
@@ -53,11 +66,13 @@ export const actions = {
 
     // const meta = await products.data.meta
     // const links = await products.data.links
-    const result = await response.data.data.products
+    const result = await response.data.data
 
     // await commit('setMeta', meta)
     // await commit('setLinks', links)
-    await commit('setProducts', result)
+    await commit('setBasket', result)
+    await commit('setProducts', result.products)
+    await commit('setBasketMeta', result.basket)
   },
   async addProduct({ commit, state }, product) {
     if (this.$auth.loggedIn) {

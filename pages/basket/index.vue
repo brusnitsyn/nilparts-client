@@ -1,26 +1,26 @@
 <script>
-import {mapGetters} from "vuex";
+import {mapGetters, mapState} from "vuex";
 
 export default {
   layout: 'page',
   computed: {
-    ...mapGetters({
-      products: 'products/basket/getProducts'
+    ...mapState({
+      basket: state => state.products.basket.basket
     }),
     selectAll: {
       get() {
-        return this.products
-          ? this.selected.length === this.products.length
+        return this.basket.products
+          ? this.selected.length === this.basket.products.length
           : false
       },
       set(value) {
         let selected = []
         let noStocks = []
         if (value) {
-          this.products.forEach(function (item) {
+          this.basket.products.forEach(function (item) {
             // if (item.in_stock) selected.push(item.id)
             // else noStocks.push(item)
-            selected.push(item.id)
+            selected.push(item.product.id)
           })
         }
         this.productsNoStock = noStocks
@@ -57,13 +57,13 @@ export default {
       <PageTitle text="Моя корзина" />
     </PageHeader>
     <PageBody>
-      <PageSection v-if="products.length">
+      <PageSection v-if="basket.products.length">
         <div
           class="flex flex-col space-y-4 md:space-y-0 md:space-x-4 md:flex-row"
         >
           <div class="flex-grow">
             <div
-              v-if="products.length > 1"
+              v-if="basket.products.length > 1"
               class="flex flex-row justify-between items-center rounded-lg border bg-white border-gray-900/10 dark:border-gray-50/20 shadow-sm p-3 w-full mb-4 h-[50px]"
             >
               <div>
@@ -75,7 +75,7 @@ export default {
             </div>
             <ProfileBasketWrapper>
               <ProfileBasketItem
-                v-for="(item, index) in products"
+                v-for="(item, index) in basket.products"
                 :key="item.id"
                 :item="item"
                 :selected="selected"

@@ -34,12 +34,12 @@ export default {
           type="checkbox"
           class="appearance-none w-5 h-5 flex items-center justify-center rounded border transition-colors hover:border-primary-500 checked:bg-primary-500 checked:border-primary-500 after:content-[''] after:w-[5px] after:h-[9px] after:border-b-2 after:border-r-2 after:border-white after:rotate-[40deg]"
           v-model="selectedModel"
-          :value="item.id"
+          :value="item.product.id"
         />
       </label>
       <div class="self-end">
         <div
-          v-if="item.in_stock"
+          v-if="item.product.in_stock"
           class="flex flex-row items-center gap-x-1 text-white bg-green-600 px-2 py-1 rounded-lg text-sm"
         >
           <iconify-icon
@@ -66,19 +66,23 @@ export default {
       >
         <img
           class="w-full h-full"
-          :src="`${$config.serverURL}/${item.thumb_url}`"
+          :src="`${$config.serverURL}/${item.product.thumb_url}`"
           alt=""
         />
       </div>
       <div class="flex flex-col w-full flex-1">
         <div class="flex flex-row justify-between">
           <div>
-            <span>{{ item.name }}</span>
+            <span>{{ item.product.name }}</span>
           </div>
         </div>
 
         <div>
-          <span class="font-semibold">{{ item.price | toRuble }}</span>
+          <span class="font-semibold">{{ item.product.price | toRuble }}</span>
+        </div>
+
+        <div class="self-start">
+          <FormNumericInput v-model="item.quantity"/>
         </div>
       </div>
     </div>
