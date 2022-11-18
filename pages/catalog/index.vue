@@ -39,7 +39,11 @@ export default {
     },
   },
   data() {
-    return {}
+    return {
+      placeItem: {
+
+      }
+    }
   },
   methods: {
     async applyFilter(filter) {
@@ -83,10 +87,17 @@ export default {
         </CatalogTagWrapper>
         <CatalogWrapper class="pt-4">
           <LazyCatalogItem
-            :is-loaded="$fetchState.pending"
+            v-if="!$fetchState.pending"
             v-for="(product, index) in products"
             :key="product.id"
             :product="product"
+          />
+          <LazyCatalogItem
+            v-if="$fetchState.pending"
+            :is-loaded="$fetchState.pending"
+            v-for="item in 16"
+            :key="item"
+            :product="item"
           />
         </CatalogWrapper>
         <Pagination

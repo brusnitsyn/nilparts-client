@@ -7,9 +7,26 @@ export default {
   data() {
     return {
       form: {
-        adressMatch: true,
+        addressMatch: true,
+        delivery_selected: 1,
+        payment_selected: 1,
         comment: '',
+        middle_name: '',
+        address: '',
+        city: '',
+        postal_code: '',
+        call: '',
+        email: ''
       },
+      deliveryOptions: [
+        {id: 1, name: 'CDEK'},
+        {id: 2, name: 'CDEK'},
+        {id: 3, name: 'CDEK'},
+        {id: 4, name: 'CDEK'},
+      ],
+      paymentOptions: [
+        {id: 1, name: 'По счету'},
+      ]
     }
   },
   computed: {
@@ -38,32 +55,18 @@ export default {
             <template #body>
               <FormGroup text="Адрес доставки">
                 <div class="grid gap-x-4 gap-y-3 grid-cols-1 lg:grid-cols-6">
-                  <FormTextInput placeholder="Имя" class="lg:col-span-3" />
-                  <FormTextInput placeholder="Фамилия" class="lg:col-span-3" />
-                  <FormTextInput placeholder="Адрес" class="lg:col-span-6" />
-                  <FormTextInput placeholder="Город" class="lg:col-span-3" />
-                  <FormTextInput placeholder="Индекс" class="lg:col-span-3" />
-                </div>
-              </FormGroup>
-              <div class="pb-1">
-                <FormCheckbox
-                  label="Адрес покупателя совпадает с адресом доставки"
-                  v-model="form.adressMatch"
-                />
-              </div>
-              <FormGroup v-if="!form.adressMatch" text="Адрес покупателя">
-                <div class="grid gap-x-4 gap-y-3 grid-cols-1 lg:grid-cols-6">
-                  <FormTextInput placeholder="Имя" class="lg:col-span-3" />
-                  <FormTextInput placeholder="Фамилия" class="lg:col-span-3" />
-                  <FormTextInput placeholder="Адрес" class="lg:col-span-6" />
-                  <FormTextInput placeholder="Город" class="lg:col-span-3" />
-                  <FormTextInput placeholder="Индекс" class="lg:col-span-3" />
+                  <FormTextInput v-model="form.name" placeholder="Имя" class="lg:col-span-3" />
+                  <FormTextInput v-model="form.middle_name" placeholder="Фамилия" class="lg:col-span-3" />
+                  <FormTextInput v-model="form.address" placeholder="Адрес" class="lg:col-span-6" />
+                  <FormTextInput v-model="form.city" placeholder="Город" class="lg:col-span-3" />
+                  <FormTextInput v-model="form.postal_code" placeholder="Индекс" class="lg:col-span-3" />
                 </div>
               </FormGroup>
               <FormGroup text="Контактная информация">
                 <div class="grid gap-x-4 gap-y-3 grid-cols-1 lg:grid-cols-6">
-                  <FormTextInput placeholder="Телефон" class="lg:col-span-3" />
+                  <FormTextInput v-model="form.call" placeholder="Телефон" class="lg:col-span-3" />
                   <FormTextInput
+                    v-model="form.email"
                     placeholder="Ваш E-Mail"
                     class="lg:col-span-3"
                   />
@@ -71,16 +74,20 @@ export default {
               </FormGroup>
               <FormGroup text="Способ доставки">
                 <div
-                  class="grid gap-x-4 gap-y-3 grid-cols-1 lg:grid-cols-6"
-                ></div>
+                  class="grid gap-x-4 gap-y-3 grid-cols-1 lg:grid-cols-4"
+                >
+                  <BasketCheckoutDeliveryOption v-for="(item, index) in deliveryOptions" v-model.number="form.delivery_selected" :value="item.id" :key="index" :item="item" />
+                </div>
               </FormGroup>
               <FormGroup text="Способ оплаты">
                 <div
-                  class="grid gap-x-4 gap-y-3 grid-cols-1 lg:grid-cols-6"
-                ></div>
+                  class="grid gap-y-3 grid-cols-1"
+                >
+                  <BasketCheckoutPaymentOption v-for="(item, index) in paymentOptions" v-model.number="form.payment_selected" :value="item.id" :key="index" :item="item" />
+                </div>
               </FormGroup>
               <FormGroup text="Комментарий к Вашему заказу">
-                <FormTextarea v-model="form.comment" />
+                <FormTextarea v-model="form.comment" placeholder="Комментарий" />
               </FormGroup>
             </template>
           </Form>

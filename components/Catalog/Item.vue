@@ -17,7 +17,7 @@ export default {
     //   addBasket: 'products/basket/addProduct'
     // }),
     async addBasket(product) {
-      const obj = {productId: product.id, quantity: 1}
+      const obj = {product_id: product.id, quantity: 1}
       await this.$store.dispatch('products/basket/addProduct', obj)
     },
   },
