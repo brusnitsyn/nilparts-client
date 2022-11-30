@@ -26,7 +26,7 @@ export default {
             <ShortcutCategoryItem
               v-for="(cat, index) in categories.slice(0, 4)"
               :key="cat.id"
-              :text="cat.name"
+              :text="cat.title"
               :image="cat.image"
               :to="{ name: 'catalog', query: { category: cat.id } }"
             />

@@ -40,14 +40,14 @@ export default {
       >
         <NuxtImg
           loading="lazy"
-          :src="`${$config.serverURL}/${product.thumb_url}`"
+          :src="`${product.cover}`"
           class="rounded-lg h-[196px] w-full lg:w-[294px] object-cover"
         />
       </Skeleton>
       <div class="pt-1.5 pb-2">
-        <Skeleton :is-loaded="!isLoaded" :w="null" :m="null"  skeleton-class="text-lg mt-1 mb-2 w-1/3">
+        <Skeleton :is-loaded="!isLoaded" :w="null" :m="null" skeleton-class="text-lg mt-1 mb-2 w-1/3">
           <span class="text-lg leading-6 line-clamp-2">
-            {{ product.name }}
+            {{ product.title }}
           </span>
         </Skeleton>
       </div>

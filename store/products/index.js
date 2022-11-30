@@ -1,4 +1,5 @@
 import { deepClone } from '~/helpers'
+// const qs = require('qs');
 
 export const state = () => ({
   products: [],
@@ -76,6 +77,14 @@ export const mutations = {
 
 export const actions = {
   async fetchProducts({ commit, state }, params) {
+    // const defaultParams = {
+    //   page: [
+    //     {number: 1},
+    //     {size: 16}
+    //   ],
+    //   ...p
+    // }
+    // const params = qs.stringify(defaultParams)
     const products = await this.$axios.get(`/products`, {
       params,
     })
@@ -95,7 +104,7 @@ export const actions = {
     await commit('setProducts', products)
   },
   async fetchProduct({ commit, state }, slug) {
-    const product = await this.$axios.get(`/products/${slug}?with=attachments`)
+    const product = await this.$axios.get(`/products/${slug}?with=medias`)
     const result = await product.data.data
 
     await commit('setProduct', result)

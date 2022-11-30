@@ -82,7 +82,7 @@ export default {
             :key="index"
             @click="applyFilter({ type: 'category', data: category })"
           >
-            {{ category.name }}
+            {{ category.title }}
           </CatalogTagItem>
         </CatalogTagWrapper>
         <CatalogWrapper class="pt-4">

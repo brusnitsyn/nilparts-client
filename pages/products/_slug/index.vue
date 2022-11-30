@@ -29,7 +29,7 @@ export default {
       product: 'products/getProduct',
     }),
     activeImage() {
-      return `${this.$config.serverURL}/${this.selectedImage}`
+      return `${this.selectedImage}`
     }
   },
   data() {
@@ -59,17 +59,16 @@ export default {
       to: { name: 'catalog', query },
     })
     this.crumb.push({
-      title: product.name,
+      title: product.title,
       to: { name: 'products-slug', params: { slug: product.slug } },
     })
-    this.selectedImage = product.images[0].url
+    this.selectedImage = product.media[0]
 
     this.loaded = true
   },
   methods: {
     setActiveImage(image) {
-      console.log(image)
-      this.selectedImage = image.url
+      this.selectedImage = image
     }
   }
 }
@@ -105,7 +104,7 @@ export default {
           <div class="gap-2 lg:gap-4">
             <Swiper :options="swiperOption" class="rounded-lg">
               <SwiperSlide
-                v-for="(image, index) in product.images"
+                v-for="(image, index) in product.media"
                 :key="index"
                 :class="{
                     'flex justify-center items-center bg-gray-100 rounded-lg p-3 lg:p-4':
@@ -114,7 +113,7 @@ export default {
               >
                 <Skeleton :is-loaded="loaded" h="128px">
                   <NuxtImg
-                    :src="`${$config.serverURL}/${image.url}`"
+                    :src="`${image}`"
                     @click="setActiveImage(image)"
                     class="w-[120px] h-[96px] object-cover rounded-lg cursor-pointer"
                   />
@@ -132,7 +131,7 @@ export default {
                 h="24px"
                 skeleton-class="w-1/4"
               >
-                <h1 class="text-2xl leading-6">{{ product.name }}</h1>
+                <h1 class="text-2xl leading-6">{{ product.title }}</h1>
               </Skeleton>
               <Skeleton
                 :is-loaded="loaded"
@@ -175,7 +174,7 @@ export default {
             </Skeleton>
           </div>
           <Skeleton :is-loaded="loaded" h="40px">
-            <div class="flex justify-between items-center">
+            <div v-if="product.price" class="flex justify-between items-center">
               <h2 class="text-[1.35rem] font-bold" v-if="loaded">
                 {{ product.price | toRuble }}
               </h2>
@@ -190,6 +189,11 @@ export default {
                 disabled
               />
             </div>
+            <div v-else>
+              <h2 class="text-[1.35rem] font-medium" v-if="loaded">
+                Товар в данный недоступен
+              </h2>
+            </div>
           </Skeleton>
           <Skeleton
             :is-loaded="loaded"
@@ -198,14 +202,13 @@ export default {
             skeleton-class="mb-2"
           >
             <div
-              v-if="product.short_description"
+              v-if="product.full_description"
               class="flex flex-col space-y-2"
             >
               <span class="self-start bg-gray-100 rounded-lg px-4 py-3">
                 Описание
               </span>
-              <div class="bg-gray-100 rounded-lg px-4 py-3">
-                <p class="whitespace-pre-line">{{ product.short_description }}</p>
+              <div v-html="product.full_description" class="bg-gray-100 rounded-lg px-4 py-3">
               </div>
             </div>
           </Skeleton>
