@@ -30,21 +30,29 @@ export default {
     }),
     activeImage() {
       return `${this.selectedImage}`
-    }
+    },
   },
   data() {
     return {
       crumb: [{ title: 'Главная', to: { name: 'index' } }],
       selectedImage: '',
       loaded: false,
+      expandText: 'Показать ещё',
+      expand: false,
       swiperOption: {
-        slidesPerView: 3,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        },
         breakpoints: {
           320: {
+            slidesPerView: 3,
             spaceBetween: 8,
           },
           1024: {
-            spaceBetween: 16,
+            slidesPerView: 5,
+            spaceBetween: 8,
+            direction: 'vertical',
           },
         },
       },
@@ -67,10 +75,15 @@ export default {
     this.loaded = true
   },
   methods: {
+    changeExpanded() {
+      this.expand = !this.expand
+      if (this.expand) this.expandText = 'Скрыть'
+      else this.expandText = 'Показать ещё'
+    },
     setActiveImage(image) {
       this.selectedImage = image
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -83,16 +96,16 @@ export default {
         </Skeleton>
       </PageSection>
       <div class="flex flex-col lg:flex-row">
-        <div class="lg:w-1/2 lg:pl-8 px-4">
+        <div class="lg:flex lg:w-4/6 lg:pl-8 px-4 lg:pr-0">
           <Skeleton
             :is-loaded="loaded"
             :h="null"
             w="100%"
             :m="null"
-            skeleton-class="lg:h-[632px] h-[343px] mb-2 lg:mb-4"
+            skeleton-class="lg:h-[623px] h-[343px] mb-2 lg:mb-4"
           >
             <div
-              class="flex flex-col items-center justify-center bg-gray-100 rounded-lg lg:h-[632px] h-[343px] mb-2 lg:mb-4"
+              class="flex flex-col items-center justify-center bg-gray-100 rounded-lg lg:h-[623px] h-[343px] lg:ml-2 mb-2 lg:mb-0 lg:order-2 lg:grow"
             >
               <NuxtImg
                 :src="activeImage"
@@ -101,28 +114,30 @@ export default {
               />
             </div>
           </Skeleton>
-          <div class="gap-2 lg:gap-4">
-            <Swiper :options="swiperOption" class="rounded-lg">
+          <div class="gap-2 lg:gap-4 lg:order-1">
+            <Swiper :options="swiperOption" class="rounded-lg lg:h-full">
               <SwiperSlide
                 v-for="(image, index) in product.media"
                 :key="index"
                 :class="{
-                    'flex justify-center items-center bg-gray-100 rounded-lg p-3 lg:p-4':
-                      loaded,
+                  'flex justify-center items-center bg-gray-100 rounded-lg p-3 lg:p-4':
+                    loaded,
                 }"
               >
-                <Skeleton :is-loaded="loaded" h="128px">
+                <Skeleton :is-loaded="loaded" :h="null" :w="null" skeleton-class="lg:w-[96px] w-[120px] h-[96px]">
                   <NuxtImg
                     :src="`${image}`"
                     @click="setActiveImage(image)"
-                    class="w-[120px] h-[96px] object-cover rounded-lg cursor-pointer"
+                    class="w-[120px] lg:w-[96px] h-[96px] object-cover rounded-lg cursor-pointer"
                   />
                 </Skeleton>
               </SwiperSlide>
+              <div class="absolute top-0 left-1/2 bg-dark shadow rounded-full p-1 -translate-y-1 z-10" slot="button-prev"></div>
+              <div class="swiper-button-next" slot="button-next"></div>
             </Swiper>
           </div>
         </div>
-        <PageSection class="lg:w-1/2 mt-4 lg:mt-0 flex flex-col gap-y-4">
+        <PageSection class="lg:pl-4 lg:w-1/2 mt-4 lg:mt-0 flex flex-col gap-y-4">
           <div class="flex flex-col gap-y-1.5">
             <div>
               <Skeleton
@@ -191,7 +206,7 @@ export default {
             </div>
             <div v-else>
               <h2 class="text-[1.35rem] font-medium" v-if="loaded">
-                Товар в данный недоступен
+                Товар недоступен
               </h2>
             </div>
           </Skeleton>
@@ -208,7 +223,23 @@ export default {
               <span class="self-start bg-gray-100 rounded-lg px-4 py-3">
                 Описание
               </span>
-              <div v-html="product.full_description" class="bg-gray-100 rounded-lg px-4 py-3">
+              <div class="bg-gray-100 rounded-lg px-4 py-3">
+                <p
+                  v-html="product.short_description"
+                  class="relative overflow-hidden pointer-events-none transition-all"
+                  :class="{
+                    'max-h-[calc(3*1em*1.5)] before:content-[\'\'] before:absolute before:bottom-0 before:w-full before:max-h-[calc(1em*3)] before:bg-gradient-to-t before:from-gray-100 before:h-full':
+                      !this.expand,
+                    'max-h-[\'auto\']': this.expand,
+                  }"
+                />
+                <div class="pt-1">
+                  <Anchor
+                    :text="expandText"
+                    @click="changeExpanded"
+                    class="text-primary-500 hover:text-primary-900"
+                  />
+                </div>
               </div>
             </div>
           </Skeleton>
@@ -217,3 +248,9 @@ export default {
     </PageBody>
   </PageWrapper>
 </template>
+
+<style scoped>
+::v-deep(.expand-btn) {
+  @apply pt-0.5 appearance-none cursor-pointer;
+}
+</style>

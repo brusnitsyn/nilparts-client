@@ -11,6 +11,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      transitionProperty: {
+        'max-height': 'max-height'
+      },
       fontFamily: {
         sans: ['Ubuntu', ...defaultTheme.fontFamily.sans],
       },
