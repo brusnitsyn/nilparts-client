@@ -111,14 +111,14 @@ export default {
                         <NuxtImg
                           width="80"
                           height="80"
-                          class="min-w-[80px] max-w-min min-h-[80px] max-h-min"
-                          :src="`${$config.serverURL}/${item.product.thumb_url}`"
+                          class="min-w-[80px] max-w-min min-h-[80px] max-h-min object-cover"
+                          :src="`${item.product.cover}`"
                           alt=""
                         />
                       </div>
                       <div class="flex flex-col">
                         <span class="leading-5">
-                          {{ item.product.name }}
+                          {{ item.product.title }}
                         </span>
                         <div class="flex gap-x-1.5">
                           <span>
@@ -139,7 +139,7 @@ export default {
                       </span>
 
                       <span class="font-medium"> Итого: </span>
-                      <span class="text-end">
+                      <span class="text-end font-medium">
                         {{ basketMeta.total_price | toRuble }}
                       </span>
                     </div>

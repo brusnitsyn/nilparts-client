@@ -98,9 +98,10 @@ export default {
         <div
           class="rounded-lg overflow-clip w-[80px] h-[80px] md:w-[120px] md:h-[120px]"
         >
-          <img
-            class="w-full h-full"
-            :src="`${$config.serverURL}/${item.product.thumb_url}`"
+          <NuxtImg
+            loading="lazy"
+            class="w-full h-full object-cover"
+            :src="`${item.product.cover}`"
             alt=""
           />
         </div>
@@ -120,7 +121,7 @@ export default {
                   params: { slug: item.product.slug },
                 }"
               >
-                {{ item.product.name }}
+                {{ item.product.title }}
               </Anchor>
             </Skeleton>
             <Skeleton

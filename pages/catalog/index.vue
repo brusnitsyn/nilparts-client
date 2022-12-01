@@ -97,7 +97,7 @@ export default {
             :is-loaded="$fetchState.pending"
             v-for="item in 16"
             :key="item"
-            :product="item"
+            :product="{}"
           />
         </CatalogWrapper>
         <Pagination

@@ -3,15 +3,26 @@ export default {
   layout: 'auth',
   data() {
     return {
-      form: {}
+      form: {},
+      formErrors: [],
+      formError: false
     }
   },
   methods: {
     async register() {
-      const response = await this.$axios.post('/users', this.form)
-      if (response.status === 201) {
-        await this.$auth.loginWith('laravelSanctum', {data: this.form})
-      }
+      await this.$axios.post('/users', this.form)
+        .then(async (res) => {
+          await this.$auth.loginWith('laravelSanctum', {data: this.form})
+          this.formError = false
+        })
+        .catch((err) => {
+          this.formErrors = err.response.data
+          this.formError = true
+        })
+    },
+    clearError() {
+      this.formError = false
+      this.formErrors = []
     }
   }
 }
@@ -33,10 +44,18 @@ export default {
             <FormTextInput v-model="form.password" type="password" placeholder="Пароль"/>
           </div>
           <Button text="Зарегистрироваться" @click="register"/>
+          <div v-show="formError" class="border border-red-300 bg-red-200 rounded mt-1 p-2 py-1">
+            <div class="flex justify-between items-center">
+              <span class="text-red-500">{{ formErrors.message }}</span>
+              <button @click="clearError" class="flex items-center justify-center">
+                <iconify-icon icon="material-symbols:close-rounded" width="18" height="18" class="text-red-500" />
+              </button>
+            </div>
+          </div>
         </div>
       </template>
       <template #footer>
-        <div class="flex flex-col gap-y-2 pt-2">
+        <div class="flex items-start flex-col gap-y-2 pt-2">
           <Anchor text="У меня есть аккаунт" :to="{name: 'auth-login'}" />
         </div>
       </template>
