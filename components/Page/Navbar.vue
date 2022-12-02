@@ -1,11 +1,15 @@
 <script>
 import { mapGetters } from 'vuex'
+import p from "~/package.json";
 
 export default {
   computed: {
     ...mapGetters({
       advert: 'advert/getAdvert',
     }),
+    pName() {
+      return p.name;
+    },
     isAdvert() {
       return (
         this.advert !== undefined &&
@@ -15,7 +19,7 @@ export default {
       )
     },
     actionSheetHeader() {
-      return this.$auth.loggedIn ? `Привет, ${this.$auth.user.name}` : 'CHINAVED'
+      return this.$auth.loggedIn ? `Привет, ${this.$auth.user.name}` : this.pName
     }
   },
   data() {
@@ -23,7 +27,6 @@ export default {
       menus: [
         { type: 'link', text: 'Главная', route: { name: 'index' } },
         { type: 'link', text: 'Каталог', route: { name: 'catalog' } },
-        { type: 'link', text: 'Таможенный сервис', route: { name: 'service' } },
         { type: 'link', text: 'Новости', route: { name: 'news' } },
         { type: 'link', text: 'Контакты', route: { name: 'contacts' } },
       ],

@@ -4,13 +4,14 @@ import 'swiper/css/swiper.css'
 
 import { mapGetters } from 'vuex'
 import Breadcrumb from '~/components/Page/Breadcrumb'
-
+import { ImageMagnifier } from 'vue-image-magnifier'
 export default {
   layout: 'page',
   components: {
     Breadcrumb,
     Swiper,
     SwiperSlide,
+    ImageMagnifier,
   },
   head() {
     return {
@@ -43,7 +44,7 @@ export default {
         spaceBetween: 8,
         navigation: {
           nextEl: '.swiper-next',
-          prevEl: '.swiper-prev'
+          prevEl: '.swiper-prev',
         },
         breakpoints: {
           320: {
@@ -109,30 +110,64 @@ export default {
             <div
               class="flex flex-col items-center justify-center bg-gray-100 rounded-lg lg:h-[623px] h-[343px] lg:ml-2 mb-2 lg:mb-0 lg:order-2 lg:grow"
             >
-              <NuxtImg
-                :src="activeImage"
-                loading="lazy"
-                class="rounded-lg max-w-[320px] max-h-[320px] lg:max-w-[440px] lg:max-h-[440px]"
+              <ImageMagnifier
+                :src="`${activeImage}`"
+                :zoom-src="activeImage"
+                width="440"
+                height="440"
+                mask-height="180"
+                mask-width="180"
+                zoom-width="440"
+                zoom-height="440"
+                zoom-class="max-w-[320px] max-h-[320px] lg:max-w-[440px] lg:max-h-[440px]"
               />
+              <!--                class="rounded-lg w-full h-full "-->
+<!--              max-w-[320px] max-h-[320px] lg:max-w-[440px] lg:max-h-[440px]-->
+              <!--              <NuxtImg-->
+              <!--                :src="activeImage"-->
+              <!--                loading="lazy"-->
+              <!--                class="rounded-lg max-w-[320px] max-h-[320px] lg:max-w-[440px] lg:max-h-[440px]"-->
+              <!--              />-->
             </div>
           </Skeleton>
-          <div class="flex gap-2 lg:gap-4 lg:order-1 w-full lg:h-full lg:w-auto">
+          <div
+            class="flex gap-2 lg:gap-4 lg:order-1 w-full lg:h-full lg:w-auto"
+          >
             <div class="relative lg:w-auto w-full lg:h-full">
-              <div class="swiper-prev flex items-center justify-center absolute left-0 top-1/2 lg:top-0 lg:left-1/2 bg-white shadow rounded-full p-1.5 -translate-x-3 -translate-y-3.5 lg:-translate-x-3.5 lg:-translate-y-3.5 z-10" slot="button-prev">
-                <iconify-icon class="hidden lg:block" icon="material-symbols:keyboard-arrow-up-rounded" width="18" height="18" />
-                <iconify-icon class="lg:hidden" icon="material-symbols:keyboard-arrow-up-rounded" rotate="270deg" width="18" height="18" />
+              <div
+                class="swiper-prev flex items-center justify-center absolute left-0 top-1/2 lg:top-0 lg:left-1/2 bg-white shadow rounded-full p-1.5 -translate-x-3 -translate-y-3.5 lg:-translate-x-3.5 lg:-translate-y-3.5 z-10"
+                slot="button-prev"
+              >
+                <iconify-icon
+                  class="hidden lg:block"
+                  icon="material-symbols:keyboard-arrow-up-rounded"
+                  width="18"
+                  height="18"
+                />
+                <iconify-icon
+                  class="lg:hidden"
+                  icon="material-symbols:keyboard-arrow-up-rounded"
+                  rotate="270deg"
+                  width="18"
+                  height="18"
+                />
               </div>
-              <div class="lg:h-[623px] overflow-hidden w-full ">
+              <div class="lg:h-[623px] overflow-hidden w-full">
                 <Swiper :options="swiperOption" class="rounded-lg lg:h-full">
                   <SwiperSlide
                     v-for="(image, index) in product.media"
                     :key="index"
                     :class="{
                       'flex justify-center items-center bg-gray-100 rounded-lg p-3 lg:p-4':
-                    loaded,
-                }"
+                        loaded,
+                    }"
                   >
-                    <Skeleton :is-loaded="loaded" :h="null" :w="null" skeleton-class="lg:w-[96px] w-[120px] h-[96px]">
+                    <Skeleton
+                      :is-loaded="loaded"
+                      :h="null"
+                      :w="null"
+                      skeleton-class="lg:w-[96px] w-[120px] h-[96px]"
+                    >
                       <NuxtImg
                         :src="`${image}`"
                         @click="setActiveImage(image)"
@@ -142,14 +177,30 @@ export default {
                   </SwiperSlide>
                 </Swiper>
               </div>
-              <div class="swiper-next flex items-center justify-center absolute right-0 bottom-1/2 lg:right-auto lg:bottom-0 lg:left-1/2 bg-white shadow rounded-full translate-x-3 translate-y-3.5 lg:-translate-x-3.5 p-1.5 lg:translate-y-3.5 z-10" slot="button-next">
-                <iconify-icon class="hidden lg:block" icon="material-symbols:keyboard-arrow-down-rounded" width="18" height="18" />
-                <iconify-icon class="lg:hidden" icon="material-symbols:keyboard-arrow-down-rounded" rotate="270deg" width="18" height="18" />
+              <div
+                class="swiper-next flex items-center justify-center absolute right-0 bottom-1/2 lg:right-auto lg:bottom-0 lg:left-1/2 bg-white shadow rounded-full translate-x-3 translate-y-3.5 lg:-translate-x-3.5 p-1.5 lg:translate-y-3.5 z-10"
+                slot="button-next"
+              >
+                <iconify-icon
+                  class="hidden lg:block"
+                  icon="material-symbols:keyboard-arrow-down-rounded"
+                  width="18"
+                  height="18"
+                />
+                <iconify-icon
+                  class="lg:hidden"
+                  icon="material-symbols:keyboard-arrow-down-rounded"
+                  rotate="270deg"
+                  width="18"
+                  height="18"
+                />
               </div>
             </div>
           </div>
         </div>
-        <PageSection class="lg:pl-4 lg:w-1/2 mt-4 lg:mt-0 flex flex-col gap-y-4">
+        <PageSection
+          class="lg:pl-4 lg:w-1/2 mt-4 lg:mt-0 flex flex-col gap-y-4"
+        >
           <div class="flex flex-col gap-y-1.5">
             <div>
               <Skeleton

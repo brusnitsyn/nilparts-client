@@ -1,6 +1,13 @@
 <script>
+import p from "~/package.json";
+
 export default {
   layout: 'auth',
+  computed: {
+    pName() {
+      return p.name;
+    }
+  },
   data() {
     return {
       form: {},
@@ -33,7 +40,7 @@ export default {
     <Form>
       <template #header>
         <div class="pb-10">
-          <FormHeader title="Создать аккаунт" subTitle="в магазине chinaved"/>
+          <FormHeader title="Создать аккаунт" :subTitle="`в магазине ${pName}`"/>
         </div>
       </template>
       <template #body>

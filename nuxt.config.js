@@ -17,7 +17,7 @@ export default {
   head: {
     title: '',
     titleTemplate: (titleChunk) => {
-      return titleChunk ? `${titleChunk} - Chinaved – интернет магазин спецтехники по доступным ценам` : 'Chinaved';
+      return titleChunk ? `${titleChunk} - NilParts – интернет магазин запасных частей по доступным ценам` : 'NilParts';
     },
     meta: [
       { charset: 'utf-8' },
