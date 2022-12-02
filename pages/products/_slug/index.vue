@@ -40,18 +40,20 @@ export default {
       expandText: 'Показать ещё',
       expand: false,
       swiperOption: {
+        spaceBetween: 8,
         navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev'
+          nextEl: '.swiper-next',
+          prevEl: '.swiper-prev'
         },
         breakpoints: {
           320: {
             slidesPerView: 3,
-            spaceBetween: 8,
+          },
+          768: {
+            slidesPerView: 4,
           },
           1024: {
-            slidesPerView: 5,
-            spaceBetween: 8,
+            slidesPerView: 4,
             direction: 'vertical',
           },
         },
@@ -114,27 +116,37 @@ export default {
               />
             </div>
           </Skeleton>
-          <div class="gap-2 lg:gap-4 lg:order-1">
-            <Swiper :options="swiperOption" class="rounded-lg lg:h-full">
-              <SwiperSlide
-                v-for="(image, index) in product.media"
-                :key="index"
-                :class="{
-                  'flex justify-center items-center bg-gray-100 rounded-lg p-3 lg:p-4':
+          <div class="flex gap-2 lg:gap-4 lg:order-1 w-full lg:h-full lg:w-auto">
+            <div class="relative lg:w-auto w-full lg:h-full">
+              <div class="swiper-prev flex items-center justify-center absolute left-0 top-1/2 lg:top-0 lg:left-1/2 bg-white shadow rounded-full p-1.5 -translate-x-3 -translate-y-3.5 lg:-translate-x-3.5 lg:-translate-y-3.5 z-10" slot="button-prev">
+                <iconify-icon class="hidden lg:block" icon="material-symbols:keyboard-arrow-up-rounded" width="18" height="18" />
+                <iconify-icon class="lg:hidden" icon="material-symbols:keyboard-arrow-up-rounded" rotate="270deg" width="18" height="18" />
+              </div>
+              <div class="lg:h-[623px] overflow-hidden w-full ">
+                <Swiper :options="swiperOption" class="rounded-lg lg:h-full">
+                  <SwiperSlide
+                    v-for="(image, index) in product.media"
+                    :key="index"
+                    :class="{
+                      'flex justify-center items-center bg-gray-100 rounded-lg p-3 lg:p-4':
                     loaded,
                 }"
-              >
-                <Skeleton :is-loaded="loaded" :h="null" :w="null" skeleton-class="lg:w-[96px] w-[120px] h-[96px]">
-                  <NuxtImg
-                    :src="`${image}`"
-                    @click="setActiveImage(image)"
-                    class="w-[120px] lg:w-[96px] h-[96px] object-cover rounded-lg cursor-pointer"
-                  />
-                </Skeleton>
-              </SwiperSlide>
-              <div class="absolute top-0 left-1/2 bg-dark shadow rounded-full p-1 -translate-y-1 z-10" slot="button-prev"></div>
-              <div class="swiper-button-next" slot="button-next"></div>
-            </Swiper>
+                  >
+                    <Skeleton :is-loaded="loaded" :h="null" :w="null" skeleton-class="lg:w-[96px] w-[120px] h-[96px]">
+                      <NuxtImg
+                        :src="`${image}`"
+                        @click="setActiveImage(image)"
+                        class="w-[120px] lg:w-[96px] h-[96px] object-cover rounded-lg cursor-pointer"
+                      />
+                    </Skeleton>
+                  </SwiperSlide>
+                </Swiper>
+              </div>
+              <div class="swiper-next flex items-center justify-center absolute right-0 bottom-1/2 lg:right-auto lg:bottom-0 lg:left-1/2 bg-white shadow rounded-full translate-x-3 translate-y-3.5 lg:-translate-x-3.5 p-1.5 lg:translate-y-3.5 z-10" slot="button-next">
+                <iconify-icon class="hidden lg:block" icon="material-symbols:keyboard-arrow-down-rounded" width="18" height="18" />
+                <iconify-icon class="lg:hidden" icon="material-symbols:keyboard-arrow-down-rounded" rotate="270deg" width="18" height="18" />
+              </div>
+            </div>
           </div>
         </div>
         <PageSection class="lg:pl-4 lg:w-1/2 mt-4 lg:mt-0 flex flex-col gap-y-4">
