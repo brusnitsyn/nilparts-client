@@ -1,15 +1,15 @@
 <script>
 import {Swiper, SwiperSlide} from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
-import {mapGetters} from "vuex";
+import {mapGetters, mapState} from "vuex";
 
 export default {
   components: {
     Swiper, SwiperSlide
   },
   computed: {
-    ...mapGetters({
-      slides: 'slides/getHeroSlides'
+    ...mapState('home', {
+      slides: state => state.slides,
     })
   },
   data() {
@@ -30,9 +30,9 @@ export default {
 </script>
 
 <template>
-  <Swiper v-if="slides.length" :options="swiperOption" class="aspect-[830/390] md:aspect-auto rounded-b-lg">
-    <SwiperSlide v-if="slide.image.url !== null" v-for="(slide, index) in slides" :key="slide.id">
-      <NuxtImg :src="`${$config.serverURL}/${slide.image.url}`" alt="" class="max-h-[668px] object-cover w-full h-full"/>
+  <Swiper :options="swiperOption" class="aspect-[830/390] md:aspect-auto rounded-b-lg">
+    <SwiperSlide v-for="(slide) in slides" :key="slide.id">
+      <NuxtImg :src="`${slide.image}`" alt="" class="max-h-[668px] object-cover w-full h-full"/>
     </SwiperSlide>
     <div class="swiper-pagination" slot="pagination"></div>
   </Swiper>
