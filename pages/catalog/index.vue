@@ -89,7 +89,7 @@ export default {
           <LazyCatalogItem
             v-if="!$fetchState.pending"
             v-for="(product, index) in products"
-            :key="product.id"
+            :key="index"
             :product="product"
           />
           <LazyCatalogItem
@@ -100,7 +100,7 @@ export default {
             :product="{}"
           />
         </CatalogWrapper>
-        <Pagination
+        <LazyPagination
           v-if="hasPaginate"
           :current="currentPage"
           :total="productsMeta.total"

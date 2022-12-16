@@ -90,7 +90,7 @@ export default {
         <span class="mr-1">
           {{ banner.text }}
         </span>
-        <Anchor
+        <LazyAnchor
           v-if="banner.btn_text"
           class="underline font-bold"
           :text="banner.btn_text"
@@ -106,15 +106,15 @@ export default {
         >
           <ul class="flex items-center gap-x-8">
             <li v-for="(item, i) in menus" :key="i">
-              <Anchor
+              <LazyAnchor
                 v-if="item.type === 'link'"
                 :to="item.route ? item.route : undefined"
                 :href="item.href ? item.href : undefined"
                 class="hover:no-underline hover:text-slate-900 hover:dark:text-white capitalize"
               >
                 {{ item.text }}
-              </Anchor>
-              <Button
+              </LazyAnchor>
+              <LazyButton
                 v-else-if="
                   item.type === 'button' && !$auth.loggedIn && !item.disable
                 "
@@ -126,7 +126,7 @@ export default {
               />
             </li>
             <li v-if="!$auth.loggedIn">
-              <Button
+              <LazyButton
                 text="Вход / регистрация"
                 size="sm"
                 class="font-semibold capitalize"
@@ -186,11 +186,11 @@ export default {
                     </div>
                     <div class="mt-8" v-if="searchResult.length">
                       <div class="grid grid-cols-4 gap-y-4 gap-x-4">
-                        <LazyCatalogItem v-for="item in searchResult.slice(0,8)" :product="item" />
+                        <LazyCatalogItem v-for="(item, index) in searchResult.slice(0,4)" :key="index" :product="item" />
                       </div>
                     </div>
-                    <div class="mt-2" v-if="searchResult.length > 6">
-                      <Anchor
+                    <div class="mt-2" v-if="searchResult.length > 4">
+                      <LazyAnchor
                         :to="{ name: 'search' }"
                         text="Посмотреть все"
                         class="text-white"
@@ -200,7 +200,7 @@ export default {
                             icon="material-symbols:arrow-forward-rounded"
                           ></iconify-icon>
                         </template>
-                      </Anchor>
+                      </LazyAnchor>
                     </div>
                   </div>
                 </div>
@@ -230,27 +230,27 @@ export default {
         name="animation-menu-toggle"
       >
         <ActionSheet v-show="showOptions" @onClose="toggleOptions(false)">
-          <ActionSheetBody>
-            <ActionSheetHeader :text="actionSheetHeader" />
+          <LazyActionSheetBody>
+            <LazyActionSheetHeader :text="actionSheetHeader" />
             <nav class="leading-6 font-medium text-gray-600 dark:text-gray-300">
               <ul class="flex flex-col">
                 <li
                   v-for="(item, i) in menus"
                   :key="i"
-                  class="flex w-full"
+                  class="justify-start flex-1 items-start"
                   :class="{
-                    'pb-2 mb-2 border-b border-gray-900/10 dark:border-gray-50/20':
+                    'pb-2 mb-2 border-b border-gray-900/10 dark:border-gray-50/20 last:border-none':
                       item.type === 'link',
                   }"
                 >
-                  <Anchor
+                  <LazyAnchor
                     v-if="item.type === 'link'"
                     :to="item.route ? item.route : undefined"
                     :href="item.href ? item.href : undefined"
                     class="flex-1 hover:no-underline capitalize"
                     >{{ item.text }}
-                  </Anchor>
-                  <Button
+                  </LazyAnchor>
+                  <LazyButton
                     v-else-if="item.type === 'button'"
                     :text="item.text"
                     class="flex-1 capitalize"
@@ -259,13 +259,13 @@ export default {
                   />
                 </li>
                 <li>
-                  <Button
+                  <LazyButton
                     v-if="$auth.loggedIn"
                     text="Мой профиль"
                     class="font-semibold normal-case"
                     :to="{ name: 'profile' }"
                   />
-                  <Button
+                  <LazyButton
                     v-else
                     text="Вход / регистрация"
                     class="font-semibold capitalize"
@@ -280,8 +280,8 @@ export default {
             <div class="mt-2">
               <ThemeSwitcher type="select-box" />
             </div>
-          </ActionSheetBody>
-          <Button
+          </LazyActionSheetBody>
+          <LazyButton
             text="Закрыть"
             size="md"
             type="secondary"

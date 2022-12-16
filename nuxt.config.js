@@ -4,9 +4,9 @@ export default {
     serverAPI: process.env.NODE_ENV === 'production' ? process.env.SERVER_API : 'http://127.0.0.1:8000/api',
   },
 
-  // server: {
-  //   host: '0.0.0.0'
-  // },
+  server: {
+    host: '0.0.0.0'
+  },
 
   loading: {
     color: '#1f2937',
@@ -17,7 +17,7 @@ export default {
   head: {
     title: '',
     titleTemplate: (titleChunk) => {
-      return titleChunk ? `${titleChunk} - NilParts – интернет магазин запасных частей по доступным ценам` : 'NilParts';
+      return titleChunk ? `${titleChunk} - NilParts – интернет магазин запасных частей по доступным ценам` : 'NilParts – интернет магазин запасных частей по доступным ценам';
     },
     meta: [
       { charset: 'utf-8' },
@@ -50,6 +50,10 @@ export default {
       src: '~/plugins/table.js',
       ssr: false
     },
+    {
+      src: '~/plugins/vFocus.js',
+      ssr: false
+    }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
