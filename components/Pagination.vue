@@ -98,7 +98,7 @@ export default {
             </div>
           </a>
         </li>
-        <li class="pr-4 lg:pr-6 cursor-default" v-if="hasFirst()">...</li>
+        <li class="cursor-default" v-if="hasFirst()">...</li>
         <li v-for="page in pages">
           <a @click.prevent="changePage(page)">
             <div :class="{'bg-primary-500 text-white cursor-default': current === page, 'lg:hover:bg-gray-200 cursor-pointer': current !== page}"
@@ -107,7 +107,7 @@ export default {
             </div>
           </a>
         </li>
-        <li class="pr-4 lg:pr-6 cursor-default" v-if="hasLast()">...</li>
+        <li class="cursor-default" v-if="hasLast()">...</li>
         <li v-if="hasLast()">
           <a @click.prevent="changePage(totalPages)">
             <div class="flex hover:bg-gray-200 rounded-md h-6 w-6 lg:h-8 lg:w-8  items-center justify-center cursor-pointer lg:hover:bg-gray-200">
