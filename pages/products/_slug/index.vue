@@ -33,10 +33,16 @@ export default {
       return `${this.selectedImage}`
     },
   },
+  watch: {
+    previewImage(value) {
+      value ? document.body.classList.add('overflow-hidden') : document.body.classList.remove('overflow-hidden')
+    }
+  },
   data() {
     return {
       crumb: [{ title: 'Главная', to: { name: 'index' } }],
       selectedImage: '',
+      previewImage: false,
       loaded: false,
       expandText: 'Показать ещё',
       expand: false,
@@ -86,7 +92,21 @@ export default {
     setActiveImage(image) {
       this.selectedImage = image
     },
+    onShowPreviewImage(value) {
+      this.previewImage = value
+    },
+    keyup(e) {
+      if(e.keyCode === 27) {
+        this.previewImage = false
+      }
+    }
   },
+  mounted() {
+    window.addEventListener('keyup', this.keyup)
+  },
+  destroyed() {
+    window.removeEventListener('keyup', this.keyup)
+  }
 }
 </script>
 
@@ -124,6 +144,7 @@ export default {
               <NuxtImg
                 :src="activeImage"
                 loading="lazy"
+                @click="onShowPreviewImage(true)"
                 class="rounded-lg max-w-[320px] max-h-[320px] lg:max-w-[440px] lg:max-h-[440px]"
               />
             </div>
@@ -308,6 +329,13 @@ export default {
         </PageSection>
       </div>
     </PageBody>
+    <Portal to="app-after">
+      <div v-if="previewImage" class="fixed inset-0 bg-dark/95 backdrop-filter backdrop-blur-md z-50 h-screen w-screen">
+        <div class="max-w-8xl absolute top-6 bottom-6 lg:top-10 lg:bottom-10 lg:left-8 lg:right-8 px-4 w-full h-full lg:w-auto lg:mx-auto">
+          <NuxtImg :src="activeImage" />
+        </div>
+      </div>
+    </Portal>
   </PageWrapper>
 </template>
 
