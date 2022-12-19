@@ -280,7 +280,7 @@ export default {
             skeleton-class="mb-2"
           >
             <div
-              v-if="product.full_description"
+              v-if="product.short_description"
               class="flex flex-col space-y-2"
             >
               <span class="self-start bg-gray-100 rounded-lg px-4 py-3">
@@ -288,14 +288,13 @@ export default {
               </span>
               <div class="bg-gray-100 rounded-lg px-4 py-3">
                 <p
-                  v-html="product.short_description"
-                  class="relative overflow-hidden pointer-events-none transition-all"
+                  class="relative overflow-hidden pointer-events-none transition-all whitespace-pre-wrap"
                   :class="{
                     'max-h-[calc(3*1em*1.5)] before:content-[\'\'] before:absolute before:bottom-0 before:w-full before:max-h-[calc(1em*3)] before:bg-gradient-to-t before:from-gray-100 before:h-full':
                       !this.expand,
                     'max-h-[\'auto\']': this.expand,
                   }"
-                />
+                >{{ product.short_description }}</p>
                 <div class="pt-1">
                   <Anchor
                     :text="expandText"
