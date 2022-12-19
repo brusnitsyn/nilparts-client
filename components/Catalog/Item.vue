@@ -41,7 +41,7 @@ export default {
         <NuxtImg
           loading="lazy"
           :src="`${product.cover}`"
-          class="rounded-lg h-[196px] w-full lg:w-[294px] object-cover"
+          class="rounded-lg h-[196px] w-full object-cover"
         />
       </Skeleton>
       <div class="pt-1.5 pb-2">
