@@ -1,16 +1,11 @@
 <script>
 import { mapGetters } from 'vuex'
+const qs = require('qs')
 
 export default {
   layout: 'page',
   watch: {
     '$route.query': '$fetch',
-    filtersCountChanges() {
-      const query = this.filters
-      this.$router.push({ name: 'catalog', query })
-
-      if (process.client) window.scrollTo(0, 0)
-    },
   },
   computed: {
     ...mapGetters({
@@ -29,7 +24,7 @@ export default {
         return this.productsMeta.current_page
       },
       async set(value) {
-        const pageFilter = { name: 'page', query: value }
+        const pageFilter = { page: value }
         await this.$store.dispatch('products/addFilter', pageFilter)
       },
     },
@@ -47,17 +42,17 @@ export default {
   },
   methods: {
     async applyFilter(filter) {
-      const pageFilter = { name: 'page', query: 1 }
+      const pageFilter = { page: 1 }
       await this.$store.dispatch('products/addFilter', pageFilter)
-      const filterObj = { name: filter.type, query: filter.data.id }
+      const filterObj = { filterArray: { name: filter.type, query: filter.data } }
       await this.$store.dispatch('products/addFilter', filterObj)
+
+      // const query = qs.stringify(this.filters)
+      await this.$router.push({ name: 'catalog', query: this.filters })
     },
   },
   async fetch() {
-    const filters = []
-    for (let [key, value] of Object.entries(this.$route.query)) {
-      filters.push({ name: key, query: Number(value) })
-    }
+    const filters = qs.parse(this.$route.query)
 
     if(filters.length)
       await this.$store.dispatch('products/addFilters', filters)
@@ -65,6 +60,8 @@ export default {
       await this.$store.dispatch('products/clearFilters')
 
     await this.$store.dispatch('products/fetchProducts', this.$route.query)
+
+    if (process.client) window.scrollTo(0, 0)
   },
 }
 </script>
@@ -80,7 +77,7 @@ export default {
           <CatalogTagItem
             v-for="(category, index) in categories"
             :key="index"
-            @click="applyFilter({ type: 'category', data: category })"
+            @click="applyFilter({ type: 'category', data: category.id })"
           >
             {{ category.title }}
           </CatalogTagItem>
