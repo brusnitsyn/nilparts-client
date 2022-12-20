@@ -1,5 +1,6 @@
 <script>
-import { mapGetters } from 'vuex'
+import {mapGetters, mapState} from 'vuex'
+import * as filters from "~/helpers/filters";
 const qs = require('qs')
 
 export default {
@@ -10,7 +11,9 @@ export default {
   computed: {
     ...mapGetters({
       filters: 'products/getFilters',
-      filtersCountChanges: 'products/getFiltersCountChanges',
+      // filtersLength: 'products/getFiltersLength',
+
+      // filtersCountChanges: 'products/getFiltersCountChanges',
 
       categories: 'category/getCategories',
 
@@ -24,9 +27,16 @@ export default {
         return this.productsMeta.current_page
       },
       async set(value) {
-        const pageFilter = { page: value }
-        await this.$store.dispatch('products/addFilter', pageFilter)
+        const pageFilter = filters.makeFilter('page', value)
+        await this.updateQuery(pageFilter)
       },
+    },
+
+    activeCategory() {
+      if(this.filters.filter)
+        return this.filters.filter.category
+      else
+        return false
     },
 
     hasPaginate() {
@@ -42,26 +52,28 @@ export default {
   },
   methods: {
     async applyFilter(filter) {
-      const pageFilter = { page: 1 }
-      await this.$store.dispatch('products/addFilter', pageFilter)
-      const filterObj = { filterArray: { name: filter.type, query: filter.data } }
-      await this.$store.dispatch('products/addFilter', filterObj)
-
-      // const query = qs.stringify(this.filters)
-      await this.$router.push({ name: 'catalog', query: this.filters })
+      const filterCategory = filters.makeFilter(filter.name, filter.value, 'filter')
+      await this.updateQuery(filterCategory)
     },
+    async updateQuery(filter) {
+      await this.$store.dispatch('products/addFilter', filter)
+
+      const query = qs.stringify(this.filters, { encode: true })
+      const path = `${this.$route.path}?${query}`
+      await this.$router.push(path)
+    }
   },
   async fetch() {
+    if (process.client) window.scrollTo(0, 0)
+
     const filters = qs.parse(this.$route.query)
 
-    if(filters.length)
+    if(Object.keys(filters).length)
       await this.$store.dispatch('products/addFilters', filters)
     else
       await this.$store.dispatch('products/clearFilters')
 
     await this.$store.dispatch('products/fetchProducts', this.$route.query)
-
-    if (process.client) window.scrollTo(0, 0)
   },
 }
 </script>
@@ -70,19 +82,30 @@ export default {
   <PageWrapper>
     <PageBody>
       <PageHeader>
+        <CatalogTagWrapper class="mb-4">
+          <CatalogTagItem
+            v-for="(category, index) in categories"
+
+            :key="index"
+            @click="applyFilter({ name: 'category', value: category.id })"
+          >
+            {{ category.title }}
+          </CatalogTagItem>
+        </CatalogTagWrapper>
         <PageTitle text="Каталог" />
       </PageHeader>
       <PageSection>
         <CatalogTagWrapper>
           <CatalogTagItem
+            v-if="activeCategory"
             v-for="(category, index) in categories"
             :key="index"
-            @click="applyFilter({ type: 'category', data: category.id })"
+            @click="applyFilter({ name: 'category', value: category.id })"
           >
             {{ category.title }}
           </CatalogTagItem>
         </CatalogTagWrapper>
-        <CatalogWrapper class="pt-4">
+        <CatalogWrapper class="pt-3">
           <LazyCatalogItem
             v-if="!$fetchState.pending"
             v-for="(product, index) in products"

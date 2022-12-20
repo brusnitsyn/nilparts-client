@@ -24,28 +24,28 @@ export default {
           <PageSectionTitle text="Категории" />
           <ShortcutCategoryWrapper>
             <ShortcutCategoryItem
-              v-for="(cat, index) in categories.slice(0, 4)"
-              :key="cat.id"
-              :text="cat.title"
-              :image="cat.image"
-              :to="{ name: 'catalog', query: { category: cat.id } }"
+              v-for="(category, index) in categories.slice(0, 4)"
+              :key="category.id"
+              :text="category.title"
+              :image="category.image"
+              :to="{ name: 'catalog', categoryId: category.id }"
             />
             <!--https://via.placeholder.com/320x114-->
           </ShortcutCategoryWrapper>
         </PageSection>
-        <PageSection v-if="blogs.length">
-          <PageSectionTitle
-            text="Новости"
-            :route="{ name: 'Все новости', to: { name: 'news' } }"
-          />
-          <ShortcutNewsWrapper>
-            <NewsItem
-              v-for="(blog, index) in blogs.slice(0, 4)"
-              :key="blog.id"
-              :model="blog"
-            />
-          </ShortcutNewsWrapper>
-        </PageSection>
+<!--        <PageSection v-if="blogs.length">-->
+<!--          <PageSectionTitle-->
+<!--            text="Новости"-->
+<!--            :route="{ name: 'Все новости', to: { name: 'news' } }"-->
+<!--          />-->
+<!--          <ShortcutNewsWrapper>-->
+<!--            <NewsItem-->
+<!--              v-for="(blog, index) in blogs.slice(0, 4)"-->
+<!--              :key="blog.id"-->
+<!--              :model="blog"-->
+<!--            />-->
+<!--          </ShortcutNewsWrapper>-->
+<!--        </PageSection>-->
       </PageBody>
     </PageWrapper>
   </div>
