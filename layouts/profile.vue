@@ -10,7 +10,7 @@ export default {
     <div id="app-before"></div>
     <div class="flex flex-col min-h-screen">
       <slot name="header">
-        <ProfileNavbar />
+        <PageNavbar />
       </slot>
       <div class="flex-1 w-full flex flex-col">
         <div
@@ -20,7 +20,7 @@ export default {
         </div>
       </div>
       <slot name="footer">
-        <ProfileFooter />
+        <PageFooter />
       </slot>
     </div>
     <PortalTarget name="app-after"/>
