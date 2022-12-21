@@ -29,6 +29,11 @@ export const actions = {
     const result = await response.data.data
     await commit('setCategories', result)
   },
+  async fetchCategory({commit, state}, categoryId) {
+    const response = await this.$axios.get(`/categories/${categoryId}`)
+    const result = await response.data.data
+    await commit('setCategory', result)
+  },
   async addCategory({commit}, category) {
     const form = formData(category)
 

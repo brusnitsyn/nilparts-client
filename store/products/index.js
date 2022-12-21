@@ -60,8 +60,6 @@ export const mutations = {
     state.filtersCountChange++
   },
   addFilter(state, filter) {
-    console.log(filter)
-    console.log(Object.keys(filter))
     if(Object.keys(filter)[0] === 'filter') {
       state.filters = Object.assign(state.filters, filter)
     } else {

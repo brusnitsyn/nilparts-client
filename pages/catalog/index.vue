@@ -32,11 +32,18 @@ export default {
       },
     },
 
-    activeCategory() {
+    activeCategoryId() {
       if(this.filters.filter)
-        return this.filters.filter.category
-      else
-        return false
+        return Number(this.filters.filter.category)
+      return 0
+    },
+
+    activeCategory() {
+      if(this.activeCategoryId !== 0) {
+        const foundCategory = this.categories.filter((item) => item.id === this.activeCategoryId)
+        return foundCategory[0].children
+      }
+      return undefined
     },
 
     hasPaginate() {
@@ -44,16 +51,15 @@ export default {
     },
   },
   data() {
-    return {
-      placeItem: {
-
-      }
-    }
+    return {}
   },
   methods: {
     async applyFilter(filter) {
       const filterCategory = filters.makeFilter(filter.name, filter.value, 'filter')
       await this.updateQuery(filterCategory)
+
+      const filterPage = filters.makeFilter('page', 1)
+      await this.updateQuery(filterPage)
     },
     async updateQuery(filter) {
       await this.$store.dispatch('products/addFilter', filter)
@@ -85,7 +91,7 @@ export default {
         <CatalogTagWrapper class="mb-4">
           <CatalogTagItem
             v-for="(category, index) in categories"
-
+            :active="activeCategoryId === category.id"
             :key="index"
             @click="applyFilter({ name: 'category', value: category.id })"
           >
@@ -95,10 +101,10 @@ export default {
         <PageTitle text="Каталог" />
       </PageHeader>
       <PageSection>
-        <CatalogTagWrapper>
+        <CatalogTagWrapper v-if="activeCategory !== undefined">
           <CatalogTagItem
-            v-if="activeCategory"
-            v-for="(category, index) in categories"
+            v-for="(category, index) in activeCategory"
+            :active="activeCategoryId === category.id"
             :key="index"
             @click="applyFilter({ name: 'category', value: category.id })"
           >
