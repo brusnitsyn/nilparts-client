@@ -3,14 +3,14 @@ export default {
   props: {
     text: {
       type: String,
-      default: ''
-    }
-  }
+      default: '',
+    },
+  },
 }
 </script>
 
 <template>
   <h1>
-    {{text}}
+    {{ text }}
   </h1>
 </template>
