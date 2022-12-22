@@ -28,7 +28,7 @@ export default {
               :key="category.id"
               :text="category.title"
               :image="category.image"
-              :to="{ name: 'catalog', categoryId: category.id }"
+              :to="{ name: 'catalog-slug', params: { slug: category.slug } }"
             />
             <!--https://via.placeholder.com/320x114-->
           </ShortcutCategoryWrapper>

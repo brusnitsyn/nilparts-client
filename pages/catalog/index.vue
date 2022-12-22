@@ -28,22 +28,9 @@ export default {
       },
       async set(value) {
         const pageFilter = filters.makeFilter('page', value)
-        await this.updateQuery(pageFilter)
+        await this.$router.push(`${this.$route.path}?page=${value}`)
+        await this.$store.dispatch('products/addFilter', pageFilter)
       },
-    },
-
-    activeCategoryId() {
-      if(this.filters.filter)
-        return Number(this.filters.filter.category)
-      return 0
-    },
-
-    activeCategory() {
-      if(this.activeCategoryId !== 0) {
-        const foundCategory = this.categories.filter((item) => item.id === this.activeCategoryId)
-        return foundCategory[0].children
-      }
-      return undefined
     },
 
     hasPaginate() {
@@ -53,33 +40,11 @@ export default {
   data() {
     return {}
   },
-  methods: {
-    async applyFilter(filter) {
-      const filterCategory = filters.makeFilter(filter.name, filter.value, 'filter')
-      await this.updateQuery(filterCategory)
-
-      const filterPage = filters.makeFilter('page', 1)
-      await this.updateQuery(filterPage)
-    },
-    async updateQuery(filter) {
-      await this.$store.dispatch('products/addFilter', filter)
-
-      const query = qs.stringify(this.filters, { encode: true })
-      const path = `${this.$route.path}?${query}`
-      await this.$router.push(path)
-    }
-  },
   async fetch() {
-    if (process.client) window.scrollTo(0, 0)
-
-    const filters = qs.parse(this.$route.query)
-
-    if(Object.keys(filters).length)
-      await this.$store.dispatch('products/addFilters', filters)
-    else
-      await this.$store.dispatch('products/clearFilters')
-
-    await this.$store.dispatch('products/fetchProducts', this.$route.query)
+    const page = this.$route.query.page
+    await this.$store.dispatch('products/fetchProducts', { page: page }).finally(() => {
+      if (process.client) window.scrollTo(0, 0)
+    })
   },
 }
 </script>
@@ -88,25 +53,14 @@ export default {
   <PageWrapper>
     <PageBody>
       <PageHeader>
-        <CatalogTagWrapper class="mb-4">
-          <CatalogTagItem
-            v-for="(category, index) in categories"
-            :active="activeCategoryId === category.id"
-            :key="index"
-            @click="applyFilter({ name: 'category', value: category.id })"
-          >
-            {{ category.title }}
-          </CatalogTagItem>
-        </CatalogTagWrapper>
         <PageTitle text="Каталог" />
       </PageHeader>
       <PageSection>
-        <CatalogTagWrapper v-if="activeCategory !== undefined">
+        <CatalogTagWrapper>
           <CatalogTagItem
-            v-for="(category, index) in activeCategory"
-            :active="activeCategoryId === category.id"
+            v-for="(category, index) in categories"
             :key="index"
-            @click="applyFilter({ name: 'category', value: category.id })"
+            :to="{ name: 'catalog-slug', params: { slug: category.slug } }"
           >
             {{ category.title }}
           </CatalogTagItem>
