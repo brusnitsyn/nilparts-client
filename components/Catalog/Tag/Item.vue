@@ -25,16 +25,16 @@ export default {
 </script>
 
 <template>
-  <button
+  <NuxtLink
     v-if="to"
-    @click="$router.push(to)"
+    :to="to"
     :class="style"
   >
     <div class="flex items-center gap-x-1.5">
       <slot name="icon" />
       <slot />
     </div>
-  </button>
+  </NuxtLink>
   <button
     v-else
     @click="click"
