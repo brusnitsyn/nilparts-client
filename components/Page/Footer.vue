@@ -32,6 +32,7 @@ export default {
         // {type: 'link', href: 'tel:+79145692181', text: '8-914-569-21-81'},
       ],
       socials: [
+        {icon: 'envelope', href: 'mailto:hello@nilparts.shop'},
         {icon: 'telegram-fill', href: 'https://t.me/nilparts'}
       ]
     }
