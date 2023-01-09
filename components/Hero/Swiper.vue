@@ -40,8 +40,8 @@ export default {
             {{slide.description}}
           </p>
         </div>
-        <div class="relative flex flex-col justify-end grow">
-          <div class="flex mt-8 items-center bg-white/[0.15] backdrop-blur-[140px] pl-16 h-[100px] ">
+        <div v-if="slide.btn_text" class="mt-8 relative flex flex-col justify-end grow">
+          <div class="flex items-center bg-white/[0.15] backdrop-blur-[140px] pl-16 h-[100px] ">
             <Button type="bordered" size="rounded">
               {{slide.btn_text}}
             </Button>
