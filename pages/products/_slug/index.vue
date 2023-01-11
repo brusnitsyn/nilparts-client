@@ -5,6 +5,8 @@ import 'swiper/css/swiper.css'
 import { mapGetters } from 'vuex'
 import Breadcrumb from '~/components/Page/Breadcrumb'
 import { ImageMagnifier } from 'vue-image-magnifier'
+import { getBreakpointValue, getCurrentBreakpoint } from '~/helpers/screen'
+
 export default {
   layout: 'page',
   components: {
@@ -35,8 +37,10 @@ export default {
   },
   watch: {
     previewImage(value) {
-      value ? document.body.classList.add('overflow-hidden') : document.body.classList.remove('overflow-hidden')
-    }
+      value
+        ? document.body.classList.add('overflow-hidden')
+        : document.body.classList.remove('overflow-hidden')
+    },
   },
   data() {
     return {
@@ -46,6 +50,7 @@ export default {
       loaded: false,
       expandText: 'Показать ещё',
       expand: false,
+      stickyProductTitle: false,
       swiperOption: {
         spaceBetween: 8,
         navigation: {
@@ -96,27 +101,78 @@ export default {
       this.previewImage = value
     },
     keyup(e) {
-      if(e.keyCode === 27) {
+      if (e.keyCode === 27) {
         this.previewImage = false
       }
-    }
+    },
+    handleScroll() {
+      // const currentBreak = getCurrentBreakpoint()
+      const currentBreakValue = getBreakpointValue('lg')
+
+      if (window.innerWidth >= currentBreakValue) {
+        if (window.scrollY >= 60) this.stickyProductTitle = true
+        else this.stickyProductTitle = false
+      } else this.stickyProductTitle = false
+    },
   },
   mounted() {
-    window.addEventListener('keyup', this.keyup)
+    if (process.client) {
+      window.addEventListener('keyup', this.keyup)
+      window.addEventListener('scroll', this.handleScroll)
+    }
   },
   destroyed() {
-    window.removeEventListener('keyup', this.keyup)
-  }
+    if (process.client) {
+      window.removeEventListener('keyup', this.keyup)
+      window.removeEventListener('scroll', this.handleScroll)
+
+      this.stickyProductTitleClass = ''
+    }
+  },
 }
 </script>
 
 <template>
   <PageWrapper>
     <PageBody>
-      <PageSection>
+      <PageSection class="mb-0">
         <Skeleton :is-loaded="loaded" :w="null" skeleton-class="w-1/3">
           <Breadcrumb :crumbs="crumb" />
         </Skeleton>
+      </PageSection>
+      <PageSection
+        class="lg:sticky lg:top-[60px] pt-6 md:py-6 lg:-mx-4 lg:px-12"
+        :class="{ 'bg-white z-10 drop-shadow-lg': stickyProductTitle }"
+      >
+        <div class="flex flex-col">
+          <Skeleton
+            :is-loaded="loaded"
+            :w="null"
+            h="24px"
+            skeleton-class="w-1/4"
+          >
+            <h1
+              class="leading-6"
+              :class="{
+                'text-2xl': !stickyProductTitle,
+                'text-xl': stickyProductTitle,
+              }"
+            >
+              {{ product.title }}
+            </h1>
+          </Skeleton>
+          <Skeleton
+            :is-loaded="loaded"
+            :w="null"
+            :m="null"
+            h="18px"
+            skeleton-class="w-2/4 mt-1.5"
+          >
+            <span v-if="product.article" class="text-gray-400/70">
+              Артикул товара: {{ product.article }}
+            </span>
+          </Skeleton>
+        </div>
       </PageSection>
       <div class="flex flex-col lg:flex-row">
         <div class="lg:flex lg:w-4/6 lg:pl-8 px-4 lg:pr-0">
@@ -128,7 +184,7 @@ export default {
             skeleton-class="lg:h-[623px] h-[343px] mb-2 lg:mb-4"
           >
             <div
-              class="flex flex-col items-center justify-center bg-gray-100 rounded-lg lg:h-[623px] h-[343px] lg:ml-2 mb-2 lg:mb-0 lg:order-2 lg:grow"
+              class="flex flex-col items-center justify-center bg-white rounded-lg lg:h-[623px] h-[343px] lg:ml-2 mb-2 lg:mb-0 lg:order-2 lg:grow"
             >
               <!--              <ImageMagnifier-->
               <!--                :src="`${activeImage}`"-->
@@ -178,7 +234,7 @@ export default {
                     v-for="(image, index) in product.media"
                     :key="index"
                     :class="{
-                      'flex justify-center items-center bg-gray-100 rounded-lg p-3 lg:p-4':
+                      'flex justify-center items-center bg-white rounded-lg p-3 lg:p-4':
                         loaded,
                     }"
                   >
@@ -220,30 +276,9 @@ export default {
           </div>
         </div>
         <PageSection
-          class="lg:pl-4 lg:w-1/2 mt-4 lg:mt-0 flex flex-col gap-y-4"
+          class="lg:ml-4 lg:w-1/2 mt-4 lg:mt-0 flex flex-col gap-y-4"
         >
-          <div class="flex flex-col gap-y-1.5">
-            <div>
-              <Skeleton
-                :is-loaded="loaded"
-                :w="null"
-                h="24px"
-                skeleton-class="w-1/4"
-              >
-                <h1 class="text-2xl leading-6">{{ product.title }}</h1>
-              </Skeleton>
-              <Skeleton
-                :is-loaded="loaded"
-                :w="null"
-                :m="null"
-                h="18px"
-                skeleton-class="w-2/4 my-1"
-              >
-                <span v-if="product.article" class="text-gray-400/70">
-                  Артикул: {{ product.article }}
-                </span>
-              </Skeleton>
-            </div>
+          <div class="flex flex-col gap-y-1.5 bg-white rounded-lg px-5 py-5">
             <Skeleton
               :is-loaded="loaded"
               :w="null"
@@ -271,67 +306,75 @@ export default {
                 <span>Нет в наличии</span>
               </div>
             </Skeleton>
-          </div>
-          <Skeleton :is-loaded="loaded" h="40px">
-            <div v-if="product.price" class="flex justify-between items-center">
-              <h2 class="text-[1.35rem] font-bold" v-if="loaded">
-                {{ product.price | toRuble }}
-              </h2>
+            <Skeleton :is-loaded="loaded" h="40px">
+              <div v-if="product.price" class="flex flex-col">
+                <h2 class="text-[1.35rem] font-bold" v-if="loaded">
+                  {{ product.price | toRuble }}
+                </h2>
 
-              <Button v-if="product.in_stock" class="w-1/2 lg:w-1/3">
-                Купить
-              </Button>
-              <Button
-                v-else
-                class="w-1/2 lg:w-1/3"
-                text="Нет в наличии"
-                disabled
-              />
-            </div>
-            <div v-else>
-              <h2 class="text-[1.35rem] font-medium" v-if="loaded">
-                Товар недоступен
-              </h2>
-            </div>
-          </Skeleton>
-          <Skeleton
-            :is-loaded="loaded"
-            :rep="5"
-            :m="null"
-            skeleton-class="mb-2"
-          >
-            <div
-              v-if="product.short_description"
-              class="flex flex-col space-y-2"
-            >
-              <span class="self-start bg-gray-100 rounded-lg px-4 py-3">
-                Описание
-              </span>
-              <div class="bg-gray-100 rounded-lg px-4 py-3">
-                <p
-                  class="relative overflow-hidden pointer-events-none transition-all whitespace-pre-wrap"
-                  :class="{
-                    'max-h-[calc(3*1em*1.5)] before:content-[\'\'] before:absolute before:bottom-0 before:w-full before:max-h-[calc(1em*3)] before:bg-gradient-to-t before:from-gray-100 before:h-full':
-                      !this.expand,
-                    'max-h-[\'auto\']': this.expand,
-                  }"
-                >{{ product.short_description }}</p>
-                <div class="pt-1">
-                  <Anchor
-                    :text="expandText"
-                    @click="changeExpanded"
-                    class="text-primary-500 hover:text-primary-900"
-                  />
-                </div>
+                <Button v-if="product.in_stock" type="bordered" size="rounded" class="w-full mt-4">
+                  В корзину
+                </Button>
+                <Button
+                  v-else
+                  class="w-1/2 lg:w-1/3"
+                  text="Нет в наличии"
+                  disabled
+                />
               </div>
-            </div>
-          </Skeleton>
+              <div v-else>
+                <h2 class="text-[1.35rem] font-medium" v-if="loaded">
+                  Товар недоступен
+                </h2>
+              </div>
+            </Skeleton>
+          </div>
+
+<!--          <Skeleton-->
+<!--            :is-loaded="loaded"-->
+<!--            :rep="5"-->
+<!--            :m="null"-->
+<!--            skeleton-class="mb-2"-->
+<!--          >-->
+<!--            <div-->
+<!--              v-if="product.short_description"-->
+<!--              class="flex flex-col space-y-2"-->
+<!--            >-->
+<!--              <span class="self-start bg-gray-100 rounded-lg px-4 py-3">-->
+<!--                Описание-->
+<!--              </span>-->
+<!--              <div class="bg-gray-100 rounded-lg px-4 py-3">-->
+<!--                <p-->
+<!--                  class="relative overflow-hidden pointer-events-none transition-all whitespace-pre-wrap"-->
+<!--                  :class="{-->
+<!--                    'max-h-[calc(3*1em*1.5)] before:content-[\'\'] before:absolute before:bottom-0 before:w-full before:max-h-[calc(1em*3)] before:bg-gradient-to-t before:from-gray-100 before:h-full':-->
+<!--                      !this.expand,-->
+<!--                    'max-h-[\'auto\']': this.expand,-->
+<!--                  }"-->
+<!--                >-->
+<!--                  {{ product.short_description }}-->
+<!--                </p>-->
+<!--                <div class="pt-1">-->
+<!--                  <Anchor-->
+<!--                    :text="expandText"-->
+<!--                    @click="changeExpanded"-->
+<!--                    class="text-primary-500 hover:text-primary-900"-->
+<!--                  />-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </Skeleton>-->
         </PageSection>
       </div>
     </PageBody>
     <Portal to="app-after">
-      <div v-if="previewImage" class="fixed inset-0 bg-dark/95 backdrop-filter backdrop-blur-md z-50 h-screen w-screen">
-        <div class="max-w-8xl absolute top-6 bottom-6 lg:top-10 lg:bottom-10 lg:left-8 lg:right-8 px-4 w-full h-full lg:w-auto lg:mx-auto">
+      <div
+        v-if="previewImage"
+        class="fixed inset-0 bg-dark/95 backdrop-filter backdrop-blur-md z-50 h-screen w-screen"
+      >
+        <div
+          class="max-w-8xl absolute top-6 bottom-6 lg:top-10 lg:bottom-10 lg:left-8 lg:right-8 px-4 w-full h-full lg:w-auto lg:mx-auto"
+        >
           <NuxtImg :src="activeImage" />
         </div>
       </div>
@@ -342,5 +385,35 @@ export default {
 <style scoped>
 ::v-deep(.expand-btn) {
   @apply pt-0.5 appearance-none cursor-pointer;
+}
+
+.wave::after {
+  animation: wave 1.5s linear 0s infinite;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(159, 185, 169, 0.5),
+    transparent
+  );
+  content: '';
+  position: absolute;
+  transform: translate3d(-100%, 0, 0);
+  will-change: transform;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+@keyframes wave {
+  0% {
+    transform: translate3d(-100%, 0, 0);
+  }
+  60% {
+    transform: translate3d(100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(100%, 0, 0);
+  }
 }
 </style>

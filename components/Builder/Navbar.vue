@@ -82,7 +82,7 @@ export default {
 <template>
   <div
     ref="navbar"
-    class="backdrop-filter backdrop-blur-md top-0 z-40 w-full flex-none transition-colors duration-300 lg:z-50 border-b border-gray-900/10 dark:border-gray-50/20 bg-white/50 dark:bg-slate-900/50 sticky"
+    class="top-0 z-40 w-full flex-none lg:z-50 border-b border-gray-900/10 dark:border-gray-50/20 bg-white dark:bg-slate-900 sticky"
   >
     <div id="navbar-banner" class="banner">
       <slot name="banner" />

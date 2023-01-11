@@ -15,7 +15,7 @@ export default {
 
 <template>
   <div class="flex flex-row justify-between items-center mb-2">
-    <span class="text-lg font-medium">{{ text }}</span>
+    <span class="text-xl font-medium">{{ text }}</span>
     <Anchor v-if="route" :text="route.name" :to="route.to" class="hidden md:block"/>
   </div>
 </template>

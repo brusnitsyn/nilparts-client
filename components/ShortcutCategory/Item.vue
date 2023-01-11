@@ -28,10 +28,12 @@ export default {
 </script>
 
 <template>
-  <NuxtLink :to="to" class="relative rounded-lg overflow-clip h-full group cursor-pointer select-none h-[108px] lg:w-[320px]">
-    <NuxtImg loading="lazy" v-if="image" :src="`${image}`" alt="" class="h-full w-full object-cover transition-transform origin-bottom-right group-hover:scale-x-110 group-hover:scale-y-110" />
-    <div class="absolute inset-y-0 left-0">
-        <span class="block px-2 py-1 text-sm bg-gray-300/80 dark:bg-gray-900/40 rounded-br-lg">
+  <NuxtLink :to="to" class="bg-white relative rounded-lg overflow-hidden h-full cursor-pointer overflow-clip h-[144px]">
+    <div class="absolute right-0 bottom-0">
+      <NuxtImg loading="lazy" v-if="image" :src="`${image}`" alt="" class="h-full max-h-[100px]" />
+    </div>
+    <div class="pl-8 pt-6">
+        <span class="text-xl font-medium">
           {{ text }}
         </span>
     </div>

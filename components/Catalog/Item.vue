@@ -26,7 +26,7 @@ export default {
 
 <template>
   <div
-    class="flex flex-col justify-between rounded-lg border bg-white border-gray-900/10 dark:border-gray-50/20 shadow-sm p-3 w-full"
+    class="flex flex-col justify-between rounded-lg border bg-white border-gray-900/10 dark:border-gray-50/20 shadow-sm p-3 w-full h-full"
   >
     <NuxtLink
       class="flex flex-col"
