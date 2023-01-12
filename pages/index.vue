@@ -65,7 +65,7 @@ export default {
         <PageSection v-if="products.length">
           <div class="relative w-auto h-full">
             <div
-              class="swiper-prev flex items-center justify-center absolute left-0 top-1/2 bg-white shadow-lg rounded-full p-1.5 -translate-x-3 -translate-y-3.5 z-10"
+              class="swiper-prev flex items-center justify-center absolute left-0 top-1/2 bg-white drop-shadow-lg rounded-full p-1.5 -translate-x-3 -translate-y-3.5 z-10"
               slot="button-prev"
             >
               <iconify-icon
@@ -83,7 +83,7 @@ export default {
             </Swiper>
 
             <div
-              class="swiper-next flex items-center justify-center absolute right-0 bottom-1/2 bg-white shadow-lg rounded-full p-1.5 translate-x-3 translate-y-3.5 z-10"
+              class="swiper-next flex items-center justify-center absolute right-0 bottom-1/2 bg-white drop-shadow-lg rounded-full p-1.5 translate-x-3 translate-y-3.5 z-10"
               slot="button-next"
             >
               <iconify-icon
@@ -95,7 +95,7 @@ export default {
             </div>
           </div>
           <div class="flex w-full items-center justify-center mt-6">
-            <Button type="bordered" size="rounded" class="text-dark bg-white border-gray-400">
+            <Button :to="{name: 'catalog'}" type="bordered" size="rounded" class="text-dark bg-white">
               Перейти в каталог
             </Button>
           </div>

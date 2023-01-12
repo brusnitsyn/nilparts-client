@@ -59,7 +59,7 @@ export default {
             }}</span>
             <div
               v-if="product.in_stock"
-              class="flex flex-row items-center gap-x-1 text-white bg-green-600 px-2 py-1 rounded-lg text-sm"
+              class="flex flex-row items-center gap-x-1 text-white bg-green-600 px-2 py-1 rounded-full pr-3 text-sm"
             >
               <iconify-icon
                 icon="material-symbols:check-circle-outline-rounded"
@@ -69,7 +69,7 @@ export default {
             </div>
             <div
               v-else
-              class="flex flex-row items-center gap-x-1 text-white bg-red-600 px-2 py-1 rounded-lg text-sm"
+              class="flex flex-row items-center gap-x-1 text-white bg-red-600 px-2 py-1 rounded-full pr-3 text-sm"
             >
               <iconify-icon
                 icon="material-symbols:error-circle-rounded-outline"
@@ -86,13 +86,13 @@ export default {
       <Skeleton :is-loaded="!isLoaded" h="40px" skeleton-class="">
         <div class="flex flex-row justify-between gap-x-4">
           <div class="flex-1">
-            <Button v-if="product.in_stock" @click="addBasket(product)" text="Купить" />
+            <Button v-if="product.in_stock" @click="addBasket(product)" text="В корзину" />
             <Button v-else text="Нет в наличии" disabled />
           </div>
-          <button class="w-[40px] flex justify-center items-center">
+<!--          <button class="w-[40px] flex justify-center items-center">-->
 <!--            <iconify-icon icon="material-symbols:favorite-outline-rounded" width="22" />-->
-            <iconify-icon icon="material-symbols:favorite-rounded" width="26" class="text-red-500" />
-          </button>
+<!--            <iconify-icon icon="material-symbols:favorite-rounded" width="26" class="text-red-500" />-->
+<!--          </button>-->
         </div>
       </Skeleton>
     </div>

@@ -29,6 +29,7 @@ export default {
         { type: 'link', text: 'Новости', route: { name: 'news' } },
         { type: 'link', text: 'Контакты', route: { name: 'contacts' } },
       ],
+      openedCatalog: false,
     }
   },
   methods: {
@@ -120,11 +121,14 @@ export default {
               </li>
               <li v-if="!$auth.loggedIn">
                 <LazyButton
-                  text="Вход / регистрация"
                   size="sm"
                   class="font-semibold capitalize"
-                  :to="{ name: 'auth-login' }"
-                />
+                  :to="{ name: 'auth-login' }">
+                  <template #icon>
+                    <iconify-icon icon="material-symbols:login-rounded" width="18" height="18"/>
+                  </template>
+                  Войти
+                </LazyButton>
               </li>
             </ul>
           </nav>
@@ -148,6 +152,26 @@ export default {
           </div>
         </div>
       </div>
+    </template>
+    <template #submenu>
+      <div class="flex flex-row">
+        <Button type="bordered" size="rounded" class="text-dark" @click="openedCatalog = !openedCatalog">
+          <template #icon>
+            <iconify-icon v-if="!openedCatalog" icon="material-symbols:menu-open-rounded" width="20" height="20" />
+            <iconify-icon v-if="openedCatalog" icon="material-symbols:cancel-outline-rounded" width="20" height="20" />
+          </template>
+          Каталог товаров
+        </Button>
+      </div>
+      <ClientOnly>
+        <Portal to="app-before">
+          <PageSection v-show="openedCatalog" class="fixed inset-0 top-[133px] h-full w-full bg-white z-30">
+            <div class="py-6">
+              Каталог
+            </div>
+          </PageSection>
+        </Portal>
+      </ClientOnly>
     </template>
     <template #options="{ toggleOptions, showOptions }" class="">
       <Transition
@@ -201,14 +225,15 @@ export default {
             <!--          <div class="mt-6 text-sm font-medium capitalize">-->
             <!--            Сменить тему-->
             <!--          </div>-->
-            <div class="mt-2">
-              <ThemeSwitcher type="select-box" />
-            </div>
+<!--            <div class="mt-2">-->
+<!--              <ThemeSwitcher type="select-box" />-->
+<!--            </div>-->
           </LazyActionSheetBody>
           <LazyButton
             text="Закрыть"
             size="md"
             type="secondary"
+            class="rounded-lg"
             @click="toggleOptions(false)"
           />
         </ActionSheet>

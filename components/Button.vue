@@ -36,17 +36,17 @@ export default {
       styles: {
         none: 'cursor-pointer bg-transparent',
         default: 'cursor-pointer',
-        bordered: 'cursor-pointer text-white border border-2 border-white hover:border-black/70',
-        primary: 'cursor-pointer text-white bg-primary-500 hover:bg-primary-400 border-primary-500',
+        bordered: 'cursor-pointer text-white border border-2 border-gray-400 hover:border-black/70',
+        primary: 'cursor-pointer text-white border border-2 bg-primary-500 hover:bg-primary-700 border-primary-500 hover:border-primary-700',
         secondary: 'cursor-pointer text-slate-800 bg-gray-200 border-gray-200 hover:bg-gray-300 dark:text-white dark:border-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700',
         opposite: 'cursor-pointer text-white bg-gray-800 hover:bg-white hover:text-gray-800 hover:border-gray-900 dark:text-gray-800 dark:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-100 dark:border-white',
         disabled: 'text-gray-500 bg-gray-100 dark:text-white dark:border-slate-800 dark:bg-slate-800'
       },
       sizes: {
-        lg: 'h-12 px-8 text-lg rounded-lg',
-        md: 'h-10 px-6 text-base rounded',
-        sm: 'h-9 px-4 text-sm rounded',
-        xs: 'h-6 px-3 text-xs rounded',
+        lg: 'h-12 px-8 text-sm font-medium rounded-full',
+        md: 'h-10 px-6 text-sm font-medium rounded-full',
+        sm: 'h-9 px-4 text-sm font-medium rounded-full',
+        xs: 'h-6 px-3 text-xs font-medium rounded-full',
         rounded: 'h-12 px-8 text-sm rounded-full font-medium',
       },
     }
@@ -82,7 +82,9 @@ export default {
     :to="to"
     :class="`${defaultStyle} ${selectedStyle} ${selectedSize}`"
   >
-    <slot name="icon" />
+    <div class="-ml-1 flex items-center justify-center">
+      <slot name="icon" />
+    </div>
     <slot>{{ text }}</slot>
   </NuxtLink>
   <a
@@ -91,7 +93,9 @@ export default {
     :href="href"
     @click="onClick"
   >
-    <slot name="icon" />
+    <div class="-ml-1 flex items-center justify-center">
+      <slot name="icon" />
+    </div>
     <slot>{{ text }}</slot>
   </a>
 </template>

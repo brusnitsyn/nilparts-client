@@ -51,6 +51,7 @@ export default {
       expandText: 'Показать ещё',
       expand: false,
       stickyProductTitle: false,
+      stickyProductSaleButtons: false,
       swiperOption: {
         spaceBetween: 8,
         navigation: {
@@ -108,11 +109,17 @@ export default {
     handleScroll() {
       // const currentBreak = getCurrentBreakpoint()
       const currentBreakValue = getBreakpointValue('lg')
+      console.log(window.scrollY)
 
       if (window.innerWidth >= currentBreakValue) {
         if (window.scrollY >= 60) this.stickyProductTitle = true
         else this.stickyProductTitle = false
-      } else this.stickyProductTitle = false
+        if (window.scrollY >= 276) this.stickyProductSaleButtons = true
+        else this.stickyProductSaleButtons = false
+      } else {
+        this.stickyProductTitle = false
+        this.stickyProductSaleButtons = false
+      }
     },
   },
   mounted() {
@@ -141,41 +148,78 @@ export default {
         </Skeleton>
       </PageSection>
       <PageSection
-        class="lg:sticky lg:top-[60px] pt-6 md:py-6 lg:-mx-4 lg:px-12"
-        :class="{ 'bg-white z-10 drop-shadow-lg': stickyProductTitle }"
+        class="lg:sticky lg:top-[133px] lg:-mx-4 lg:px-12"
+        :class="{
+          'bg-white z-20 drop-shadow-lg pt-4 md:py-4': stickyProductTitle,
+          'md:py-6 pt-6': !stickyProductTitle,
+        }"
       >
-        <div class="flex flex-col">
-          <Skeleton
-            :is-loaded="loaded"
-            :w="null"
-            h="24px"
-            skeleton-class="w-1/4"
-          >
-            <h1
-              class="leading-6"
-              :class="{
+        <div class="flex flex-row justify-between">
+          <div class="flex flex-col">
+            <Skeleton
+              :is-loaded="loaded"
+              :w="null"
+              h="24px"
+              skeleton-class="w-1/4"
+            >
+              <h1
+                class="leading-6"
+                :class="{
                 'text-2xl': !stickyProductTitle,
                 'text-xl': stickyProductTitle,
               }"
+              >
+                {{ product.title }}
+              </h1>
+            </Skeleton>
+            <Skeleton
+              :is-loaded="loaded"
+              :w="null"
+              :m="null"
+              h="18px"
+              skeleton-class="w-2/4 mt-1.5"
             >
-              {{ product.title }}
-            </h1>
-          </Skeleton>
-          <Skeleton
-            :is-loaded="loaded"
-            :w="null"
-            :m="null"
-            h="18px"
-            skeleton-class="w-2/4 mt-1.5"
-          >
             <span v-if="product.article" class="text-gray-400/70">
               Артикул товара: {{ product.article }}
             </span>
-          </Skeleton>
+            </Skeleton>
+          </div>
+          <div v-show="stickyProductSaleButtons" class="flex flex-row gap-x-4 items-center">
+            <Skeleton :is-loaded="loaded" h="40px">
+              <Button v-if="product.in_stock" class="w-full">
+                <iconify-icon
+                  icon="material-symbols:add-shopping-cart-rounded"
+                  width="18"
+                  height="18"
+                />
+                В корзину
+              </Button>
+              <Button
+                v-else
+                class="w-1/2 lg:w-1/3"
+                text="Нет в наличии"
+                disabled
+              />
+              <div v-else>
+                <h2 class="text-[1.35rem] font-medium" v-if="loaded">
+                  Товар недоступен
+                </h2>
+              </div>
+            </Skeleton>
+
+            <Button type="secondary">
+              <iconify-icon
+                icon="material-symbols:alternate-email-rounded"
+                width="18"
+                height="18"
+              />
+              Связаться
+            </Button>
+          </div>
         </div>
       </PageSection>
       <div class="flex flex-col lg:flex-row">
-        <div class="lg:flex lg:w-4/6 lg:pl-8 px-4 lg:pr-0">
+        <div class="lg:flex lg:w-4/6 lg:pl-8 px-4 lg:pr-0 grow">
           <Skeleton
             :is-loaded="loaded"
             :h="null"
@@ -276,7 +320,7 @@ export default {
           </div>
         </div>
         <PageSection
-          class="lg:ml-4 lg:w-1/2 mt-4 lg:mt-0 flex flex-col gap-y-4"
+          class="mt-4 lg:mt-0 flex flex-col gap-y-4 w-full lg:max-w-[440px]"
         >
           <div class="flex flex-col gap-y-1.5 bg-white rounded-lg px-5 py-5">
             <Skeleton
@@ -287,7 +331,7 @@ export default {
             >
               <div
                 v-if="product.in_stock"
-                class="self-start flex flex-row items-center gap-x-1 text-white bg-green-600 px-2 py-1 rounded-lg text-sm"
+                class="wave rounded-full self-start flex flex-row items-center gap-x-1 text-white bg-green-600 px-2 pr-3 py-1 text-sm"
               >
                 <iconify-icon
                   icon="material-symbols:check-circle-outline-rounded"
@@ -297,7 +341,7 @@ export default {
               </div>
               <div
                 v-else
-                class="self-start flex flex-row items-center gap-x-1 text-white bg-red-600 px-2 py-1 rounded-lg text-sm"
+                class="rounded-full self-start flex flex-row items-center gap-x-1 text-white bg-red-600 px-2 py-1 text-sm"
               >
                 <iconify-icon
                   icon="material-symbols:error-circle-rounded-outline"
@@ -312,7 +356,12 @@ export default {
                   {{ product.price | toRuble }}
                 </h2>
 
-                <Button v-if="product.in_stock" type="bordered" size="rounded" class="w-full mt-4">
+                <Button v-if="product.in_stock" class="w-full mt-4">
+                  <iconify-icon
+                    icon="material-symbols:add-shopping-cart-rounded"
+                    width="18"
+                    height="18"
+                  />
                   В корзину
                 </Button>
                 <Button
@@ -328,42 +377,51 @@ export default {
                 </h2>
               </div>
             </Skeleton>
+
+            <Button type="secondary">
+              <iconify-icon
+                icon="material-symbols:alternate-email-rounded"
+                width="18"
+                height="18"
+              />
+              Связаться
+            </Button>
           </div>
 
-<!--          <Skeleton-->
-<!--            :is-loaded="loaded"-->
-<!--            :rep="5"-->
-<!--            :m="null"-->
-<!--            skeleton-class="mb-2"-->
-<!--          >-->
-<!--            <div-->
-<!--              v-if="product.short_description"-->
-<!--              class="flex flex-col space-y-2"-->
-<!--            >-->
-<!--              <span class="self-start bg-gray-100 rounded-lg px-4 py-3">-->
-<!--                Описание-->
-<!--              </span>-->
-<!--              <div class="bg-gray-100 rounded-lg px-4 py-3">-->
-<!--                <p-->
-<!--                  class="relative overflow-hidden pointer-events-none transition-all whitespace-pre-wrap"-->
-<!--                  :class="{-->
-<!--                    'max-h-[calc(3*1em*1.5)] before:content-[\'\'] before:absolute before:bottom-0 before:w-full before:max-h-[calc(1em*3)] before:bg-gradient-to-t before:from-gray-100 before:h-full':-->
-<!--                      !this.expand,-->
-<!--                    'max-h-[\'auto\']': this.expand,-->
-<!--                  }"-->
-<!--                >-->
-<!--                  {{ product.short_description }}-->
-<!--                </p>-->
-<!--                <div class="pt-1">-->
-<!--                  <Anchor-->
-<!--                    :text="expandText"-->
-<!--                    @click="changeExpanded"-->
-<!--                    class="text-primary-500 hover:text-primary-900"-->
-<!--                  />-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </Skeleton>-->
+          <!--          <Skeleton-->
+          <!--            :is-loaded="loaded"-->
+          <!--            :rep="5"-->
+          <!--            :m="null"-->
+          <!--            skeleton-class="mb-2"-->
+          <!--          >-->
+          <!--            <div-->
+          <!--              v-if="product.short_description"-->
+          <!--              class="flex flex-col space-y-2"-->
+          <!--            >-->
+          <!--              <span class="self-start bg-gray-100 rounded-lg px-4 py-3">-->
+          <!--                Описание-->
+          <!--              </span>-->
+          <!--              <div class="bg-gray-100 rounded-lg px-4 py-3">-->
+          <!--                <p-->
+          <!--                  class="relative overflow-hidden pointer-events-none transition-all whitespace-pre-wrap"-->
+          <!--                  :class="{-->
+          <!--                    'max-h-[calc(3*1em*1.5)] before:content-[\'\'] before:absolute before:bottom-0 before:w-full before:max-h-[calc(1em*3)] before:bg-gradient-to-t before:from-gray-100 before:h-full':-->
+          <!--                      !this.expand,-->
+          <!--                    'max-h-[\'auto\']': this.expand,-->
+          <!--                  }"-->
+          <!--                >-->
+          <!--                  {{ product.short_description }}-->
+          <!--                </p>-->
+          <!--                <div class="pt-1">-->
+          <!--                  <Anchor-->
+          <!--                    :text="expandText"-->
+          <!--                    @click="changeExpanded"-->
+          <!--                    class="text-primary-500 hover:text-primary-900"-->
+          <!--                  />-->
+          <!--                </div>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </Skeleton>-->
         </PageSection>
       </div>
     </PageBody>
@@ -373,7 +431,7 @@ export default {
         class="fixed inset-0 bg-dark/95 backdrop-filter backdrop-blur-md z-50 h-screen w-screen"
       >
         <div
-          class="max-w-8xl absolute top-6 bottom-6 lg:top-10 lg:bottom-10 lg:left-8 lg:right-8 px-4 w-full h-full lg:w-auto lg:mx-auto"
+          class="flex items-center justify-center max-w-8xl absolute top-6 bottom-6 left-6 right-6 lg:top-8 lg:bottom-10 lg:left-8 lg:right-8 px-4 my-4 w-full h-full lg:mx-auto"
         >
           <NuxtImg :src="activeImage" />
         </div>
@@ -387,12 +445,16 @@ export default {
   @apply pt-0.5 appearance-none cursor-pointer;
 }
 
+.wave {
+  @apply relative overflow-hidden;
+}
+
 .wave::after {
-  animation: wave 1.5s linear 0s infinite;
+  animation: wave 2s linear 0s infinite;
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(159, 185, 169, 0.5),
+    rgba(85, 194, 126, 0.5),
     transparent
   );
   content: '';
